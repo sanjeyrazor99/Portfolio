@@ -1,0 +1,992 @@
+/* Printed-manga edition. Import after index.css so these tokens own presentation only. */
+:root {
+  color-scheme: light;
+  --manga-paper: #F5F1E6;
+  --manga-white: #FFFEFA;
+  --manga-ink: #171411;
+  --manga-muted: #484239;
+  --manga-yellow: #FFD400;
+  --manga-pulse-accent: #FFD400;
+  --manga-red: #D7263D;
+  --manga-purple: #7B2CBF;
+  --manga-silver: #C0C6D4;
+  --bg: #F5F1E6;
+  --panel: #FFFEFA;
+  --text: #171411;
+  --muted: #484239;
+  --line: #171411;
+  --accent: #D7263D;
+  --accent-rgb: 215,38,61;
+  --manga-progress: 0;
+  --manga-velocity: 0;
+  --manga-skew: 0deg;
+  background: var(--manga-paper);
+  color: var(--manga-ink);
+}
+html, body, #root { min-height: 100%; background: var(--manga-paper); }
+html { scroll-behavior: smooth; }
+body {
+  color: var(--manga-ink);
+  background-color: var(--manga-paper);
+  background-image: radial-gradient(#17141114 .65px, transparent .8px), radial-gradient(#1714110a .55px, transparent .75px);
+  background-size: 9px 9px, 17px 17px;
+  background-position: 0 0, 4px 5px;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+}
+.portfolio {
+  --bg: var(--manga-paper);
+  --panel: var(--manga-white);
+  --text: var(--manga-ink);
+  --muted: var(--manga-muted);
+  --line: var(--manga-ink);
+  --accent: var(--manga-red);
+  --accent-rgb: 215,38,61;
+  color: var(--manga-ink) !important;
+  background-color: var(--manga-paper) !important;
+  background-image: repeating-linear-gradient(0deg, transparent 0 7px, #17141104 8px 9px);
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: clip;
+}
+.portfolio.mode-garou {
+  --bg: var(--manga-paper);
+  --panel: var(--manga-white);
+  --text: var(--manga-ink);
+  --muted: var(--manga-muted);
+  --line: var(--manga-ink);
+  --accent: var(--manga-purple);
+  --accent-rgb: 123,44,191;
+  --manga-pulse-accent: var(--manga-purple);
+  color: var(--manga-ink) !important;
+  background: var(--manga-paper) !important;
+}
+.portfolio :where(h1,h2,h3,h4,p,li,label,small,dt,dd,blockquote,a,button,input,textarea,select) { color: var(--manga-ink); }
+.portfolio :where(a,button,input,textarea,select,[tabindex]):focus-visible { outline: 3px solid var(--manga-red); outline-offset: 4px; box-shadow: 0 0 0 2px var(--manga-paper), 0 0 0 6px var(--manga-ink); }
+.portfolio .site-header, .portfolio header.site-header {
+  background: var(--manga-paper) !important;
+  color: var(--manga-ink) !important;
+  border-bottom: 4px solid var(--manga-ink) !important;
+  box-shadow: 0 4px 0 #17141117;
+}
+.portfolio .site-header :where(a,button,span,small,svg) { color: var(--manga-ink); }
+.portfolio .site-header .brand-dot { color: var(--manga-red) !important; }
+.portfolio .site-header .nav a.active { color: var(--manga-red) !important; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.portfolio .read-switch, .portfolio .lite-switch, .portfolio .mode-switch {
+  background: var(--manga-white) !important; color: var(--manga-ink) !important;
+  border: 3px solid var(--manga-ink) !important; border-radius: 0 !important;
+  box-shadow: 3px 3px 0 var(--manga-ink); font: 800 8px/1.2 "JetBrains Mono", monospace;
+}
+.portfolio .read-switch.enabled, .portfolio .lite-switch.enabled { background: var(--manga-yellow) !important; }
+.portfolio .switch-track { border: 2px solid var(--manga-ink); background: var(--manga-paper); }
+.portfolio .switch-track i { background: var(--manga-red); }
+
+/* Orbital opener: full-bleed night ink is a deliberate single hero page. */
+.portfolio #home, .portfolio #home.hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100svh; height: 100svh;
+  color: var(--manga-paper) !important;
+  background: #080a11 !important;
+  border: 0 !important; box-shadow: none !important;
+}
+.portfolio #home :where(h1,h2,h3,p,a,span,button,small) { color: var(--manga-paper); }
+.portfolio #home h1 { font-family: Anton, Impact, "Arial Black", sans-serif; font-size: clamp(4.2rem, 10vw, 9rem); line-height: .78; letter-spacing: .035em; text-shadow: 5px 5px 0 var(--manga-red), -2px -2px 0 var(--manga-yellow); }
+.portfolio #home .hero-word-second { color: var(--manga-yellow) !important; }
+.portfolio #home .hero-word-second .name-period { color: var(--manga-red) !important; }
+.portfolio #home .hero-name-letter { display: inline-block; transform-origin: center bottom; }
+.portfolio #home .hero-kicker, .portfolio #home .hero-coordinate, .portfolio #home .hero-class-label small { color: #e8e3d7; }
+.portfolio #home .hero-content { position: relative; z-index: 5; width: min(49vw, 650px); margin-left: clamp(1rem, 6vw, 6rem); padding-block: 5rem; }
+.portfolio #home .hero-scene { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.portfolio #home .hero-grid { opacity: .1; background-image: radial-gradient(circle, #fff 1px, transparent 1.2px); background-size: 8px 8px; mask-image: radial-gradient(ellipse at 72% 35%, #000 5%, transparent 69%); }
+.portfolio #home .hero-earth { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; transform-origin: 70% 28%; will-change: transform; }
+.portfolio #home .webgl-earth { position: absolute !important; inset: 0; z-index: 1; width: 100% !important; height: 100% !important; opacity: 1 !important; }
+.portfolio #home .earth-fallback { display: block; position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; min-height: 0; aspect-ratio: auto; border-radius: 0; background: none; box-shadow: none; animation: none; overflow: visible; }
+.portfolio #home .earth-stars circle { fill: #f3f7ff; animation: manga-star-twinkle 2.6s steps(2,end) infinite alternate; }
+.portfolio #home .earth-stars circle:nth-child(3n) { animation-delay: -.7s; }
+.portfolio #home .earth-stars circle:nth-child(5n) { animation-delay: -1.4s; }
+.portfolio #home .earth-warp-lines { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.portfolio #home .earth-orb { transform-box: fill-box; transform-origin: center; filter: drop-shadow(0 0 14px #63cfff7a); }
+.portfolio #home .earth-clouds { animation: earth-cloud-drift 20s linear infinite alternate; }
+.portfolio.webgl-ready #home .earth-fallback .earth-orb { opacity: .48; }
+.portfolio #home .hero-character-turn { position: absolute; z-index: 3; right: clamp(-2rem, 3vw, 4rem); bottom: 0; width: min(54vw, 690px); height: min(84svh, 810px); transform-origin: 55% 53%; transform-style: preserve-3d; animation: none; will-change: transform; }
+.portfolio #home .hero-character-back, .portfolio #home .hero-character-front { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; }
+.portfolio #home .hero-character-back .character-art, .portfolio #home .hero-character-front .character-art { width: 100%; height: 100%; }
+.portfolio #home .hero-character-front { transform: rotateY(180deg); }
+.portfolio #home .hero-content .hero-actions .btn { color: var(--manga-ink) !important; background: var(--manga-paper); border: 4px solid var(--manga-ink); box-shadow: 5px 5px 0 var(--manga-yellow); font-weight: 900; }
+.portfolio #home .hero-content .hero-actions .btn.primary { background: var(--manga-yellow); }
+.portfolio #home .hero-speech { color: var(--manga-ink) !important; background: var(--manga-white); border: 4px solid var(--manga-ink); box-shadow: 5px 5px 0 var(--manga-red); transform: rotate(-2deg); }
+.portfolio #home .hero-speech::after { border-top-color: var(--manga-ink); }
+.portfolio #home .scene-top-label, .portfolio #home .hero-class-label, .portfolio #home .earth-prompt, .portfolio #home .head-egg {
+  color: var(--manga-paper); background: #090b12e8; border: 2px solid var(--manga-paper); box-shadow: 3px 3px 0 var(--manga-red);
+}
+.portfolio #home .hero-coordinate { color: #e9e9ef; }
+.portfolio #home .earth-prompt, .portfolio #home .head-egg, .portfolio #home .manga-debris button { pointer-events: auto; cursor: pointer; }
+.portfolio #home .manga-debris { z-index: 4; }
+.portfolio #home .manga-debris button { color: var(--manga-yellow); background: #11100fe8; border: 2px solid currentColor; }
+.portfolio #home .impact-flash { position: absolute; z-index: 6; inset: 0; opacity: 0; pointer-events: none; background: #fffceb; mix-blend-mode: screen; }
+.portfolio.webgl-ready #home .hero-earth .webgl-earth { opacity: 1 !important; }
+.portfolio.webgl-ready #home .hero-earth .earth-fallback { opacity: .32; }
+.portfolio .earth-cta-mobile { color: var(--manga-paper) !important; background: #11100f; border: 3px solid var(--manga-paper); }
+
+/* Warm paper pages: hierarchy, outlines, gutters and subtle screentone. */
+.portfolio main { color: var(--manga-ink) !important; background: transparent !important; }
+.portfolio main > .section, .portfolio main > section.section, .portfolio main > #creative,
+.portfolio main > #about, .portfolio main > #experience, .portfolio main > #projects,
+.portfolio main > #contact {
+  position: relative; isolation: isolate; overflow: visible;
+  color: var(--manga-ink) !important; background-color: var(--manga-paper) !important;
+  background-image: radial-gradient(#17141112 .65px, transparent .9px), linear-gradient(135deg, transparent 46%, #17141104 47%, transparent 48%);
+  background-size: 7px 7px, 100% 100%; border: 0 !important; box-shadow: none !important;
+}
+.portfolio main > .section :where(h1,h2,h3,h4,p,li,span,a,small,label,summary,dt,dd) { color: var(--manga-ink); }
+.portfolio main > .section h2 { font-family: Anton, Impact, "Arial Black", sans-serif; font-size: clamp(3rem, 7vw, 6.4rem); line-height: .88; letter-spacing: .025em; text-shadow: 2px 2px 0 #17141118; }
+.portfolio main > .section h2 .outlined { color: transparent !important; -webkit-text-stroke: 2px var(--manga-ink); text-shadow: none; }
+.portfolio main > .section .eyebrow, .portfolio main > .section .section-intro { color: var(--manga-muted) !important; }
+.portfolio main > .section .section-index {
+  position: relative; z-index: 2; max-width: min(95%, 700px); width: fit-content;
+  padding: .65rem 2.9rem .65rem 1rem; color: var(--manga-ink) !important;
+  background: var(--manga-yellow) !important; border: 4px solid var(--manga-ink) !important;
+  box-shadow: 5px 5px 0 var(--manga-ink); clip-path: polygon(0 0,100% 0,96% 100%,0 100%);
+  font: 900 .72rem/1.45 "JetBrains Mono", monospace; letter-spacing: .075em;
+  transform: skewY(var(--manga-skew));
+}
+.portfolio main > .section .section-index .manga-page-number { position: absolute; inset: auto .5rem .38rem auto; z-index: 2; padding: .15rem .25rem; color: var(--manga-ink) !important; background: var(--manga-paper); border: 2px solid var(--manga-ink); font: 800 .65rem/1 "JetBrains Mono",monospace; }
+.portfolio main > .section:not(#skills)::before { content: "拳 · 切 · 一"; position: absolute; z-index: -1; top: 24%; right: .45rem; color: var(--manga-red); opacity: .12; writing-mode: vertical-rl; font: 950 clamp(1.3rem,3vw,3rem)/1 Anton,Impact,sans-serif; letter-spacing: .42em; pointer-events: none; }
+.portfolio main > .section::after { content: ""; position: absolute; z-index: 2; right: 0; bottom: 0; width: 45px; height: 45px; pointer-events: none; background: linear-gradient(135deg, transparent 0 47%, var(--manga-ink) 48% 52%, var(--manga-white) 53%); clip-path: polygon(100% 0,100% 100%,0 100%); opacity: .92; }
+.portfolio .about-layout { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(150px,.55fr) minmax(285px,.95fr); align-items: center; gap: clamp(.8rem,2vw,2rem); }
+.portfolio .about-copy, .portfolio .about-character-breakout, .portfolio .registry-card { position: relative; z-index: 1; }
+.portfolio .about-character-breakout { width: 100%; align-self: end; display: flex; align-items: end; justify-content: center; margin: 0 -1.3rem; }
+.portfolio .character-art { display: block; max-width: 100%; height: 100%; overflow: visible; }
+.portfolio .character-art--about { width: clamp(170px,23vw,320px); height: clamp(360px,44vw,570px); }
+.portfolio .about-character-breakout .manga-glyphs { position: absolute; right: 0; top: 22%; font: 950 1.6rem Anton,Impact,sans-serif; }
+.portfolio .registry-card { color: var(--manga-ink) !important; background: var(--manga-white) !important; border: 6px solid var(--manga-ink) !important; box-shadow: 9px 9px 0 var(--manga-yellow) !important; transform: rotate(1deg); }
+.portfolio .registry-card :where(h3,span,small,dt,dd) { color: var(--manga-ink) !important; }
+.portfolio .registry-heading { border-bottom: 4px solid var(--manga-ink); background: var(--manga-paper); }
+.portfolio .registry-profile { border-bottom: 3px dashed var(--manga-ink); }
+.portfolio .registry-avatar { border: 4px solid var(--manga-ink); background: var(--manga-yellow); overflow: hidden; }
+.portfolio .registry-avatar .character-art { width: 100%; height: 100%; }
+.portfolio .registry-card dl > div { border-bottom: 1px solid #17141156; }
+.portfolio .registry-footer { background: var(--manga-ink); }
+.portfolio .registry-footer :where(span) { color: var(--manga-paper) !important; }
+.portfolio .chapter-tape { color: var(--manga-ink) !important; background: var(--manga-white) !important; border-block: 5px solid var(--manga-ink); }
+.portfolio .chapter-tape span { color: var(--manga-ink) !important; }
+
+/* Garou gets his two intentional night-ink chapter panels only. */
+.portfolio #skills, .portfolio #skills.section, .portfolio .hunter-quote, .portfolio .experience-card.lens-ai {
+  position: relative; isolation: isolate; color: var(--manga-paper) !important;
+  background: #17151a !important; border: 5px solid var(--manga-ink) !important;
+  box-shadow: 8px 8px 0 var(--manga-purple) !important;
+}
+.portfolio #skills :where(h1,h2,h3,h4,p,li,span,a,small,label,summary),
+.portfolio .hunter-quote :where(h1,h2,h3,h4,p,li,span,a,small),
+.portfolio .experience-card.lens-ai :where(h1,h2,h3,h4,p,li,span,a,small,summary) { color: var(--manga-paper) !important; }
+.portfolio #skills .section-index { color: var(--manga-paper) !important; background: var(--manga-purple) !important; }
+.portfolio #skills .section-intro, .portfolio #skills .eyebrow { color: #e4dfeb !important; }
+.portfolio #skills .skill-group { border: 3px solid var(--manga-silver); background: #201e25; box-shadow: 4px 4px 0 var(--manga-purple); }
+.portfolio #skills .skill-group :where(h3,li,span) { color: var(--manga-paper) !important; }
+.portfolio #skills .skill-node { color: var(--manga-paper); background: #211f26; border: 3px solid var(--manga-silver); box-shadow: 3px 3px 0 var(--manga-purple); }
+.portfolio #skills .skill-node :where(span,strong) { color: var(--manga-paper) !important; }
+.portfolio #skills .cert { color: var(--manga-paper); border-color: var(--manga-silver); }
+.portfolio #skills .hunter-quote { border-color: var(--manga-silver) !important; box-shadow: 7px 7px 0 var(--manga-purple) !important; }
+.portfolio .hunter-quote .hunter-scene { z-index: 0; pointer-events: none; }
+.portfolio .hunter-quote > :not(.hunter-scene):not(.hunter-kanji) { z-index: 2; }
+.portfolio .hunter-scene .character-art--hunter { width: min(100%, 320px); height: 100%; object-fit: contain; filter: drop-shadow(-5px 5px 0 #7b2cbf90); }
+.portfolio .experience-card.lens-ai { overflow: visible !important; }
+.portfolio .experience-card.lens-ai .experience-content { position: relative; z-index: 1; background: transparent !important; }
+.portfolio .experience-character { position: absolute; z-index: 2; right: -3.2rem; bottom: -1.2rem; width: 104px; height: 160px; pointer-events: none; filter: drop-shadow(4px 4px 0 var(--manga-purple)); }
+.portfolio .experience-character .character-art { width: 100%; height: 100%; }
+.portfolio .lens-ai .experience-details, .portfolio .lens-ai .experience-details summary { color: var(--manga-paper) !important; }
+
+/* Rank-exam strip: one role per ink-bordered dossier, pinned only on wide screens. */
+.portfolio .experience-horizontal, .portfolio .projects-viewport { position: relative; width: 100%; overflow: hidden; padding: 1rem .7rem 1.25rem; }
+.portfolio .timeline[data-manga-track] { display: flex; align-items: stretch; gap: clamp(1rem,2vw,1.8rem); width: max-content; padding: 3.5rem .8rem 1rem; margin: 0; }
+.portfolio .timeline[data-manga-track]::before { top: 2.1rem; left: 0; right: 0; width: auto; height: 3px; background: var(--manga-ink); }
+.portfolio .timeline[data-manga-track] .experience-card { position: relative; display: block; flex: 0 0 clamp(330px,34vw,445px); width: clamp(330px,34vw,445px); min-height: 430px; margin: 0; padding-top: 0; border: 5px solid var(--manga-ink); background: var(--manga-white); box-shadow: 7px 7px 0 var(--manga-ink); }
+.portfolio .timeline-rank { position: absolute; z-index: 3; top: -3.3rem; left: 1rem; }
+.portfolio .timeline-rank > span { color: var(--manga-ink); background: var(--manga-yellow); border: 3px solid var(--manga-ink); box-shadow: 3px 3px 0 var(--manga-ink); }
+.portfolio .timeline-rank i { display: none; }
+.portfolio .timeline[data-manga-track] .experience-content { height: 100%; min-height: 410px; padding: 1.5rem; color: var(--manga-ink); background: var(--manga-white); }
+.portfolio .experience-content :where(h3,p,span,li,summary) { color: var(--manga-ink); }
+.portfolio .experience-top { border-bottom: 2px solid var(--manga-ink); padding-bottom: .75rem; }
+.portfolio .experience-details summary { font-weight: 850; }
+.portfolio .experience-details li::marker { color: var(--manga-red); }
+.portfolio .experience-card.lens-ai .experience-content :where(h3,p,span,li,summary) { color: var(--manga-paper) !important; }
+.portfolio .timeline[data-manga-track] .experience-card.lens-ai .experience-content { background: transparent; }
+
+/* Case files keep the original flip interaction, now printed with real panel gutters. */
+.portfolio .projects-grid[data-manga-track] { display: flex; align-items: stretch; gap: clamp(1.1rem,2vw,2rem); width: max-content; padding: .5rem .8rem 1rem; }
+.portfolio .projects-grid[data-manga-track] .project-card { flex: 0 0 clamp(310px,31vw,400px); width: clamp(310px,31vw,400px); min-height: 450px; border: 5px solid var(--manga-ink) !important; background: var(--manga-white) !important; box-shadow: 7px 7px 0 var(--manga-ink) !important; transform: none; }
+.portfolio .project-inner, .portfolio .project-front, .portfolio .project-back { background: var(--manga-white) !important; }
+.portfolio .project-front, .portfolio .project-back { color: var(--manga-ink) !important; border: 0 !important; }
+.portfolio .project-front :where(h3,p,span), .portfolio .project-back :where(h3,p,span,li) { color: var(--manga-ink) !important; }
+.portfolio .project-art { border-bottom: 4px solid var(--manga-ink); }
+.portfolio .tags > span { color: var(--manga-ink) !important; background: var(--manga-paper); border: 2px solid var(--manga-ink); }
+.portfolio .project-back .project-links a, .portfolio .project-back button { color: var(--manga-ink); }
+
+/* Creative, finale, contact form and footer are paper and ink like the origin chapter. */
+.portfolio .creative-copy h2 { font-family: Anton,Impact,sans-serif; }
+.portfolio .reel-placeholder, .portfolio .clash-banner, .portfolio .contact-form, .portfolio .contact-layout {
+  color: var(--manga-ink) !important; background: var(--manga-white) !important;
+  border: 5px solid var(--manga-ink) !important; box-shadow: 7px 7px 0 var(--manga-ink);
+}
+.portfolio .reel-placeholder :where(strong,span), .portfolio .contact-form :where(h2,p,label,span) { color: var(--manga-ink) !important; }
+.portfolio .clash-banner { position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: clamp(390px,48vw,600px); height: auto; overflow: visible; margin-block: 3.5rem; padding: 1rem; }
+.portfolio .clash-banner > span { position: absolute; z-index: 5; top: 1rem; color: var(--manga-ink) !important; background: var(--manga-yellow); border: 3px solid var(--manga-ink); padding: .45rem .8rem; font: 900 .75rem/1 "JetBrains Mono",monospace; }
+.portfolio .clash-banner > span:first-child { left: 1rem; }
+.portfolio .clash-banner > span:nth-of-type(2) { right: 1rem; }
+.portfolio .clash-figures { position: absolute; z-index: 1; inset: 3.5rem 5% 1rem; display: flex; align-items: end; justify-content: space-between; gap: 1rem; overflow: visible; }
+.portfolio .clash-figures .character-art { width: clamp(180px,29vw,375px); height: 100%; max-height: 480px; }
+.portfolio .clash-figures .character-art--clash-garou { transform: scaleX(-1); }
+.portfolio .clash-figures b { position: absolute; z-index: 4; left: 50%; top: 47%; transform: translate(-50%,-50%) rotate(-8deg); padding: .25em .4em; color: var(--manga-ink) !important; background: var(--manga-yellow); border: 5px solid var(--manga-ink); font: 950 clamp(2.4rem,7vw,5.8rem)/1 Anton,Impact,sans-serif; }
+.portfolio .clash-trigger { position: absolute; z-index: 6; left: 50%; bottom: -1.25rem; transform: translateX(-50%); color: var(--manga-ink); background: var(--manga-red); border: 4px solid var(--manga-ink); box-shadow: 5px 5px 0 var(--manga-ink); }
+.portfolio .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,5vw,5rem); padding: clamp(1.3rem,4vw,4rem); }
+.portfolio .contact-form { box-shadow: none; border: 0 !important; background: transparent !important; }
+.portfolio .contact-form :where(label,input,textarea,button) { color: var(--manga-ink); }
+.portfolio .contact-form input, .portfolio .contact-form textarea { background: var(--manga-paper) !important; border: 3px solid var(--manga-ink) !important; border-radius: 0; }
+.portfolio .contact-form button, .portfolio .contact-layout .email-row button { background: var(--manga-yellow); border: 3px solid var(--manga-ink); box-shadow: 3px 3px 0 var(--manga-ink); }
+.portfolio .contact-social :where(a,span), .portfolio .email-row > a { color: var(--manga-ink) !important; }
+.portfolio .to-be-continued { color: var(--manga-ink) !important; background: var(--manga-paper) !important; border-block: 5px solid var(--manga-ink); }
+.portfolio footer, .portfolio footer :where(p,a,span) { color: var(--manga-ink) !important; background: var(--manga-paper) !important; }
+.portfolio footer { position: relative; border-top: 5px solid var(--manga-ink); padding-top: 3.7rem; }
+.portfolio .fx-debug { position: absolute; top: .7rem; right: 1rem; padding: .25rem .5rem; color: var(--manga-ink) !important; background: var(--manga-white) !important; border: 2px solid var(--manga-ink); font: 800 .62rem/1.4 "JetBrains Mono",monospace; letter-spacing: .04em; }
+.portfolio .footer-brand svg { color: var(--manga-red); }
+.portfolio .back-top { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+/* Scroll ink, impact glyphs and the staggered 90 BPM print pulse. */
+.portfolio .scroll-progress { height: 4px !important; background: var(--manga-red) !important; }
+.portfolio .manga-ink-progress { position: fixed; z-index: 120; top: 15vh; right: .6rem; bottom: 15vh; left: auto; width: 8px; height: auto; border: 2px solid var(--manga-ink); background: #fff9; pointer-events: none; }
+.portfolio .manga-ink-progress i { position: absolute; right: 0; bottom: 0; left: 0; display: block; height: 100%; background: var(--manga-red); border-top: 2px solid var(--manga-ink); transform: scaleY(0); transform-origin: bottom; }
+.portfolio .section-index[data-manga-onomatopoeia] { transform-origin: left center; }
+.portfolio :where(.manga-beat,.skill-node,.project-card,.stat,.nav a,.btn,.section-index,.punch-button,.hero-speech,.custom-cursor) { --manga-beat-duration: 1.333s; animation: manga-panel-beat var(--manga-beat-duration) ease-in-out infinite; animation-delay: var(--beat-delay,0ms); }
+.portfolio .skill-node:nth-child(5n + 2), .portfolio .project-card:nth-child(5n + 2), .portfolio .stat:nth-child(5n + 2) { --beat-delay: 180ms; }
+.portfolio .skill-node:nth-child(5n + 3), .portfolio .project-card:nth-child(5n + 3), .portfolio .stat:nth-child(5n + 3) { --beat-delay: 360ms; }
+.portfolio .skill-node:nth-child(5n + 4), .portfolio .project-card:nth-child(5n + 4), .portfolio .stat:nth-child(5n + 4) { --beat-delay: 540ms; }
+.portfolio .skill-node:nth-child(5n), .portfolio .project-card:nth-child(5n), .portfolio .stat:nth-child(5n) { --beat-delay: 720ms; }
+.portfolio :where(.manga-beat,.skill-node,.project-card,.stat,.nav a,.btn,.section-index,.punch-button,.hero-speech,.custom-cursor):hover { --manga-beat-duration: .72s; filter: drop-shadow(0 0 5px #d7263d70); }
+.portfolio .project-card:hover, .portfolio .skill-node:hover, .portfolio .stat:hover { position: relative; }
+.portfolio .project-card:hover::after, .portfolio .skill-node:hover::after, .portfolio .punch-button:hover::after { content: "ドン!"; position: absolute; z-index: 10; top: -.6rem; right: .3rem; color: var(--manga-red); font: 950 .75rem/1 "JetBrains Mono",monospace; transform: rotate(-8deg); pointer-events: none; }
+.portfolio .punch-button { color: var(--manga-ink) !important; background: var(--manga-yellow) !important; border: 4px solid var(--manga-ink) !important; box-shadow: 5px 5px 0 var(--manga-red); animation: punch-invitation 5s ease-in-out infinite; }
+.portfolio .custom-cursor { border: 2px solid var(--manga-red); box-shadow: 0 0 0 4px #f5f1e660; }
+.portfolio .head-egg { border: 3px solid var(--manga-red) !important; }
+@keyframes manga-panel-beat { 0%,72%,100% { scale: 1; } 78% { scale: 1.025; } 84% { scale: .995; } 91% { scale: 1.012; } }
+@keyframes punch-invitation { 0%,82%,100% { rotate: 0deg; } 86% { rotate: -2deg; } 90% { rotate: 2deg; } 94% { rotate: -1deg; } }
+@keyframes manga-star-twinkle { from { opacity: .3; } to { opacity: 1; } }
+@keyframes earth-cloud-drift { from { transform: translateX(-3px); } to { transform: translateX(3px); } }
+
+/* Horizontal momentums and page wobble stay restrained; only the art plane moves. */
+.portfolio .experience-horizontal, .portfolio .projects-viewport { perspective: 1000px; }
+.portfolio .timeline[data-manga-track], .portfolio .projects-grid[data-manga-track] { will-change: transform; }
+.portfolio [data-manga-panel] { transform-origin: center center; }
+.portfolio #home .hero-earth { will-change: transform; }
+.portfolio.mode-garou #home .hero-character-back { filter: drop-shadow(0 0 12px #7b2cbf66); }
+.portfolio.mode-garou #home .hero-class-label { border-color: var(--manga-purple); }
+.portfolio .character-art--saitama .char-cape { transform-box: fill-box; transform-origin: top center; animation: manga-cape-sway 3.4s ease-in-out infinite alternate; }
+.portfolio .character-art--garou .char-sash { transform-box: fill-box; transform-origin: center; animation: manga-sash-flick 2.8s ease-in-out infinite alternate; }
+.portfolio .char-blink { transform-box: fill-box; transform-origin: center center; animation: manga-blink 4s steps(1,end) infinite; }
+@keyframes manga-cape-sway { to { transform: rotate(3deg) translateY(-2px); } }
+@keyframes manga-sash-flick { to { transform: rotate(-4deg) translateX(3px); } }
+@keyframes manga-blink { 0%,46%,50%,100% { scale: 1 1; } 48% { scale: 1 .08; } }
+
+/* Mobile: clean stacked manga pages, with motion-free art only at system/user request. */
+@media (max-width: 1080px) {
+  .portfolio .about-layout { grid-template-columns: minmax(0,1.15fr) minmax(145px,.55fr) minmax(260px,.95fr); gap: .9rem; }
+  .portfolio .experience-character { right: -1.4rem; width: 82px; opacity: .88; }
+  .portfolio .timeline[data-manga-track] .experience-card { flex-basis: 340px; width: 340px; }
+}
+@media (max-width: 899px) {
+  .portfolio #home { height: auto; min-height: 850px; }
+  .portfolio #home .hero-content { width: min(56vw,540px); margin-left: 5vw; }
+  .portfolio #home .hero-character-turn { right: -2vw; width: 59vw; height: 65svh; }
+  .portfolio .about-layout { grid-template-columns: 1fr .6fr 1fr; }
+}
+@media (max-width: 760px) {
+  .portfolio #home { min-height: 940px; height: auto; padding-top: 4rem; padding-bottom: 4.5rem; }
+  .portfolio #home .hero-content { width: 100%; max-width: 560px; margin: 0; padding: 5.8rem 1.35rem 12rem; }
+  .portfolio #home h1 { font-size: clamp(4rem,15vw,6.5rem); }
+  .portfolio #home .hero-character-turn { right: 0; bottom: 2.6rem; width: min(60vw,360px); height: 400px; }
+  .portfolio #home .hero-earth { opacity: .78; }
+  .portfolio #home .hero-actions { flex-wrap: wrap; }
+  .portfolio .manga-ink-progress { right: .25rem; width: 5px; top: 18vh; bottom: 18vh; }
+  .portfolio .about-layout { display: flex; flex-direction: column; align-items: stretch; gap: 1.8rem; }
+  .portfolio .about-character-breakout { width: 100%; height: 320px; margin: -.8rem 0; justify-content: center; }
+  .portfolio .character-art--about { width: auto; height: 320px; }
+  .portfolio .registry-card { width: min(100%, 500px); margin-inline: auto; }
+  .portfolio .hunter-quote { min-height: 250px; padding-right: 110px; }
+  .portfolio .hunter-quote .hunter-scene { right: -1rem; width: 42%; opacity: .82; }
+  .portfolio .experience-horizontal, .portfolio .projects-viewport { overflow: visible; padding-inline: 0; }
+  .portfolio .timeline[data-manga-track] { display: block; width: 100%; padding: 3.7rem .2rem 1rem; }
+  .portfolio .timeline[data-manga-track]::before { top: 1rem; left: 0; right: 0; width: auto; height: 3px; }
+  .portfolio .timeline[data-manga-track] .experience-card { width: 100%; min-height: 0; margin-bottom: 2rem; padding-top: 0; }
+  .portfolio .timeline[data-manga-track] .experience-content { min-height: 0; }
+  .portfolio .timeline-rank { top: -2.8rem; left: .5rem; }
+  .portfolio .projects-grid[data-manga-track] { display: flex; flex-direction: column; width: 100%; }
+  .portfolio .projects-grid[data-manga-track] .project-card { flex-basis: auto; width: 100%; min-height: 440px; }
+  .portfolio .clash-banner { min-height: 370px; }
+  .portfolio .clash-figures .character-art { width: min(47vw,230px); }
+  .portfolio .contact-layout { grid-template-columns: 1fr; }
+  .portfolio .section-index { max-width: 91vw !important; padding-right: 2.7rem !important; font-size: .62rem !important; }
+  .portfolio .fx-debug { top: .35rem; right: .35rem; font-size: .5rem; }
+  .portfolio .section::after { width: 29px; height: 29px; }
+  .portfolio .hero-bottom { gap: .5rem; }
+}
+@media (max-width: 400px) {
+  .portfolio .read-switch { min-width: 32px; gap: 2px; padding: 4px; font-size: 6px; }
+  .portfolio .read-switch span { display: none; }
+  .portfolio .experience-character { right: -.2rem; width: 64px; opacity: .64; }
+  .portfolio .clash-banner { min-height: 330px; }
+}
+
+/* Deliberate user/system opt-outs freeze everything ornamental; defaults remain OFF. */
+.portfolio.lite-mode *, .portfolio.lite-mode *::before, .portfolio.lite-mode *::after,
+.portfolio.read-mode *, .portfolio.read-mode *::before, .portfolio.read-mode *::after,
+.portfolio.system-reduced *, .portfolio.system-reduced *::before, .portfolio.system-reduced *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
+.portfolio.lite-mode .hero-character-turn { animation: none !important; }
+.portfolio.lite-mode .earth-fallback, .portfolio.read-mode .earth-fallback, .portfolio.system-reduced .earth-fallback { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  html { scroll-behavior: auto; }
+}
+
+
+/* Fine behavior: keep card drag physics and its two-sided 3D flip under the print skin. */
+.portfolio #home .hero-character-hitbox { display: block; padding: 0; border: 0; border-radius: 0; background: transparent; appearance: none; text-align: inherit; cursor: pointer; }
+.portfolio #home .hero-character-hitbox:focus-visible { outline: 4px solid var(--manga-yellow); outline-offset: -12px; }
+.portfolio #home .hero-character-turn { translate: calc(var(--pointer-x, 0px) * .24) calc(var(--pointer-y, 0px) * .24); }
+.portfolio #home .hero-earth { translate: calc(var(--pointer-x, 0px) * .16) calc(var(--pointer-y, 0px) * .18); }
+.portfolio #home .hero-grid { translate: calc(var(--pointer-x, 0px) * -.13) calc(var(--pointer-y, 0px) * -.16); transition: translate .2s ease-out; }
+.portfolio .hunter-art-hitbox { display: block; position: relative; z-index: 3; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; appearance: none; pointer-events: auto; cursor: pointer; }
+.portfolio .hunter-art-hitbox:focus-visible { outline: 3px solid var(--manga-silver); outline-offset: -6px; }
+.portfolio .projects-grid[data-manga-track] .project-card { transform: translate3d(var(--drag-x,0px),var(--drag-y,0px),0) !important; animation: case-float 7s ease-in-out infinite; }
+.portfolio .project-inner { transform-style: preserve-3d; transition: transform 350ms cubic-bezier(.2,.8,.2,1); }
+.portfolio .project-card:not(.is-flipped) .project-inner { transform: rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); }
+.portfolio .project-card.is-flipped .project-inner { transform: rotateY(180deg); }
+.portfolio .stat-burst { position: relative; overflow: visible; }
+.portfolio .stat-burst::after { content: "BOOM!"; position: absolute; z-index: 4; top: -.9rem; right: -.55rem; padding: .2rem .35rem; color: var(--manga-ink); background: var(--manga-yellow); border: 2px solid var(--manga-ink); font: 950 .8rem/1 Anton,Impact,sans-serif; transform: rotate(-8deg); animation: manga-burst .65s steps(3,end) both; }
+.portfolio .sound-toggle { color: var(--manga-ink) !important; background: var(--manga-white) !important; border: 3px solid var(--manga-ink) !important; box-shadow: 4px 4px 0 var(--manga-red); }
+@keyframes manga-burst { 0% { opacity: 0; scale: .2; } 36% { opacity: 1; scale: 1.28; } 65% { scale: .95; } 100% { opacity: 0; scale: 1.08; } }
+@media (max-width: 899px) {
+  .portfolio #home .hero-character-turn { translate: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio .stat-burst::after { animation: none !important; }
+  .portfolio #home .hero-earth, .portfolio #home .hero-grid, .portfolio #home .hero-character-turn { translate: none !important; }
+}
+/* Separate ink-panel shear from GSAP's reveal transform so both effects compose. */
+.portfolio main > .section .section-index { transform: none; }
+.portfolio main > .section .section-index::before { content: ""; position: absolute; inset: -3px; z-index: -1; background: repeating-linear-gradient(135deg, transparent 0 13px, #1714111c 14px 16px); transform: skewY(var(--manga-skew)); pointer-events: none; }
+.portfolio #home .hero-grid { transition: translate .2s ease-out; }
+
+
+/* The single JS beat clock samples a 90 BPM cycle and offsets every widget by index. */
+.portfolio :where(.skill-node,.project-card,.stat,.nav a,.btn,.section-index,.punch-button,.hero-speech,.custom-cursor,.read-switch,.lite-switch,.mode-switch,.earth-prompt,.clash-trigger,.hero-character-hitbox,.sound-toggle) {
+  animation: none;
+  scale: var(--manga-pulse-scale,1);
+}
+.portfolio :where(.skill-node,.project-card,.stat,.nav a,.btn,.punch-button,.hero-speech,.custom-cursor,.read-switch,.lite-switch,.mode-switch,.earth-prompt,.clash-trigger,.hero-character-hitbox,.sound-toggle) { position: relative; isolation: isolate; }
+.portfolio :where(.skill-node,.project-card,.stat,.nav a,.btn,.punch-button,.hero-speech,.custom-cursor,.read-switch,.lite-switch,.mode-switch,.earth-prompt,.clash-trigger,.sound-toggle)::before,
+.portfolio .section-index::after {
+  content: ""; position: absolute; z-index: -1; inset: -3px; border: 2px solid var(--manga-pulse-accent,var(--manga-yellow));
+  border-radius: inherit; opacity: var(--manga-ripple-opacity,0); pointer-events: none;
+  animation: manga-ink-ripple .667s ease-out infinite; animation-delay: var(--beat-delay,0s);
+}
+.portfolio .section-index::after { inset: -5px; border-width: 1px; }
+.portfolio :where(.skill-node,.project-card,.stat,.nav a,.btn,.punch-button,.hero-speech,.custom-cursor,.read-switch,.lite-switch,.mode-switch,.earth-prompt,.clash-trigger,.hero-character-hitbox,.sound-toggle):hover { scale: 1.08 !important; filter: drop-shadow(0 0 6px color-mix(in srgb,var(--manga-pulse-accent,var(--manga-yellow)) 58%,transparent)); }
+@keyframes manga-ink-ripple { 0% { scale: .86; opacity: var(--manga-ripple-opacity,0); } 100% { scale: 1.58; opacity: 0; } }
+@keyframes manga-stat-shake { 0%,100% { translate: 0 0; } 20% { translate: -4px 1px; } 40% { translate: 4px -1px; } 60% { translate: -3px 0; } 80% { translate: 2px 1px; } }
+.portfolio .stat-burst { animation: manga-stat-shake .22s steps(2,end) 2; }
+.portfolio .stat-burst::after { content: "BOOM!"; position: absolute; z-index: 8; top: -.7rem; right: -.55rem; color: var(--manga-red); font: 900 .62rem/1 Anton,Impact,sans-serif; text-shadow: 1px 1px 0 var(--manga-paper); transform: rotate(-9deg); pointer-events:none; }
+.portfolio .punch-button { animation: punch-invitation 5s ease-in-out infinite; }
+.portfolio .hero-speech { animation: none; }
+.portfolio .manga-speed-field {
+  position: fixed; z-index: 5; inset: -10vh -8vw; pointer-events: none; opacity: var(--manga-speed-opacity,0);
+  background: repeating-conic-gradient(from 2deg at 50% 50%, transparent 0 3.2deg, #17141126 3.25deg 3.38deg);
+  mix-blend-mode: multiply; mask-image: radial-gradient(ellipse at center, transparent 0 42%, #000 83%);
+}
+.portfolio main > section[data-manga-chapter] { background-position: var(--manga-background-x,0px) 0, 0 0; }
+.portfolio main > section[data-manga-chapter] .manga-glyph-strip {
+  position: absolute; z-index: 2; top: 32%; right: 1.1rem; writing-mode: vertical-rl;
+  color: var(--manga-red); opacity: .44; font: 950 1rem/1.5 Anton,Impact,"Arial Black",sans-serif;
+  letter-spacing: .34em; text-shadow: 1px 1px 0 var(--manga-paper); pointer-events: none;
+}
+.portfolio #skills[data-manga-chapter] .manga-glyph-strip { color: var(--manga-silver); text-shadow: 1px 1px 0 #17151a; }
+.portfolio .section-index { filter: url(#manga-rough-edge); }
+.portfolio .registry-card { position: relative; }
+.portfolio .registry-card::after { content: ""; position: absolute; z-index: 4; inset: -5px; border: 3px solid var(--manga-ink); clip-path: polygon(0 2%,98% 0,100% 98%,2% 100%); filter: url(#manga-rough-edge); pointer-events: none; }
+.portfolio .hunter-quote { filter: url(#manga-rough-edge); }
+.portfolio .experience-card.lens-ai { filter: url(#manga-rough-edge); }
+.portfolio #skills .hunter-scene { display: block !important; }
+.portfolio #skills .hunter-art-hitbox { overflow: visible; }
+.portfolio #skills .hunter-scene .character-art--hunter { overflow: visible; }
+.portfolio #skills .char-garou { transform-box: fill-box; transform-origin: center bottom; animation: garou-weight-shift 2.8s ease-in-out infinite alternate; }
+.portfolio #skills .char-garou-head { transform-box: fill-box; transform-origin: 50% 82%; rotate: calc(var(--pointer-angle,0deg) * .22); }
+.portfolio #skills .char-garou-hair { transform-box: fill-box; transform-origin: 50% 100%; animation: garou-hair-vibrate 1.9s ease-in-out infinite alternate; }
+.portfolio #skills .char-garou-energy path { stroke-dasharray: 12 8; animation: garou-energy-flow .75s linear infinite; }
+.portfolio #skills .char-garou-energy path:nth-child(2) { animation-duration: .95s; }
+.portfolio .character-art--garou .char-sash { transform-box: fill-box; transform-origin: left center; animation: manga-sash-flick 1.35s ease-in-out infinite alternate; }
+.portfolio .character-art--saitama .char-saitama-torso { transform-box: fill-box; transform-origin: 50% 42%; animation: saitama-breathe 3.3s ease-in-out infinite; }
+.portfolio .character-art--saitama .char-saitama-head { transform-box: fill-box; transform-origin: center center; rotate: calc(var(--pointer-angle,0deg) * .25); }
+.portfolio .character-art--saitama .char-saitama-cape { transform-box: fill-box; transform-origin: top center; animation: manga-cape-sway 2.6s ease-in-out infinite alternate; }
+.portfolio .character-art--saitama .char-blink { transform-box: fill-box; transform-origin: center center; animation: manga-blink 4s steps(1,end) infinite; }
+.portfolio #home .hero-character-back .char-saitama { filter: drop-shadow(0 0 8px #f5f1e645); }
+.portfolio #home .hero-character-front .char-saitama { animation: saitama-weight-shift 4.8s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center bottom; }
+.portfolio.serious-mode #home .hero-character-front .char-saitama-arms { transform-box: fill-box; transform-origin: 22% 35%; animation: saitama-punch-thrust .34s cubic-bezier(.2,.8,.2,1) 2; }
+.portfolio .character-art--experience-garou { transform-box: fill-box; transform-origin: center bottom; animation: garou-weight-shift 2.8s ease-in-out infinite alternate; }
+.portfolio.monster-mode #skills .char-garou { animation: garou-glitch .18s steps(2,end) 5; filter: drop-shadow(3px 0 #c0c6d4) drop-shadow(-3px 0 #7b2cbf); }
+.portfolio .char-garou-energy { filter: drop-shadow(0 0 5px #a760ed); }
+@keyframes saitama-breathe { 0%,100% { scale: 1 1; } 50% { scale: 1 1.02; } }
+@keyframes saitama-weight-shift { to { translate: 1px -2px; } }
+@keyframes saitama-punch-thrust { 0% { translate: 0 0; } 38% { translate: 18px -3px; } 62% { translate: 23px 0; } 100% { translate: 0 0; } }
+@keyframes garou-weight-shift { from { translate: 0 1px; } to { translate: 0 -4px; } }
+@keyframes garou-hair-vibrate { from { rotate: -0.6deg; } to { rotate: .8deg; } }
+@keyframes garou-energy-flow { to { stroke-dashoffset: -40; } }
+@keyframes garou-glitch { 0%,100% { translate: 0 0; } 35% { translate: -3px 1px; } 70% { translate: 3px -1px; } }
+@media (max-width: 760px) {
+  .portfolio #skills .hunter-quote { padding-right: 1.4rem; min-height: 470px; }
+  .portfolio #skills .hunter-scene { position: relative; right: auto; bottom: auto; width: 76%; max-width: 360px; height: 330px; margin: .3rem auto -1rem; opacity: 1; }
+  .portfolio #skills .hunter-art-hitbox, .portfolio #skills .hunter-art-hitbox .character-art { width: 100%; height: 100%; }
+  .portfolio main > section[data-manga-chapter] .manga-glyph-strip { right: .35rem; font-size: .7rem; opacity: .3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio .manga-speed-field { display: none; }
+  .portfolio .stat-burst { animation: none !important; }
+}
+.portfolio .character-art--saitama .char-saitama-cape { rotate: var(--manga-cape-angle,0deg); }
+.portfolio .character-art--garou .char-garou-sash { translate: var(--manga-garou-flow,0px) 0; rotate: var(--manga-garou-angle,0deg); }
+.portfolio .char-garou-hair { rotate: var(--manga-garou-angle,0deg); }
+.portfolio #home .hero-character-front .char-saitama { rotate: calc(var(--manga-cape-angle,0deg) * .16); }
+.portfolio #home .hero-speech { animation: none; }
+.portfolio.serious-mode #home .hero-character-turn { transform: rotateY(180deg) !important; }
+.portfolio.serious-mode #home .hero-character-back { opacity: 0; }
+.portfolio.serious-mode #home .hero-content { animation: manga-screen-shake .34s steps(2,end) 2; }
+.portfolio.monster-mode #skills .hunter-scene { animation: manga-screen-shake .25s steps(2,end) 2; }
+@keyframes manga-screen-shake { 0%,100% { translate: 0 0; } 18% { translate: 5px -2px; } 38% { translate: -5px 2px; } 58% { translate: 3px 1px; } 78% { translate: -2px -1px; } }
+.portfolio .constellation-pow::before { content: ""; position: absolute; inset: -22px; border: 2px solid #ffd400; border-radius: 50%; animation: skill-shockwave .55s ease-out both; }
+@keyframes skill-shockwave { from { opacity: .9; scale: .28; } to { opacity: 0; scale: 1.65; } }
+/* Scroll velocity gives the entire page a controlled, reversible manga skew. */
+.portfolio main > section[data-manga-chapter] { transform: skewY(var(--manga-skew,0deg)); transform-origin: 50% 50%; }
+.portfolio .manga-speed-field { scale: var(--manga-speed-scale,1); transform-origin: 50% 50%; }
+
+/* Independent transforms let idle motion coexist with scroll choreography. */
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio:not(.lite-mode):not(.read-mode):not(.system-reduced) #home .earth-fallback .earth-orb {
+    animation: orbit-breathe 6s ease-in-out infinite alternate;
+  }
+  .portfolio:not(.lite-mode):not(.read-mode):not(.system-reduced) #home .hero-character-back {
+    animation: observer-drift 4.5s ease-in-out infinite alternate;
+  }
+  .portfolio:not(.lite-mode):not(.read-mode):not(.system-reduced) #home .earth-prompt {
+    transition: translate 180ms ease, box-shadow 180ms ease;
+  }
+  .portfolio:not(.lite-mode):not(.read-mode):not(.system-reduced) #home .earth-prompt:hover {
+    translate: 0 -4px;
+    box-shadow: 5px 7px 0 var(--manga-red);
+  }
+}
+@keyframes orbit-breathe {
+  from { translate: 0 -4px; }
+  to { translate: 0 9px; }
+}
+@keyframes observer-drift {
+  from { translate: 0 0; }
+  to { translate: 0 -7px; }
+}
+
+.portfolio .fist-run { height: 250svh; }
+.portfolio .fist-run.fist-frozen { height: auto; }
+.portfolio .fist-run #home.hero {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  isolation: isolate;
+  overflow: clip;
+  background: radial-gradient(ellipse at 70% 45%, #471a18 0%, #141414 55%);
+}
+.portfolio .fist-run #home .hero-content { pointer-events: none; z-index: auto; }
+.portfolio .fist-run #home .hero-actions,
+.portfolio .fist-run #home .hero-meta { position: relative; z-index: 4; pointer-events: auto; }
+.fist-stage { position: absolute; inset: 0; perspective: 1000px; --charge: 0; pointer-events: none; }
+.fist-trigger {
+  position: absolute;
+  z-index: 2;
+  left: 72%;
+  top: 48%;
+  width: min(54vw, 79svh);
+  aspect-ratio: 540 / 500;
+  transform: translate(-50%, -50%) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 240ms ease-out;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+.fist-illustration, .fist-glow { position: absolute; inset: 0; pointer-events: none; }
+.fist-illustration { scale: calc(1 + var(--charge) * 1.85); }
+.fist-illustration svg { width: 100%; height: 100%; }
+.fist-glow { border-radius: 50%; background: radial-gradient(ellipse, #ff4a2a91, #c21f1f44 40%, transparent 69%); scale: calc(1 + var(--charge)); }
+.fist-label, .fist-rumble, .fist-speech, .fist-caption { font: 700 .8rem var(--font-mono, monospace); }
+.fist-label { position: absolute; left: 50%; bottom: 0; translate: -50%; white-space: nowrap; color: #f7dda0; background: #141414; border: 1px solid #f7dda0; padding: .55rem .75rem; }
+.fist-rumble { position: absolute; top: 9%; right: 3%; color: #f7dda0; opacity: 0; rotate: -12deg; transition: opacity .2s; }
+.fist-trigger:is(:hover,:focus-visible) .fist-rumble { opacity: 1; }
+.fist-speech { position: absolute; z-index: 3; right: 5%; top: 15%; max-width: 12rem; background: #f5f1e6; color: #141414; border: 3px solid #0b0b0f; padding: .6rem; rotate: 5deg; }
+.fist-caption { color: #f7dda0; margin-top: 1rem; }
+.fist-speed { position: absolute; inset: 0; background: repeating-conic-gradient(from 4deg at 72% 48%, transparent 0deg 6deg, #ffd4a276 6.1deg 6.25deg); mask-image: radial-gradient(ellipse at 72% 48%,transparent 25%,black 85%); opacity: calc(var(--charge) * .75); }
+.fist-sparks { position: absolute; inset: 0; background: radial-gradient(circle,#ff704c 1px,transparent 2px) 0 0/93px 71px, radial-gradient(circle,#f7dda0 1px,transparent 2px) 0 0/137px 113px; opacity: .3; }
+.fist-impact { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; color: #f7dda0; font: italic clamp(5rem, 19vw, 16rem) Anton,sans-serif; animation: fist-impact .7s both; }
+.fist-impact span { -webkit-text-stroke: 3px #0b0b0f; animation: fist-burst .7s both; }
+.portfolio .custom-cursor { background: none; }
+.custom-cursor svg { width: 100%; height: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  .fist-run:not(.fist-frozen) .fist-illustration { animation: fist-idle 2.4s ease-in-out infinite; }
+  .fist-run:not(.fist-frozen) .fist-trigger:hover .fist-illustration { animation-duration: 1.2s; }
+  .fist-run:not(.fist-frozen) .fist-glow { animation: fist-heat 2.4s ease-in-out infinite; }
+  .fist-run:not(.fist-frozen) .fist-sparks { animation: fist-dust 12s ease-in-out infinite alternate; }
+  .fist-run:not(.fist-frozen) .fist-label span { display: inline-block; animation: fist-dust 1s ease-in-out infinite alternate; }
+  .fist-run:not(.fist-frozen) .fist-launch .fist-illustration { animation: fist-shot .39s both; }
+}
+@keyframes fist-idle { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-9px) rotate(1deg) scale(1.05); } }
+@keyframes fist-heat { 0%,100% { opacity: .58; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.1); } }
+@keyframes fist-dust { to { transform: translateY(-12px); } }
+@keyframes fist-shot { 42% { transform: scale(.78) translateX(5%); } 100% { transform: scale(3.1); filter: blur(7px); } }
+@keyframes fist-impact { 0%,14% { background: #fff; } 15%,30% { background: #0b0b0f; } 80%,100% { background: transparent; opacity: 0; } }
+@keyframes fist-burst { 0%,14% { opacity: 0; scale: .75; } 35% { opacity: 1; } 100% { scale: 1.25; } }
+@media (max-width: 760px) {
+  .portfolio .fist-run #home.hero { display: flex; align-items: end; }
+  .portfolio .fist-run #home .hero-content { padding-block: 44svh 2rem; }
+  .fist-trigger { left: 50%; top: 27%; width: min(84vw, 54svh); }
+  .fist-speech { right: 4%; top: 11%; max-width: 9rem; font-size: .64rem; }
+}
+.fist-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .2;
+  background-image: radial-gradient(#f7dda0 1px, transparent 1px);
+  background-size: 8px 8px;
+  mask-image: radial-gradient(ellipse at 72% 48%, black, transparent 68%);
+}
+.fist-glow::after {
+  content: "";
+  position: absolute;
+  inset: 19%;
+  border: 2px dotted #ff704c;
+  border-radius: 50%;
+}
+.chapter-punch-caption { display: block; margin-top: .4rem; text-transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .fist-run:not(.fist-frozen) .fist-glow::after { animation: fist-wave 2.4s ease-out infinite; }
+  .fist-run:not(.fist-frozen) .fist-glint { animation: fist-glint 2.4s ease-in-out infinite alternate; }
+  .fist-run:not(.fist-frozen) .fist-rim { animation: fist-glint 2.4s ease-in-out infinite alternate; }
+}
+@keyframes fist-wave { from { opacity: .55; scale: .7; } to { opacity: 0; scale: 1.75; } }
+@keyframes fist-glint { from { opacity: .66; } to { opacity: 1; } }
+
+.fist-webgl { position: absolute; inset: 0; display: block; }
+.fist-webgl canvas { width: 100%; height: 100%; display: block; }
+.fist-trigger { width: min(73vw, 112svh); touch-action: none; }
+.fist-trigger:active { cursor: grabbing; }
+.fist-shards { position: absolute; inset: 0; pointer-events: none; }
+.fist-shards i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 13vh;
+  background: #f5f1e6;
+  clip-path: polygon(0 47%, 52% 0, 100% 70%, 40% 100%);
+  transform-origin: left center;
+  animation: fist-shatter .62s .1s both;
+}
+@keyframes fist-shatter {
+  0% { transform: translateX(0) scale(.2); opacity: 0; }
+  25% { opacity: .86; }
+  100% { transform: translateX(58vw) scale(1.2); opacity: 0; }
+}
+@media (max-width: 760px) {
+  .fist-trigger { width: min(105vw, 70svh); }
+}
+
+/* Professional copy uses clear typesetting within the illustrated page. */
+.portfolio #home h1 { font-family: Inter,Arial,sans-serif; font-size: clamp(3.5rem,8.4vw,8rem); font-weight: 850; line-height: .99; letter-spacing: -.055em; text-shadow: none; }
+.portfolio #home .hero-subtitle { font-family: Inter,Arial,sans-serif; font-size: clamp(.95rem,1.3vw,1.2rem); line-height: 1.65; letter-spacing: 0; max-width: 35rem; }
+.portfolio #home .hero-tagline { font-size: clamp(1rem,1.7vw,1.45rem); line-height: 1.5; font-weight: 500; }
+.portfolio main > .section h2 { font-family: Inter,Arial,sans-serif; font-size: clamp(2.25rem,4.6vw,4.4rem); font-weight: 800; line-height: 1.14; letter-spacing: -.045em; text-transform: none; text-shadow: none; }
+.portfolio .experience-card h3,.portfolio .project-card h3 { font-family: Inter,Arial,sans-serif; font-size: clamp(1.18rem,1.6vw,1.55rem); line-height: 1.35; letter-spacing: -.025em; font-weight: 750; text-transform: none; overflow-wrap: break-word; }
+.portfolio .experience-content li,.portfolio .about-copy p,.portfolio .project-card p { font-family: Inter,Arial,sans-serif; line-height: 1.75; font-size: 1rem; }
+.portfolio .eyebrow,.portfolio .section-index { line-height: 1.6; letter-spacing: .08em; }
+.portfolio .email-row a { font-family: Inter,Arial,sans-serif; font-size: clamp(1rem,2.1vw,1.8rem); overflow-wrap: anywhere; letter-spacing: -.025em; }
+.portfolio .contact-form input,.portfolio .contact-form textarea { font-family: Inter,Arial,sans-serif; font-size: 1rem; line-height: 1.5; }
+@media(max-width:760px) { .portfolio #home h1 { font-size: clamp(3rem,12vw,5rem); } .portfolio #home .hero-content { width: 92%; } }
+
+.explorer-run { height: 240vh; position: relative; }
+.experience-explorer { position: sticky; top: 84px; background: #f5f1e6; border: 4px solid #0b0b0f; padding: 24px; color: #0b0b0f; }
+.explorer-static { height: auto; }
+.explorer-static .experience-explorer { position: relative; top: auto; }
+.explorer-filters,.explorer-chips,.explorer-paging { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.explorer-filters button,.explorer-chips button,.explorer-paging button { border: 1px solid #0b0b0f; padding: 8px 12px; font: 12px/1.5 "JetBrains Mono",monospace; color: #0b0b0f; background: transparent; transition: background .18s,color .18s; }
+.explorer-filters button[aria-pressed=true],.explorer-chips button[aria-pressed=true] { background: #0b0b0f; color: #f5f1e6!important; }
+.explorer-filters>span,.explorer-meta,.explorer-paging { font: 12px/1.6 "JetBrains Mono",monospace; color: #60606a!important; letter-spacing: .03em; }
+.explorer-meta { display: block; margin: 8px 0; }
+.explorer-timeline { margin: 16px 0; padding: 12px; border: 1px solid #0b0b0f33; background: #eeeadf; }
+.explorer-years { display: flex; justify-content: space-between; font: 12px monospace; padding-bottom: 8px; }
+.explorer-bar { display: block; height: 15px; margin-block: 4px; min-width: 12px; border-radius: 2px; background: #7b62a2; border: 1px solid transparent; overflow: hidden; transition: opacity .2s; }
+.explorer-bar.selected { border: 2px solid #0b0b0f; background: #d3ab31; }
+.explorer-bar span { display: block; font: 10px monospace; text-align: left; padding-left: 4px; color: #0b0b0f!important; white-space: nowrap; }
+.explorer-scrub { display: block; margin-top: 12px; font: 12px monospace; }
+.explorer-scrub input { display: block; width: 100%; accent-color: #7b2cbf; }
+.explorer-layout { display: grid; grid-template-columns: minmax(230px, .85fr) minmax(0,1.5fr); gap: 24px; }
+.explorer-rail { max-height: 43vh; overflow-y: auto; border-left: 2px solid #0b0b0f33; padding-left: 12px; }
+.explorer-rail>button { display: block; width: 100%; text-align: left; border-left: 3px solid transparent; padding: 8px 12px; transition: translate .18s,background .18s; }
+.explorer-rail>button:hover { translate: 3px; }
+.explorer-rail>button[aria-selected=true] { border-color: #7b2cbf; background: #e8e1ee; }
+.explorer-rail strong { display: block; font: 600 16px/1.4 Inter,sans-serif; }
+.explorer-detail { border-top: 3px solid #7b2cbf; padding: 16px; background: #fffdf7; max-height: 48vh; overflow: auto; }
+.portfolio .explorer-detail h3 { font: 650 clamp(22px,2vw,28px)/1.25 Inter,sans-serif; margin: 8px 0; color: #0b0b0f!important; }
+.explorer-org { font-weight: 600; }
+.explorer-secondary { color: #3a3a42!important; }
+.explorer-detail ul { padding-left: 20px; list-style: square; }
+.explorer-detail li { font: 400 16px/1.65 Inter,sans-serif; margin: 12px 0; max-width: 65ch; }
+.explorer-chips { margin-block: 16px; }
+.explorer-text-button { text-decoration: underline; margin: 8px 0; }
+.explorer-impacts { display: flex; flex-wrap: wrap; gap: 16px; }
+.explorer-impacts strong { font: 500 16px/1.6 "JetBrains Mono",monospace; }
+.explorer-paging { justify-content: space-between; margin-top: 24px; }
+.explorer-paging button:disabled { opacity: .4; cursor: default; }
+.explorer-mobile { display: none; }
+@media(max-width:760px) {
+.explorer-run { height: auto; }.experience-explorer { position: relative; top: auto; padding: 16px; }
+.explorer-filters { flex-wrap: nowrap; overflow-x: auto; }.explorer-filters>* { flex-shrink: 0; }
+.explorer-layout { display: none; }.explorer-mobile { display: block; }
+.explorer-accordion { display: block; text-align: left; width: 100%; padding: 16px 0; border-bottom: 1px solid #0b0b0f40; font-size: 14px; }.explorer-accordion strong { display: block; font-size: 18px; }
+.explorer-detail { max-height: none; }.explorer-bar span { display: none; }
+}
+
+:root { --text-ink:#0b0b0f; --text-secondary:#3a3a42; --text-muted:#62626e; --paper:#f5f1e6; --space-unit:4px; }
+body,.portfolio { background:#0b0b14!important; }
+.background-world { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; background:radial-gradient(ellipse at 25% 40%,#27213d,#0b0b14 67%); }
+.portfolio>header,.portfolio>main,.portfolio>footer { position:relative; z-index:1; }
+.world-stars { position:absolute; inset:-10%; background:radial-gradient(circle,#d4e3ff 1px,transparent 1.5px) 0 0/83px 79px,radial-gradient(circle,#b8b2dc 1px,transparent 1.5px) 0 0/137px 127px; opacity:.55; }
+.world-planet { position:absolute; left:var(--world-x,68vw); top:var(--world-y,24vh); width:48vw; height:60vh; min-width:340px; translate:-50% -50%; scale:var(--world-scale,.55); transition:left .45s,top .45s,scale .45s; }
+.world-planet>div:not(.world-fallback) { position:absolute!important; inset:0; width:100%!important; height:100%!important; }
+.world-fallback { position:absolute; left:50%; top:50%; width:min(40vw,48vh); min-width:260px; aspect-ratio:1; translate:-50% -50%; border-radius:50%; background:radial-gradient(ellipse at 28% 30%,#398cad,#0b395b 53%,#040a1a 77%); box-shadow:0 0 20px #4aaaff70,inset 0 0 12px #96e5ff; overflow:hidden; }
+.world-fallback i { position:absolute; inset:0; background:repeating-conic-gradient(from 35deg,#487659 0deg 12deg,transparent 18deg 70deg); border-radius:50%; opacity:.6; filter:blur(5px); }
+.world-fallback b { position:absolute; inset:0; background:repeating-radial-gradient(ellipse at 32% 28%,#dfedf040 0 3px,transparent 5px 29px); }
+.world-vignette { position:absolute; inset:0; background:radial-gradient(ellipse,transparent 35%,#0b0b1470); }
+.portfolio main>.section { background:#f5f1e6!important; margin: clamp(32px,8vh,100px) auto!important; width:calc(100% - 80px); max-width:1440px; border:4px solid #0b0b0f; padding:clamp(24px,5vw,72px); }
+.portfolio main>#skills { background:#151320!important; }
+.portfolio .fist-run #home.hero { background:linear-gradient(90deg,#141414f0,#141414bb 50%,#14141430); }
+.orbit-progress { position:fixed; right:8px; top:32%; height:36%; display:flex; flex-direction:column; justify-content:space-between; border-left:1px solid #c9c9d160; z-index:8; padding-left:6px; }
+.orbit-progress a { color:#f5f1e6!important; font:12px/1.5 monospace; background:#0b0b14cc; }
+.orbit-progress>span { position:absolute; left:-5px; color:#7ebce7; font-size:10px; }
+.portfolio footer { background:#0b0b14; }
+@media(prefers-reduced-motion:no-preference) {
+ .background-world:not(.world-static) .world-stars { animation:world-drift 42s linear infinite alternate; }
+ .background-world:not(.world-static) .world-fallback i { animation:world-turn 55s linear infinite; }
+ .background-world:not(.world-static) .world-fallback b { animation:world-turn 80s linear reverse infinite; }
+}
+@keyframes world-drift { to { translate:3% -4%; } }
+@keyframes world-turn { to { rotate:360deg; } }
+@media(max-width:760px) { .portfolio main>.section { width:calc(100% - 32px); padding:20px; margin-block:48px!important; }.orbit-progress { right:1px; padding-left:3px; }.orbit-progress a { font-size:9px; } }
+
+:root { --font-display:Anton,Impact,sans-serif; --font-heading:"Space Grotesk",Inter,sans-serif; --font-body:Inter,Arial,sans-serif; --font-meta:"JetBrains Mono",monospace; --type-xs:12px; --type-sm:14px; --type-base:16px; --type-lg:18px; --type-xl:22px; --type-2xl:28px; --type-3xl:40px; --type-4xl:64px; --type-5xl:96px; }
+.portfolio :where(p,li,label,input,textarea) { font-family:var(--font-body); font-weight:400; line-height:1.65; text-shadow:none; -webkit-text-stroke:0; }
+.portfolio :where(h2,h3),.portfolio .explorer-detail h3,.portfolio .explorer-rail strong { font-family:var(--font-heading)!important; font-weight:650; letter-spacing:-.01em; }
+.portfolio :where(nav a,.btn,button) { font-family:var(--font-body); }
+.portfolio :where(.eyebrow,.role-date,.role-org,.tag,.project-number,.section-index) { font-family:var(--font-meta); font-size:12px; line-height:1.6; letter-spacing:.06em; }
+.portfolio main>.section:not(#skills) :where(p,li) { color:#3a3a42; }
+.portfolio main>.section:not(#skills) :where(h2,h3,dt,dd,label) { color:#0b0b0f!important; }
+.portfolio .section:not(#skills) .yellow-text { color:#0b0b0f!important; background:#ffd400; }
+.portfolio .btn.primary { background:#0b0b0f!important; color:#f5f1e6!important; border:2px solid #0b0b0f; box-shadow:none!important; }
+.portfolio .btn.secondary { background:#f5f1e6!important; color:#0b0b0f!important; box-shadow:none!important; }
+.portfolio .section-index { font-size:14px; text-transform:uppercase; }
+.portfolio .explorer-detail :where(p,li,strong,span) { color:#0b0b0f; }
+.portfolio :where(button,a,input,textarea):focus-visible { outline:3px solid #8051bd; outline-offset:4px; }
+.explorer-rail>button { position:relative; }
+.explorer-rail>button::before { content:""; position:absolute; left:-20px; top:22px; border-radius:50%; width:10px; height:10px; border:2px solid #0b0b0f; background:#f5f1e6; }
+.explorer-rail>button[aria-selected=true]::before { background:#7b2cbf; box-shadow:0 0 8px #7b2cbf66; }
+.world-moon { position:absolute; left:calc(100vw - var(--world-x,68vw)); top:24vh; width:6vh; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle at 30% 30%,#c9c9d1,#535364 55%,#11111e); opacity:.55; transition:left 1s; }
+.world-fallback { border:1px solid #080910; }
+
+/* Every project stays visible, including reduced-motion and Read Mode. */
+.portfolio .projects-accessible-grid { overflow: visible; width: 100%; }
+.portfolio .projects-accessible-grid .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  width: 100%;
+  gap: 24px;
+  padding: 8px 0 16px;
+  transform: none;
+}
+.portfolio .projects-accessible-grid .project-card { width: 100%; min-width: 0; }
+@media(max-width:760px) {
+  .portfolio .projects-accessible-grid .projects-grid { grid-template-columns: minmax(0,1fr); }
+}
+
+.fire-stage { --punch-scale:1; --heat:.45; --flame-length:1; --burst:0; }
+.fire-stage .fist-illustration { scale:calc((1 + var(--charge) * 1.85) * var(--punch-scale)); transition:none; }
+.fire-aura { position:absolute; inset:1% -5% -4%; border-radius:50%; background:radial-gradient(ellipse,#fff3b06b,#ff8a1f66 25%,#e02b1260 48%,transparent 69%); opacity:calc(.3 + var(--heat)*.45); scale:calc(.9 + var(--heat)*.15); filter:blur(12px); }
+.fire-tongues,.fire-embers { position:absolute; inset:0; pointer-events:none; }
+.fire-tongues { z-index:-1; }
+.fire-tongues i {
+ position:absolute; width:14%; height:49%;
+ background:linear-gradient(0deg,#7a0f0f05,#e02b12aa 18%,#ff8a1fe8 53%,#fff3b0 78%,#fff3b000);
+ clip-path:polygon(12% 100%,0 64%,19% 46%,16% 18%,39% 38%,55% 0,76% 27%,70% 47%,100% 64%,86% 100%);
+ transform-origin:50% 100%; opacity:calc(.6 + var(--heat)*.2);
+ filter:drop-shadow(0 0 8px #ff4a2a);
+ animation:flame-lick .9s ease-in-out infinite alternate;
+}
+.fire-stage .fist-illustration { isolation:isolate; }
+.fire-embers { z-index:3; }
+.fire-embers i { position:absolute; width:4px; height:4px; border-radius:40%; background:#ffb944; box-shadow:0 0 7px #ff8a1f; animation:ember-ascend 2s linear infinite; }
+.fire-embers i:nth-child(4n) { background:#0b0b0f; box-shadow:none; width:3px; }
+.fire-embers i:nth-child(7n) { background:#fff3b0; }
+.loop-ring { position:absolute; inset:13%; border:3px solid #ffbc6c; border-radius:50%; opacity:0; box-shadow:0 0 18px #ff8a1f99; pointer-events:none; }
+.loop-don { position:absolute; right:0; top:0; font:italic clamp(40px,7vw,100px)/1 Anton,Impact,sans-serif; color:#fff3b0; -webkit-text-stroke:2px #0b0b0f; opacity:0; pointer-events:none; }
+.loop-flash { position:absolute; inset:0; background:radial-gradient(ellipse at 70% 45%,#fff3b0,transparent 68%); opacity:0; pointer-events:none; }
+.hero-pause { position:absolute; z-index:6; right:24px; bottom:24px; pointer-events:auto; background:#141414e6; color:#f5f1e6!important; padding:10px 14px; border:1px solid #9a9aa6; border-radius:4px; font:500 13px Inter,sans-serif; }
+.fire-paused :where(.fire-tongues i,.fire-embers i,.fist-illustration,.fist-glow,.fist-sparks,.fist-glow::after,.fist-glint,.fist-rim) { animation-play-state:paused!important; }
+.fire-reduced .fire-tongues,.fire-reduced .fire-embers,.fire-reduced .loop-ring,.fire-reduced .loop-don { display:none; }
+.fire-reduced .fist-illustration { scale:1; }
+@keyframes flame-lick { from { transform:translateY(2%) scaleY(calc(.8 * var(--flame-length))) skewX(-6deg); } to { transform:translateY(-12%) scaleY(calc(1.16 * var(--flame-length))) skewX(7deg); } }
+@keyframes ember-ascend { 0% { opacity:0; transform:translate(0,0) scale(.5); } 15% { opacity:.9; } 100% { opacity:0; transform:translate(35px,-190px) scale(.25); } }
+@media(prefers-reduced-motion:reduce) { .fire-tongues,.fire-embers,.loop-flash { display:none; } }
+
+.portfolio #home .hero-accessible-title {
+  position:absolute!important; width:1px!important; height:1px!important;
+  padding:0!important; margin:-1px!important; overflow:hidden!important;
+  clip:rect(0,0,0,0)!important; white-space:nowrap!important;
+}
+.portfolio .fist-run #home .hero-content {
+  position:absolute; left:0; right:0; bottom:16px; margin:0 auto; width:100%;
+  padding:12px 24px; z-index:5; text-align:center;
+  background:linear-gradient(transparent,#141414ee 22%); pointer-events:none;
+}
+.portfolio #home .hero-content .availability,.portfolio #home .hero-kicker,
+.portfolio #home .hero-tagline,.portfolio #home .hero-meta>span { display:none; }
+.portfolio #home .hero-content .hero-subtitle { margin:0 auto; font-size:14px; line-height:1.6; }
+.portfolio #home .hero-content .hero-actions,.portfolio #home .hero-content .hero-meta { display:inline-flex; justify-content:center; margin:8px 6px 0; gap:12px; }
+.portfolio #home .hero-content .hero-actions .btn { padding:9px 14px; font-size:13px; }
+.portfolio .fist-trigger { left:50%; top:50%; width:100vw; height:100svh; aspect-ratio:auto; transform:translate(-50%,-50%); }
+.name-webgl .fist-illustration { scale:1!important; animation:none!important; transform:none!important; }
+.name-webgl .fist-illustration>.fire-tongues,.name-webgl .fist-illustration>.fire-embers,.name-webgl .fist-illustration>.fire-aura { display:none; }
+.name-fallback .fist-illustration { inset:18% 25% 20%; }
+.name-fallback .fist-trigger { pointer-events:none; }
+.name-fallback .fist-illustration { pointer-events:auto; }
+.name-fallback .fist-label { bottom:19%; }
+.fallback-name { position:absolute; inset:0; perspective:900px; transform-style:preserve-3d; pointer-events:none; z-index:1; }
+.name-row { position:absolute; left:50%; translate:-50%; display:flex; width:87vw; justify-content:center; gap:1.1vw; perspective:900px; }
+.name-row-0 { top:7%; }.name-row-1 { bottom:23%; }
+.name-letter { position:relative; width:12vw; height:17vh; font:clamp(64px,16vh,160px)/1 Anton,Impact,sans-serif; transform-style:preserve-3d; pointer-events:auto; touch-action:none; color:#c21f1f!important; }
+.name-letter span { position:absolute; inset:0; text-align:center; color:#7a0f0f!important; -webkit-text-stroke:3px #0b0b0f; pointer-events:none; }
+.name-letter .name-face { position:relative; display:block; color:#f5f1e6!important; -webkit-text-stroke:2px #0b0b0f; text-shadow:0 2px #f7dda0; }
+.hero-pause { top:80px; bottom:auto; right:16px; }
+@media(max-width:760px) {
+  .name-fallback .fist-illustration { inset:24% 5% 28%; }
+  .name-row { gap:1vw; width:94vw; }
+  .name-letter { font-size:17vw; width:14vw; height:21vw; }
+  .name-row-0 { top:19%; }.name-row-1 { bottom:27%; }
+  .portfolio #home .hero-content { bottom:8px; padding:12px; }
+  .portfolio #home .hero-content .hero-subtitle { font-size:12px; }
+  .hero-pause { top:92px; right:10px; font-size:11px; }
+}
+
+.fallback-name .name-letter { font-size:clamp(70px,19vw,220px); }
+.name-row-0 { top:8%; }.name-row-1 { bottom:24%; }
+@media(max-width:760px) { .fallback-name .name-letter { font-size:23vw; }.name-row-0 { top:17%; }.name-row-1 { bottom:27%; } }
+
+.portfolio .fist-run #home.hero { height:calc(100svh - 68px); min-height:calc(100svh - 68px); }
+.portfolio .fist-trigger { height:100%; }
+.name-fallback .fist-illustration { inset:12% 12% 15%; }
+.hero-pause { top:16px; right:16px; bottom:auto; }
+.fire-reduced .fist-glow::after { display:none; }
+@media(max-width:760px) {
+  .portfolio .fist-run #home.hero { height:calc(100svh - 76px); min-height:calc(100svh - 76px); }
+  .name-fallback .fist-illustration { inset:22% 0 26%; }
+  .hero-pause { top:12px; right:12px; }
+  .portfolio #home .hero-content .hero-actions { margin:8px 0 0; }
+}
+
+.portfolio .contact-layout { grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr); align-items:start; gap:clamp(24px,4vw,56px); }
+.portfolio-chat { background:#fffdf7; color:#0b0b0f; border:3px solid #0b0b0f; box-shadow:6px 6px 0 #0b0b0f; min-width:0; }
+.chat-header { display:flex; justify-content:space-between; align-items:center; padding:20px 20px 16px; border-bottom:1px solid #0b0b0f25; }
+.chat-eyebrow,.chat-discovery>div:first-child,.chat-answer-label,.chat-question>span { font:400 10px/1.5 "JetBrains Mono",monospace!important; letter-spacing:.06em; color:#62626e!important; }
+.portfolio .chat-header h3 { font:650 24px/1.3 "Space Grotesk",Inter,sans-serif; margin-top:4px; color:#0b0b0f; }
+.chat-reset { padding:8px; border:1px solid #0b0b0f30; border-radius:4px; transition:background .2s; }
+.chat-reset:hover { background:#e8e1ee; }
+.chat-discovery { padding:16px 20px; background:#f5f1e6; border-bottom:1px solid #0b0b0f25; }
+.chat-discovery>div:first-child { display:flex; justify-content:space-between; align-items:center; }
+.chat-discovery strong { font-weight:500; color:#0b0b0f; }
+.chat-discovery progress { display:block; width:100%; height:5px; margin:10px 0 14px; accent-color:#7b2cbf; border:0; }
+.chat-discovery progress::-webkit-progress-bar { background:#ded9ce; }
+.chat-discovery progress::-webkit-progress-value { background:#7b2cbf; transition:width .25s; }
+.chat-topic-map { display:flex; gap:8px 12px; flex-wrap:wrap; }
+.chat-topic-map button { display:inline-flex; align-items:center; gap:5px; font:500 11px/1.5 Inter,sans-serif; padding:2px 0; }
+.chat-topic-map button>span { display:grid; place-items:center; width:22px; height:22px; border:1px solid #0b0b0f45; border-radius:50%; font:10px monospace; background:#fffdf7; }
+.chat-topic-map button>span.discovered { background:#0b0b0f; color:#f5f1e6!important; }
+.chat-log { height:380px; overflow-y:auto; overscroll-behavior:contain; padding:20px; scrollbar-width:thin; }
+.chat-welcome { padding:24px 0; }
+.chat-welcome>svg { color:#7b2cbf; margin-bottom:16px; }
+.portfolio .chat-welcome h4 { font:600 22px/1.35 "Space Grotesk",Inter,sans-serif; max-width:22ch; margin-bottom:12px; }
+.portfolio .chat-welcome p,.portfolio .chat-answer>p,.portfolio .chat-source p { font:400 16px/1.65 Inter,sans-serif; color:#3a3a42!important; }
+.chat-welcome>span { display:block; font-size:13px; line-height:1.6; color:#62626e; margin-top:16px; }
+.chat-turn+.chat-turn { margin-top:24px; border-top:1px solid #0b0b0f20; padding-top:20px; }
+.chat-question { margin:0 0 20px 12%; padding:12px 16px; background:#eae3f2; border-left:3px solid #7b2cbf; font:500 16px/1.5 Inter,sans-serif; overflow-wrap:anywhere; }
+.chat-question>span { display:block; margin-bottom:4px; }
+.chat-answer-label { display:block; margin-bottom:8px; }
+.chat-source { border:1px solid #0b0b0f30; margin-top:12px; background:#f5f1e6; }
+.chat-source summary { cursor:pointer; padding:12px; display:list-item; list-style-position:inside; font:600 14px/1.6 "Space Grotesk",Inter,sans-serif; }
+.chat-source summary>span { margin-right:8px; font:12px "JetBrains Mono",monospace; color:#62626e; }
+.chat-source>p { padding:0 12px 12px; overflow-wrap:anywhere; }
+.chat-source>a { display:inline-flex; align-items:center; gap:6px; margin:0 12px 12px; font-size:13px; color:#a3192c; text-decoration:underline; text-underline-offset:3px; }
+.chat-followups { display:flex; flex-wrap:wrap; gap:8px; padding:12px 20px; border-top:1px solid #0b0b0f20; }
+.chat-followups button { display:inline-flex; text-align:left; align-items:center; gap:6px; padding:7px 9px; border:1px solid #0b0b0f40; font:400 12px/1.5 Inter,sans-serif; background:#f5f1e6; transition:background .15s; }
+.chat-followups button:hover { background:#eae3f2; }
+.chat-compose { display:flex; align-items:center; margin:0 16px; border:2px solid #0b0b0f; background:#fff; }
+.chat-compose input { width:100%; min-width:0; padding:12px; background:transparent; font:400 16px/1.5 Inter,sans-serif; border:0; color:#0b0b0f; }
+.chat-compose button { padding:12px; background:#0b0b0f; color:#f5f1e6!important; align-self:stretch; }
+.chat-compose button:disabled { opacity:.4; cursor:default; }
+.portfolio .chat-grounding { font:400 11px/1.6 Inter,sans-serif; color:#62626e!important; padding:10px 16px 14px; margin:0; }
+@media(max-width:900px) { .portfolio .contact-layout { grid-template-columns:minmax(0,1fr); }.chat-log { height:350px; }.chat-topic-map { gap:8px; } }
+@media(prefers-reduced-motion:reduce) { .portfolio-chat * { transition:none!important; } }
+
+/* Comic type and readable spot-color ink follow the selected character palette. */
+.portfolio {
+  --comic-body:"Comic Neue",Inter,sans-serif;
+  --comic-display:Bangers,Anton,Impact,sans-serif;
+  --comic-text:#991c2c;
+  --comic-dark-text:#ffaaa0;
+  --chat-paper:#fff1a6;
+  --chat-card:#fff8cd;
+  --chat-line:#c21f1f;
+  --chat-ink:#8c1727;
+  --chat-active:#a5192d;
+  --chat-active-text:#fff5c0;
+}
+.portfolio.mode-garou {
+  --comic-text:#61258a;
+  --comic-dark-text:#d3bef1;
+  --chat-paper:#1d172b;
+  --chat-card:#2a203a;
+  --chat-line:#b388ff;
+  --chat-ink:#e0d9ed;
+  --chat-active:#b388ff;
+  --chat-active-text:#171020;
+}
+.portfolio :is(h1,h2,h3,h4,p,li,label,small,dt,dd,blockquote,a,button,input,textarea,select,summary,strong,span,em,b) {
+  font-family:var(--comic-body)!important;
+}
+.portfolio :is(h1,h2,h3,h4),.portfolio #main .section :is(h2,h3,h4),
+.portfolio .chat-header h3,.portfolio .chat-welcome h4 {
+  font-family:var(--comic-display)!important;
+  font-weight:400!important;
+  letter-spacing:.035em!important;
+}
+.portfolio .site-header :is(a,span,button,small),
+.portfolio footer :is(a,p,span),
+.portfolio #main .section :is(h1,h2,h3,h4,p,li,label,small,dt,dd,blockquote,a,button,input,textarea,select,summary,strong,span,em,b) {
+  color:var(--comic-text)!important;
+}
+.portfolio #main #home :is(h1,h2,h3,h4,p,li,label,small,dt,dd,a,button,strong,span),
+.portfolio #main #skills :is(h1,h2,h3,h4,p,li,label,small,a,button,strong,span),
+.portfolio #main .clash-banner :is(span,button),
+.portfolio #main .hunter-quote :is(p,strong,span) {
+  color:var(--comic-dark-text)!important;
+}
+.portfolio #main .section :is(p,li) { font-size:17px; line-height:1.65; font-weight:700; }
+.portfolio #main .section .chat-grounding { font-size:12px; line-height:1.6; }
+.portfolio #main .section .chat-source p { font-size:16px; }
+.portfolio .fallback-name .name-letter { font-family:var(--comic-display)!important; }
+.portfolio #main #contact .portfolio-chat {
+  background:var(--chat-paper)!important;
+  color:var(--chat-ink)!important;
+  border:3px solid var(--chat-line)!important;
+  box-shadow:6px 6px 0 var(--chat-line);
+}
+.portfolio #main #contact .portfolio-chat :is(p,li,label,small,a,button,input,textarea,summary,strong,span,h3,h4) {
+  color:var(--chat-ink)!important;
+}
+.portfolio .portfolio-chat :is(.chat-header,.chat-discovery,.chat-followups) { border-color:var(--chat-line)!important; }
+.portfolio .portfolio-chat .chat-discovery { background:var(--chat-paper); }
+.portfolio .portfolio-chat :is(.chat-source,.chat-followups button,.chat-reset,.chat-compose) {
+  background:var(--chat-card)!important;
+  border-color:var(--chat-line)!important;
+}
+.portfolio .portfolio-chat .chat-question {
+  background:var(--chat-card);
+  border-left:4px solid var(--chat-line);
+}
+.portfolio .portfolio-chat .chat-turn+.chat-turn { border-color:var(--chat-line); }
+.portfolio .portfolio-chat .chat-topic-map button>span { background:var(--chat-card); border-color:var(--chat-line); }
+.portfolio #main #contact .portfolio-chat .chat-topic-map button>span.discovered,
+.portfolio #main #contact .portfolio-chat .chat-compose button {
+  background:var(--chat-active)!important;
+  color:var(--chat-active-text)!important;
+}
+.portfolio .portfolio-chat progress { accent-color:var(--chat-active); }
+.portfolio .portfolio-chat progress::-webkit-progress-bar { background:var(--chat-card); }
+.portfolio .portfolio-chat progress::-webkit-progress-value { background:var(--chat-active); }
+.portfolio .portfolio-chat :is(.chat-followups button,.chat-reset):hover { outline:2px solid var(--chat-line); outline-offset:1px; }
+.portfolio .portfolio-chat input::placeholder { color:var(--chat-ink); opacity:.8; }
+.portfolio.mode-garou #main #contact .portfolio-chat .chat-welcome>svg { color:#b388ff; }
+.portfolio .btn.primary { background:#fff1a6!important; border-color:#c21f1f!important; }
+.portfolio.mode-garou .btn.primary { background:#e2d6f2!important; border-color:#7b2cbf!important; }
+.portfolio .explorer-detail { --comic-text:#991c2c; }
+.portfolio.mode-garou .explorer-detail { --comic-text:#61258a; }
+@media(max-width:760px) { .portfolio #main .section :is(p,li) { font-size:16px; } }
+
+.portfolio .fallback-name .name-letter span { font-family:var(--comic-display)!important; }
+.portfolio #main :is(.quick-stats,.power-stats) :is(strong,span,p,button) { color:var(--comic-text)!important; }
+.portfolio #main .section :is(.explorer-filters,.explorer-chips) button[aria-pressed=true] { background:#fff1a6; color:#991c2c!important; border:2px solid #c21f1f; }
+.portfolio.mode-garou #main .section :is(.explorer-filters,.explorer-chips) button[aria-pressed=true] { background:#e2d6f2; color:#61258a!important; border-color:#7b2cbf; }
+
+.portfolio #main #home .hero-actions .btn { color:var(--comic-text)!important; }
+.portfolio #main #contact .chat-compose button svg { color:inherit; }
+
+/* Hero-only ShaderGradient. Both palettes and the static fallback share these tokens. */
+.portfolio {
+  --hero-gradient-color-1:#FAF7F2;
+  --hero-gradient-color-2:#F5C400;
+  --hero-gradient-color-3:#C52828;
+}
+.portfolio.mode-garou {
+  --hero-gradient-color-1:#0F0D17;
+  --hero-gradient-color-2:#5B21B6;
+  --hero-gradient-color-3:#C4B5FD;
+}
+.portfolio .fist-run #home.hero { background:transparent; isolation:isolate; }
+.hero-gradient-background {
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+  pointer-events:none!important;
+  contain:paint;
+}
+.hero-gradient-background :where(canvas,div) { pointer-events:none!important; }
+.hero-gradient-paper,.hero-gradient-garou,.hero-gradient-grain { position:absolute; inset:0; }
+.hero-gradient-paper {
+  background:radial-gradient(ellipse at 20% 25%,#FAF7F2 0%,transparent 70%),
+    radial-gradient(ellipse at 85% 75%,#C52828 0%,transparent 68%),#F5C400;
+}
+.hero-gradient-garou {
+  background:radial-gradient(ellipse at 20% 25%,#0F0D17 0%,transparent 70%),
+    radial-gradient(ellipse at 85% 75%,#C4B5FD 0%,transparent 68%),#5B21B6;
+  opacity:0;
+  transition:opacity 800ms ease;
+}
+.mode-garou .hero-gradient-garou { opacity:1; }
+.hero-gradient-canvas { opacity:.74; }
+.hero-gradient-grain {
+  background:radial-gradient(#0b0b0f35 .6px,transparent 1px) 0 0/4px 4px;
+  opacity:.22;
+}
+.portfolio #home .hero-content {
+  background:linear-gradient(transparent,#141414f2 22%);
+}
+.portfolio #home .hero-coordinate {
+  color:#f5f1e6;
+  background:#141414d9;
+  padding:6px 8px;
+}
+@media(prefers-reduced-motion:reduce) {
+  .hero-gradient-garou { transition:none; }
+}
+
+.hero-gradient-background { opacity:.86; }
+

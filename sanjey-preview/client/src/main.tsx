@@ -1,0 +1,20 @@
+import "@fontsource/comic-neue/400.css";
+import "@fontsource/comic-neue/700.css";
+import "@fontsource/bangers";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/space-grotesk/600.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/anton";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import App from "./App";
+import "./index.css";
+import "./manga-theme.css";
+const root = document.getElementById("root")!;
+if (root.hasChildNodes()) hydrateRoot(root, <App />);
+else createRoot(root).render(<App />);
+
