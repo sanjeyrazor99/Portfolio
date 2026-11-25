@@ -119,7 +119,7 @@ function JourneyScene({ theme }: { theme: ComicTheme }) {
       }
       setPortrait(new Float32Array(points));
     };
-    image.src = import.meta.env.BASE_URL + "sanjey-portrait-cutout.png";
+    image.src = (import.meta.env?.BASE_URL ?? "/") + "sanjey-portrait-cutout.png";
     return () => { image.onload = null; };
   }, []);
 

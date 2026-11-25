@@ -1,11 +1,10 @@
 # Current portfolio projects
 
-The current portfolio lives in **sanjey-preview/** (React 19, Vite 7, TypeScript, pnpm). See its README for build and architecture notes.
+The current portfolio lives at the repository root (React 19, Vite 7, TypeScript, pnpm). Its frontend source is in `client/`. See the README for build and architecture notes.
 
 ```powershell
-cd sanjey-preview
 corepack pnpm install --frozen-lockfile
-node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 4199 --strictPort
+corepack pnpm dev:static
 ```
 
 Validation: `npm run check`, `npm run build`, `npm test`.

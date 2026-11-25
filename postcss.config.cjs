@@ -1,9 +1,3 @@
-let plugins = {};
-try {
-  require.resolve("tailwindcss");
-  require.resolve("autoprefixer");
-  plugins = {tailwindcss: {}, autoprefixer: {}};
-} catch (error) {
-  if (error.code !== "MODULE_NOT_FOUND") throw error;
-}
-module.exports = {plugins};
+// Tailwind 4 is handled by @tailwindcss/vite. Do not inherit the legacy
+// scaffold's Tailwind 3 PostCSS configuration from the parent directory.
+module.exports = { plugins: {} };

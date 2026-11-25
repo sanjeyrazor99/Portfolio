@@ -194,7 +194,7 @@ export default function Home() {
               <Suspense fallback={null}><HeroFloatingForm /></Suspense>
               <div className="studio-portrait">
                 <img
-                  src={`${import.meta.env.BASE_URL}sanjey-portrait-extended.png`}
+                  src={`${(import.meta.env?.BASE_URL ?? "/")}sanjey-portrait-extended.png`}
                   width={1122}
                   height={1402}
                   alt="Portrait of Sanjey Manian"
@@ -203,7 +203,7 @@ export default function Home() {
                 <img
                   className="studio-portrait-shoulders"
                   aria-hidden="true"
-                  src={`${import.meta.env.BASE_URL}sanjey-portrait-extended.png`}
+                  src={`${(import.meta.env?.BASE_URL ?? "/")}sanjey-portrait-extended.png`}
                   width={1122}
                   height={1402}
                   alt=""
