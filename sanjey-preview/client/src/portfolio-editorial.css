@@ -1,0 +1,228 @@
+/* Portfolio copy reads as a printed column beside the interactive splash. */
+.portfolio {
+  --editorial-paper: #fff7e8;
+  --editorial-panel: #fff8ec;
+  --editorial-ink: #2c1d24;
+  --editorial-muted: #5f444a;
+  --editorial-accent: #8c2b3a;
+  --editorial-line: #5f273835;
+}
+.portfolio.mode-garou {
+  --editorial-paper: #21182d;
+  --editorial-panel: #21182d;
+  --editorial-ink: #f4eaff;
+  --editorial-muted: #d4c4e5;
+  --editorial-accent: #d6beff;
+  --editorial-line: #d6beff38;
+}
+
+.portfolio .fist-run #home.hero {
+  max-width: 1600px;
+  margin-inline: auto;
+}
+.portfolio #main .fist-run #home .hero-content {
+  left: clamp(20px, 4vw, 72px);
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  width: min(32%, 420px);
+  transform: translateY(-50%);
+  padding: clamp(20px, 2.5vw, 36px);
+  border: 1px solid var(--editorial-line);
+  border-left: 4px solid var(--editorial-accent);
+  border-radius: 4px 16px 16px 4px;
+  background: var(--editorial-paper) !important;
+  text-align: left;
+  pointer-events: auto;
+  z-index: 3;
+}
+.portfolio #main #home .hero-intro-kicker {
+  margin: 0 0 16px;
+  font: 500 12px/1.5 Inter, sans-serif !important;
+  color: var(--editorial-accent) !important;
+}
+.portfolio #main #home .hero-intro-title {
+  margin: 0 0 12px;
+  font: 400 clamp(36px, 4vw, 68px)/1 Bangers, sans-serif !important;
+  color: var(--editorial-ink) !important;
+}
+.portfolio #main #home .hero-intro-copy {
+  max-width: 32ch;
+  margin: 0 0 24px;
+  font: 400 15px/1.65 Inter, sans-serif !important;
+  color: var(--editorial-muted) !important;
+}
+.portfolio #main #home .hero-content .hero-actions { justify-content: flex-start; }
+
+.portfolio #main > .section:not(#skills):not(#experience) {
+  border-color: var(--editorial-line) !important;
+}
+.portfolio #main > .section .section-index { display: none; }
+.portfolio #main #about .about-copy h2 span { color: var(--editorial-accent) !important; }
+.portfolio #main #projects .section-heading h2,
+.portfolio #main #experience .section-heading h2 { text-shadow: none; }
+.portfolio #main .section .manga-glyph-strip { opacity: .35; }
+
+@media (min-width: 961px) {
+  .portfolio #home .fist-stage {
+    left: 67%;
+    width: min(65%, 1120px);
+    top: 0;
+    bottom: 32px;
+  }
+  .portfolio #home .name-letter { font-size: clamp(60px, 8vw, 132px); }
+  .portfolio .background-world[data-chapter="home"] .world-planet {
+    left: 67%;
+    width: min(65vw, 90svh, 1000px);
+  }
+}
+@media (max-width: 960px) {
+  .portfolio .fist-run #home.hero {
+    display: grid;
+    height: auto;
+    min-height: 0;
+    grid-template-rows: auto minmax(350px, 56svh);
+    padding: 16px 0 24px;
+  }
+  .portfolio #main .fist-run #home .hero-content {
+    position: relative;
+    inset: auto;
+    transform: none;
+    width: min(calc(100% - 32px), 560px);
+    max-width: none;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .portfolio #home .fist-stage {
+    position: relative;
+    inset: auto;
+    width: min(100%, 760px);
+    height: 100%;
+    margin: 0 auto;
+    transform: none;
+  }
+  .portfolio #home .name-letter { font-size: clamp(42px, 11vw, 104px); }
+  .portfolio .background-world[data-chapter="home"] .world-planet {
+    top: 66%;
+    width: min(108vw, 70svh);
+  }
+}
+
+/* Cover: black ink and an accent rule, with the 3D scene carrying the color. */
+.portfolio {
+  --cover-ink: #fff1df;
+  --cover-muted: #e5c9bd;
+  --cover-accent: #ffae71;
+  --cover-night: #180e18;
+  --editorial-panel: #fff7ea;
+}
+.portfolio.mode-garou {
+  --cover-muted: #ddd1f1;
+  --cover-accent: #cfb8ff;
+  --cover-night: #100c1d;
+  --editorial-panel: #21192c;
+}
+.portfolio .background-world[data-chapter="home"] .world-vignette {
+  background: linear-gradient(90deg, var(--cover-night) 0%, color-mix(in srgb, var(--cover-night) 88%, transparent) 29%, transparent 72%),
+    linear-gradient(0deg, var(--cover-night), transparent 38%);
+  opacity: 1;
+}
+.portfolio #main .fist-run #home .hero-content {
+  background: transparent !important;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+.portfolio #main #home .hero-intro-kicker {
+  color: var(--cover-accent) !important;
+  font-family: "JetBrains Mono", monospace !important;
+}
+.portfolio #main #home .hero-intro-title {
+  color: var(--cover-ink) !important;
+  font-size: clamp(48px, 5.5vw, 86px) !important;
+  max-width: 10ch;
+}
+.portfolio #main #home .hero-intro-copy { color: var(--cover-muted) !important; }
+.portfolio #main #home .hero-intro-title::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin: 20px 0;
+  background: var(--cover-accent);
+  transform: skewX(-22deg);
+}
+.portfolio #main #home .hero-content .hero-actions .btn {
+  border-radius: 7px !important;
+}
+.portfolio:is(.mode-saitama, .mode-garou) #main .fist-run #home .hero-content .hero-actions .btn.primary {
+  background: var(--cover-accent) !important;
+  border-color: var(--cover-accent) !important;
+  color: var(--cover-night) !important;
+}
+.portfolio:is(.mode-saitama, .mode-garou) #main .fist-run #home .hero-content .hero-actions .btn.secondary {
+  background: var(--cover-night) !important;
+  border-color: var(--cover-muted) !important;
+  color: var(--cover-ink) !important;
+}
+
+/* Interior: flatter spreads, readable margins, and one illustrated focal area per entry. */
+.portfolio #main > .section,
+.portfolio #main > #experience.section,
+.portfolio #main > #skills.section {
+  width: min(1200px, calc(100% - 48px));
+  border: 1px solid var(--editorial-line) !important;
+  border-radius: 12px !important;
+  background: var(--editorial-panel) !important;
+  box-shadow: none !important;
+  margin: 48px auto !important;
+}
+.portfolio #main > .section .manga-glyph-strip { display: none; }
+.portfolio #main .section .section-heading {
+  border: 0 !important;
+  border-bottom: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0 0 20px !important;
+  box-shadow: none !important;
+}
+.portfolio #main .section .section-heading h2 {
+  color: var(--editorial-ink) !important;
+}
+.portfolio #main #projects .project-front,
+.portfolio #main #projects .project-back {
+  background: var(--editorial-panel) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+.portfolio #main #projects .project-title-row {
+  border-left: 0;
+  padding-left: 0;
+}
+.portfolio #main #projects .project-card:not(:first-child) .project-front { min-height: 450px; }
+.portfolio #main #projects .project-card:not(:first-child) .project-art { height: 188px; min-height: 188px; }
+.portfolio #main .creative-section--text { grid-template-columns: 1fr; }
+.portfolio #main #contact .contact-layout { margin-top: 0; }
+.portfolio #main #contact .contact-info,
+.portfolio #main #contact .portfolio-chat { border-radius: 12px !important; }
+
+@media (max-width: 960px) {
+  .portfolio .background-world[data-chapter="home"] .world-vignette {
+    background: linear-gradient(180deg, var(--cover-night) 0%, color-mix(in srgb, var(--cover-night) 92%, transparent) 32%, transparent 75%);
+  }
+  .portfolio #main .fist-run #home .hero-content {
+    background: var(--cover-night) !important;
+    padding: 20px;
+    border-left: 2px solid var(--cover-accent);
+  }
+  .portfolio #main #home .hero-intro-title { max-width: 13ch; }
+}
+@media (max-width: 760px) {
+  .portfolio #main > .section,
+  .portfolio #main > #experience.section,
+  .portfolio #main > #skills.section {
+    width: calc(100% - 28px);
+    margin: 24px auto !important;
+  }
+  .portfolio #main #projects .project-card:not(:first-child) .project-front { min-height: 0; }
+}

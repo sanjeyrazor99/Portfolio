@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { experiences } from "@/data/portfolio";
+import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 
 const filters = [
   "All",
@@ -75,7 +76,7 @@ export default function ExperienceExplorer({ frozen }: { frozen: boolean }) {
       <motion.div
         key={current}
         id={(mobile ? "mobile-role-panel-" : "role-panel-") + current}
-        role="tabpanel"
+        role={mobile ? "region" : "tabpanel"}
         aria-labelledby={(mobile ? "mobile-role-tab-" : "role-tab-") + current}
         className="explorer-detail"
         initial={frozen ? false : { opacity: 0, y: 8 }}
@@ -137,7 +138,7 @@ export default function ExperienceExplorer({ frozen }: { frozen: boolean }) {
             disabled={visible.indexOf(current) === 0}
             onClick={() => select(visible[visible.indexOf(current) - 1])}
           >
-            ← Previous
+            <ArrowLeft size={16} strokeWidth={1.5} /> Previous
           </button>
           <span>
             Role {visible.indexOf(current) + 1} of {visible.length}
@@ -146,7 +147,7 @@ export default function ExperienceExplorer({ frozen }: { frozen: boolean }) {
             disabled={visible.indexOf(current) === visible.length - 1}
             onClick={() => select(visible[visible.indexOf(current) + 1])}
           >
-            Next →
+            Next <ArrowRight size={16} strokeWidth={1.5} />
           </button>
         </div>
       </motion.div>
@@ -177,8 +178,12 @@ export default function ExperienceExplorer({ frozen }: { frozen: boolean }) {
           ))}
           <span>{visible.length} of 8 roles</span>
         </div>
-        {!manual && <p className="explorer-meta">Scroll or click to explore</p>}
-        <div className="explorer-timeline">
+        <details className="explorer-timeline">
+          <summary>
+            <span>Career timeline</span>
+            <span className="explorer-timeline-range">2020–2026 <ChevronDown size={16} strokeWidth={1.5} /></span>
+          </summary>
+          <div className="explorer-timeline-content">
           <div className="explorer-years">
             {[2020, 2021, 2022, 2023, 2024, 2025, 2026].map(y => (
               <span key={y}>{y}</span>
@@ -234,7 +239,8 @@ export default function ExperienceExplorer({ frozen }: { frozen: boolean }) {
               }}
             />
           </label>
-        </div>
+          </div>
+        </details>
         <div className="explorer-layout">
           <div
             className="explorer-rail"
@@ -288,7 +294,7 @@ export default function ExperienceExplorer({ frozen }: { frozen: boolean }) {
                 aria-expanded={current === i}
                 onClick={() => select(i)}
               >
-                {experiences[i].org}
+                {experiences[i].org}{" "}
                 <strong>{experiences[i].role}</strong>
               </button>
               {current === i && detail(true)}

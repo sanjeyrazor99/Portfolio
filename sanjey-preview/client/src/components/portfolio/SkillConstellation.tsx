@@ -72,6 +72,7 @@ export default function SkillConstellation({
   motionFrozen = false,
 }: SkillConstellationProps) {
   const instanceId = useId();
+  const [mobileMap, setMobileMap] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
   const [dismissed, setDismissed] = useState<string | null>(null);
@@ -203,248 +204,247 @@ export default function SkillConstellation({
     <div
       className={`constellation${lite ? " constellation--lite" : ""}${motionFrozen ? " constellation--frozen" : ""}`}
     >
-      <style>{`
-      .constellation .skill-node { transform: translate(-50%, -50%) scale(var(--node-scale, 1)); transition: transform 180ms ease, box-shadow 180ms ease; touch-action: none; }
-      .constellation:not(.constellation--lite):not(.constellation--frozen) .skill-node { animation: constellation-bob 5s ease-in-out infinite alternate; }
-      .constellation .skill-node:hover, .constellation .skill-node:focus-visible, .constellation .skill-node[data-active="true"] { transform: translate(-50%, -50%) scale(calc(var(--node-scale, 1) * 1.22)); }
-      .constellation .skill-node:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
-      .constellation-controls { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.5rem 0; }
-      .constellation-pow { position:absolute; z-index:8; pointer-events:none; font-weight:900; color:#ffdc59; text-shadow:0 1px 4px #222; transform:rotate(-12deg); }
-      @keyframes constellation-bob { from { margin-top:-2px; } to { margin-top:2px; } }
-      @media (prefers-reduced-motion: reduce) { .constellation .constellation-stage { display:none; } .constellation .skill-node { transition:none; animation:none !important; } }
-    `}</style>
-      {!lite && (
-        <>
-          <p className="constellation-hint" id={`${instanceId}-instructions`}>
-            Drag nodes to rearrange them. Select a skill for details. Choose Push or Pull
-            to nudge nearby nodes. All skills are listed below.
-          </p>
-          <div
-            className="constellation-controls"
-            role="group"
-            aria-label="Constellation controls"
+      {!lite && !motionFrozen && (
+        <div className={`constellation-playground${mobileMap ? " map-open" : ""}`}>
+          <button
+            type="button"
+            className="constellation-mobile-toggle"
+            aria-expanded={mobileMap}
+            aria-controls={`${instanceId}-map`}
+            onClick={() => setMobileMap(open => !open)}
           >
-            <span>Nearby-node force:</span>
-            {(["push", "pull"] as const).map(mode => (
-              <button
-                key={mode}
-                type="button"
-                aria-pressed={pushPull === mode}
-                onClick={() => setPushPull(mode)}
-              >
-                {mode === "push" ? "Push" : "Pull"}
-              </button>
-            ))}
-            <button type="button" onClick={punchAll} disabled={motionFrozen}>
-              PUNCH ALL ORBS
-            </button>
-          </div>
-          <div
-            ref={stageRef}
-            className="constellation-stage"
-            role="group"
-            aria-label="Interactive skill constellation"
-            aria-describedby={`${instanceId}-instructions`}
-            onPointerMove={onPointerMove}
-            onPointerUp={event => {
-              if (dragStart.current) {
-                event.currentTarget.releasePointerCapture(event.pointerId);
-                dragStart.current = null;
-              }
-            }}
-            onPointerCancel={() => {
-              dragStart.current = null;
-            }}
-            style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: `${WIDTH} / ${HEIGHT}`,
-              minHeight: 300,
-              isolation: "isolate",
-              perspective: `${CAMERA}px`,
-            }}
-          >
+            {mobileMap ? "Hide skill map" : "Explore skill map"}
+          </button>
+          <div className="constellation-map" id={`${instanceId}-map`}>
+            <p className="constellation-hint" id={`${instanceId}-instructions`}>
+              Tap or select a skill to inspect it. Drag to rearrange the map.
+            </p>
             <div
-              className="constellation-orbit"
-              aria-hidden="true"
-              style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+              className="constellation-controls"
+              role="group"
+              aria-label="Constellation controls"
             >
-              <svg
-                width="100%"
-                height="100%"
-                viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-                preserveAspectRatio="none"
+              <span>Pointer force:</span>
+              {(["push", "pull"] as const).map(mode => (
+                <button
+                  key={mode}
+                  type="button"
+                  aria-pressed={pushPull === mode}
+                  onClick={() => setPushPull(mode)}
+                >
+                  {mode === "push" ? "Push" : "Pull"}
+                </button>
+              ))}
+              <button type="button" onClick={punchAll}>
+                Punch all orbs
+              </button>
+            </div>
+            <div
+              ref={stageRef}
+              className="constellation-stage"
+              role="group"
+              aria-label="Interactive skill constellation"
+              aria-describedby={`${instanceId}-instructions`}
+              onPointerMove={onPointerMove}
+              onPointerUp={event => {
+                if (dragStart.current) {
+                  event.currentTarget.releasePointerCapture(event.pointerId);
+                  dragStart.current = null;
+                }
+              }}
+              onPointerCancel={() => {
+                dragStart.current = null;
+              }}
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: `${WIDTH} / ${HEIGHT}`,
+                minHeight: 300,
+                isolation: "isolate",
+                perspective: `${CAMERA}px`,
+              }}
+            >
+              <div
+                className="constellation-orbit"
                 aria-hidden="true"
-                focusable="false"
-                style={{ position: "absolute", inset: 0, overflow: "visible" }}
+                style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
               >
-                {skillGroups.map((group, index) => (
-                  <ellipse
-                    key={group.id}
-                    cx={WIDTH / 2 + (index - 1) * 290}
-                    cy={HEIGHT / 2}
-                    rx={155}
-                    ry={188}
-                    fill="none"
-                    stroke={group.color}
-                    strokeWidth={0.7}
-                    strokeDasharray="3 9"
-                    opacity={0.23}
-                    vectorEffect="non-scaling-stroke"
-                  />
-                ))}
-                {edges.map(({ id, from, to }) => {
-                  const a = locate(from.id);
-                  const b = locate(to.id);
-                  const connected =
-                    activeNode?.id === from.id || activeNode?.id === to.id;
-                  return (
-                    <line
-                      key={id}
-                      x1={a.x}
-                      y1={a.y}
-                      x2={b.x}
-                      y2={b.y}
-                      stroke={from.color}
-                      strokeWidth={connected ? 1.4 : 0.7}
-                      opacity={connected ? 0.8 : 0.2}
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                  focusable="false"
+                  style={{ position: "absolute", inset: 0, overflow: "visible" }}
+                >
+                  {skillGroups.map((group, index) => (
+                    <ellipse
+                      key={group.id}
+                      cx={WIDTH / 2 + (index - 1) * 290}
+                      cy={HEIGHT / 2}
+                      rx={155}
+                      ry={188}
+                      fill="none"
+                      stroke={group.color}
+                      strokeWidth={0.7}
+                      strokeDasharray="3 9"
+                      opacity={0.23}
                       vectorEffect="non-scaling-stroke"
                     />
-                  );
-                })}
-              </svg>
-            </div>
-            {nodes.map(node => {
-              const p = locate(node.id);
-              const isActive = activeNode?.id === node.id;
-              const style: ConstellationStyle = {
-                "--skill-color": node.color,
-                "--node-scale": node.scale,
-                "--node-depth": `${node.z}px`,
-                position: "absolute",
-                left: `${(p.x / WIDTH) * 100}%`,
-                top: `${(p.y / HEIGHT) * 100}%`,
-                zIndex: isActive ? 4 : node.z > 0 ? 2 : 1,
-                minWidth: 28,
-                minHeight: 28,
-                cursor: "grab",
-              };
-              return (
-                <React.Fragment key={node.id}>
-                  <button
-                    ref={el => {
-                      nodeRefs.current[node.id] = el;
-                    }}
-                    type="button"
-                    className={`skill-node skill-node--${node.group}`}
-                    style={style}
-                    data-active={isActive}
-                    aria-label={`${node.skill} — ${node.category}. Drag to rearrange; activate for details.`}
-                    aria-describedby={isActive ? tooltipId : undefined}
-                    onPointerDown={event => {
-                      if (motionFrozen || event.button !== 0) return;
-                      event.currentTarget.setPointerCapture(event.pointerId);
-                      dragStart.current = {
-                        id: node.id,
-                        x: p.x,
-                        y: p.y,
-                        px: event.clientX,
-                        py: event.clientY,
-                      };
-                    }}
-                    onPointerUp={event => {
-                      if (dragStart.current?.id === node.id) {
-                        event.currentTarget.releasePointerCapture(
-                          event.pointerId
+                  ))}
+                  {edges.map(({ id, from, to }) => {
+                    const a = locate(from.id);
+                    const b = locate(to.id);
+                    const connected =
+                      activeNode?.id === from.id || activeNode?.id === to.id;
+                    return (
+                      <line
+                        key={id}
+                        x1={a.x}
+                        y1={a.y}
+                        x2={b.x}
+                        y2={b.y}
+                        stroke={from.color}
+                        strokeWidth={connected ? 1.4 : 0.7}
+                        opacity={connected ? 0.8 : 0.2}
+                        vectorEffect="non-scaling-stroke"
+                      />
+                    );
+                  })}
+                </svg>
+              </div>
+              {nodes.map(node => {
+                const p = locate(node.id);
+                const isActive = activeNode?.id === node.id;
+                const style: ConstellationStyle = {
+                  "--skill-color": node.color,
+                  "--node-scale": node.scale,
+                  "--node-depth": `${node.z}px`,
+                  position: "absolute",
+                  left: `${(p.x / WIDTH) * 100}%`,
+                  top: `${(p.y / HEIGHT) * 100}%`,
+                  zIndex: isActive ? 4 : node.z > 0 ? 2 : 1,
+                  minWidth: 28,
+                  minHeight: 28,
+                  cursor: "grab",
+                };
+                return (
+                  <React.Fragment key={node.id}>
+                    <button
+                      ref={el => {
+                        nodeRefs.current[node.id] = el;
+                      }}
+                      type="button"
+                      className={`skill-node skill-node--${node.group}`}
+                      style={style}
+                      data-active={isActive}
+                      aria-label={`${node.skill} — ${node.category}. Drag to rearrange; activate for details.`}
+                      aria-describedby={isActive ? tooltipId : undefined}
+                      onPointerDown={event => {
+                        if (motionFrozen || event.button !== 0) return;
+                        event.currentTarget.setPointerCapture(event.pointerId);
+                        dragStart.current = {
+                          id: node.id,
+                          x: p.x,
+                          y: p.y,
+                          px: event.clientX,
+                          py: event.clientY,
+                        };
+                      }}
+                      onPointerUp={event => {
+                        if (dragStart.current?.id === node.id) {
+                          event.currentTarget.releasePointerCapture(
+                            event.pointerId
+                          );
+                          dragStart.current = null;
+                        }
+                      }}
+                      onMouseEnter={() => {
+                        setHovered(node.id);
+                        setDismissed(null);
+                      }}
+                      onMouseLeave={() => setHovered(null)}
+                      onFocus={() => {
+                        setFocused(node.id);
+                        setDismissed(null);
+                      }}
+                      onBlur={() => setFocused(null)}
+                      onClick={() => {
+                        setFocused(node.id);
+                        setDismissed(null);
+                        if (
+                          motionFrozen ||
+                          window.matchMedia?.("(prefers-reduced-motion: reduce)")
+                            .matches
+                        )
+                          return;
+                        shockwaveFrom(node);
+                        setPow(node.id);
+                        window.setTimeout(
+                          () =>
+                            setPow(current =>
+                              current === node.id ? null : current
+                            ),
+                          700
                         );
-                        dragStart.current = null;
-                      }
-                    }}
-                    onMouseEnter={() => {
-                      setHovered(node.id);
-                      setDismissed(null);
-                    }}
-                    onMouseLeave={() => setHovered(null)}
-                    onFocus={() => {
-                      setFocused(node.id);
-                      setDismissed(null);
-                    }}
-                    onBlur={() => setFocused(null)}
-                    onClick={() => {
-                      setFocused(node.id);
-                      setDismissed(null);
-                      if (
-                        motionFrozen ||
-                        window.matchMedia?.("(prefers-reduced-motion: reduce)")
-                          .matches
-                      )
-                        return;
-                      shockwaveFrom(node);
-                      setPow(node.id);
-                      window.setTimeout(
-                        () =>
-                          setPow(current =>
-                            current === node.id ? null : current
-                          ),
-                        700
-                      );
-                    }}
-                    onKeyDown={event => {
-                      if (event.key === "Escape") setDismissed(node.id);
-                    }}
-                  >
-                    <span className="skill-node-core" aria-hidden="true" />
-                    <span className="skill-node-label" aria-hidden="true">
-                      {node.skill}
-                    </span>
-                  </button>
-                  {pow === node.id && (
-                    <span
-                      className="constellation-pow"
-                      aria-hidden="true"
-                      style={{
-                        left: `${(p.x / WIDTH) * 100}%`,
-                        top: `${(p.y / HEIGHT) * 100}%`,
+                      }}
+                      onKeyDown={event => {
+                        if (event.key === "Escape") setDismissed(node.id);
                       }}
                     >
-                      POW!
-                    </span>
-                  )}
-                </React.Fragment>
-              );
-            })}
-            {activeNode && (
-              <div
-                className="skill-tooltip"
-                role="tooltip"
-                id={tooltipId}
-                style={
-                  {
-                    "--skill-color": activeNode.color,
-                    position: "absolute",
-                    left: "50%",
-                    bottom: 8,
-                    transform: "translateX(-50%)",
-                    width: "max-content",
-                    maxWidth: "calc(100% - 24px)",
-                    zIndex: 5,
-                    pointerEvents: "none",
-                  } as ConstellationStyle
-                }
-              >
-                <strong>{activeNode.skill}</strong>
-                <span style={{ display: "block" }}>{activeNode.category}</span>
-              </div>
-            )}
+                      <span className="skill-node-core" aria-hidden="true" />
+                      <span className="skill-node-label" aria-hidden="true">
+                        {node.skill}
+                      </span>
+                    </button>
+                    {pow === node.id && (
+                      <span
+                        className="constellation-pow"
+                        aria-hidden="true"
+                        style={{
+                          left: `${(p.x / WIDTH) * 100}%`,
+                          top: `${(p.y / HEIGHT) * 100}%`,
+                        }}
+                      >
+                        POW!
+                      </span>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+              {activeNode && (
+                <div
+                  className="skill-tooltip"
+                  role="tooltip"
+                  id={tooltipId}
+                  style={
+                    {
+                      "--skill-color": activeNode.color,
+                      position: "absolute",
+                      left: "50%",
+                      bottom: 8,
+                      transform: "translateX(-50%)",
+                      width: "max-content",
+                      maxWidth: "calc(100% - 24px)",
+                      zIndex: 5,
+                      pointerEvents: "none",
+                    } as ConstellationStyle
+                  }
+                >
+                  <strong>{activeNode.skill}</strong>
+                  <span style={{ display: "block" }}>{activeNode.category}</span>
+                </div>
+              )}
+            </div>
           </div>
-        </>
+        </div>
       )}
       <div className="skill-lists">
         {skillGroups.map(group => (
           <section
             key={group.id}
             className={`skill-group skill-group--${group.id}`}
-            data-manga-panel
             aria-labelledby={`${instanceId}-${group.id}-title`}
             style={{ "--skill-color": group.color } as ConstellationStyle}
           >
@@ -452,7 +452,9 @@ export default function SkillConstellation({
             <p className="skill-group-subtitle">{group.subtitle}</p>
             <ul className="skill-list">
               {group.skills.map(skill => (
-                <li key={skill}>{skill}</li>
+                <li key={skill} data-active={activeNode?.skill === skill}>
+                  {skill}
+                </li>
               ))}
             </ul>
           </section>

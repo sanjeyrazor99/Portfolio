@@ -1,0 +1,537 @@
+/* Tune these two values together: 10px frost, 12px edge displacement. */
+.portfolio {
+  --glass-blur: 10;
+  --glass-refraction: 12;
+  --glass-paper: rgba(250, 247, 242, 0.88);
+  --glass-ink: #851b26;
+  --glass-border: #9e1b1b;
+}
+.portfolio.mode-garou {
+  --glass-paper: rgba(15, 13, 23, 0.89);
+  --glass-ink: #ede7ff;
+  --glass-border: #c4b5fd;
+}
+.portfolio header.site-header,
+.portfolio :is(.site-header, .project-front, .project-back, .explorer-detail) {
+  background: var(--glass-paper) !important;
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 1px));
+  backdrop-filter: blur(calc(var(--glass-blur) * 1px));
+  color: var(--glass-ink) !important;
+  border-color: var(--glass-border) !important;
+  isolation: isolate;
+}
+.portfolio #main :is(#projects, #experience) {
+  --comic-text: var(--glass-ink);
+}
+.portfolio #main .explorer-detail {
+  --comic-text: var(--glass-ink);
+}
+.portfolio :is(#projects, #experience) .section-heading,
+.portfolio .explorer-filters,
+.portfolio .explorer-rail,
+.portfolio .explorer-mobile > button {
+  background: var(--glass-paper) !important;
+  padding: 16px;
+  backdrop-filter: blur(calc(var(--glass-blur) * 1px));
+}
+.portfolio .project-front .case-label,
+.portfolio .project-back :is(.tags span, .project-links a),
+.portfolio .project-front .tags span {
+  background: var(--glass-paper) !important;
+}
+.portfolio .experience-explorer {
+  background: transparent !important;
+  border-color: var(--glass-border);
+}
+.portfolio .explorer-timeline {
+  background: var(--glass-paper) !important;
+  border-color: var(--glass-border);
+}
+.portfolio #main .explorer-filters > span,
+.portfolio #main .explorer-meta,
+.portfolio #main .explorer-paging {
+  color: var(--glass-ink) !important;
+}
+.portfolio :is(.project-front, .project-back, .explorer-detail) {
+  position: relative;
+}
+.portfolio .project-back {
+  position: absolute;
+}
+.portfolio .project-inner {
+  background: transparent !important;
+}
+.portfolio :is(#projects, #experience).section {
+  background: transparent !important;
+  border-color: var(--glass-border);
+}
+.portfolio
+  :is(.project-front, .project-back, .explorer-detail)
+  :where(h3, p, span, li, strong, button, a, small),
+.portfolio .site-header :where(a, button, span, small, svg) {
+  color: var(--glass-ink) !important;
+}
+.portfolio.mode-garou .explorer-rail {
+  background: rgba(15, 13, 23, 0.88);
+}
+.portfolio.mode-garou .explorer-rail :is(strong, span) {
+  color: #ede7ff !important;
+}
+.portfolio.mode-garou .explorer-rail > button[aria-selected="true"] {
+  background: #33234c;
+}
+.portfolio .explorer-detail {
+  border: 2px solid var(--glass-border);
+}
+.portfolio .project-card {
+  border-color: var(--glass-border) !important;
+}
+.portfolio .project-copy {
+  background: transparent !important;
+}
+.liquid-glass-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.92;
+  border-radius: inherit;
+}
+.portfolio .liquid-glass-container[data-glass="webgl"] {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.portfolio.mode-garou .site-header .nav a.active {
+  color: #c4b5fd !important;
+}
+@media (max-width: 760px) {
+  .portfolio .site-header .nav.open {
+    background: var(--glass-paper) !important;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .portfolio {
+    --glass-paper: #faf7f2;
+  }
+  .portfolio.mode-garou {
+    --glass-paper: #0f0d17;
+  }
+  .liquid-glass-layer {
+    display: none;
+  }
+}
+@media (forced-colors: active) {
+  .liquid-glass-layer {
+    display: none;
+  }
+}
+
+/* Minimal curved manga glass — final presentation overrides. */
+.portfolio {
+  --glass-blur: 24;
+  --glass-radius: 32px;
+  --glass-tint: 0.76;
+  --glass-paper: rgba(250, 247, 242, 0.84);
+  --glass-nav-paper: rgba(250, 247, 242, 0.38);
+  --glass-border: #c52828;
+  --glass-ink: #302125;
+}
+.portfolio.mode-garou {
+  --glass-paper: rgba(15, 13, 23, 0.86);
+  --glass-nav-paper: rgba(15, 13, 23, 0.42);
+  --glass-border: #c4b5fd;
+  --glass-ink: #f0eaff;
+}
+.portfolio [data-liquid-glass] {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--glass-radius) !important;
+  border: 1px solid var(--glass-border) !important;
+  background: var(--glass-paper) !important;
+  box-shadow:
+    0 8px 28px #00000018,
+    inset 0 1px 0 #ffffff18 !important;
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 1px));
+  backdrop-filter: blur(calc(var(--glass-blur) * 1px));
+}
+.portfolio header.site-header[data-liquid-glass] {
+  --glass-tint: 0.38;
+  position: sticky;
+  top: 12px;
+  margin: 12px auto 20px;
+  width: calc(100% - 32px);
+  max-width: 1440px;
+  border-radius: 999px !important;
+  background: var(--glass-nav-paper) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  padding-inline: 24px;
+  z-index: 50;
+}
+.portfolio
+  header.site-header
+  :is(
+    .brand,
+    .nav > a,
+    .read-switch,
+    .lite-switch,
+    .mode-switch,
+    .menu-toggle
+  ) {
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  background: var(--glass-paper) !important;
+  padding: 6px 10px;
+}
+.portfolio header.site-header :is(a, span, button, small) {
+  color: var(--glass-ink) !important;
+}
+.portfolio
+  :is(
+    .project-card,
+    .project-inner,
+    .experience-explorer,
+    .explorer-detail,
+    .section-heading,
+    .explorer-timeline,
+    .explorer-rail,
+    .explorer-filters,
+    .explorer-mobile > button,
+    .contact-panel
+  ) {
+  border-radius: var(--glass-radius) !important;
+  border-width: 1px !important;
+  clip-path: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+.portfolio .project-back[data-liquid-glass] {
+  position: absolute;
+}
+.portfolio .project-card {
+  border: 0 !important;
+  background: transparent !important;
+}
+.portfolio .project-card::before,
+.portfolio .project-card::after,
+.portfolio .site-header :is(a, button)::before {
+  display: none !important;
+}
+.portfolio .project-card:hover {
+  scale: 1 !important;
+  filter: none !important;
+}
+.portfolio :is(.project-front, .project-back) {
+  overflow: hidden;
+}
+.portfolio .experience-explorer[data-liquid-glass] {
+  background: var(--glass-paper) !important;
+}
+.portfolio
+  .experience-explorer
+  :is(
+    .explorer-detail,
+    .explorer-filters,
+    .explorer-rail,
+    .explorer-timeline,
+    .explorer-mobile > button
+  ) {
+  background: transparent !important;
+}
+.portfolio .explorer-mobile > button {
+  margin-block: 8px;
+}
+.portfolio #main :is(#projects, #experience, #contact).section {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: var(--glass-radius) !important;
+}
+.portfolio :is(#projects, #experience) .section-heading {
+  border: 1px solid var(--glass-border);
+}
+.portfolio :is(#projects, #experience, #contact).section::before,
+.portfolio :is(#projects, #experience, #contact).section::after,
+.portfolio :is(#projects, #experience, #contact) .manga-glyph-strip {
+  display: none !important;
+}
+.portfolio #contact .contact-panel {
+  background: var(--glass-paper) !important;
+  padding: 24px;
+}
+.portfolio #main #contact .portfolio-chat[data-liquid-glass] {
+  --chat-paper: transparent;
+  --chat-card: var(--glass-paper);
+  --chat-line: var(--glass-border);
+  --chat-ink: var(--glass-ink);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--glass-radius) !important;
+  background: var(--glass-paper) !important;
+  box-shadow: 0 8px 28px #00000018 !important;
+  overflow: hidden;
+}
+.portfolio .portfolio-chat :is(.chat-header, .chat-discovery, .chat-followups) {
+  background: transparent !important;
+}
+.portfolio
+  .portfolio-chat
+  :is(
+    .chat-source,
+    .chat-followups button,
+    .chat-reset,
+    .chat-compose,
+    .chat-question
+  ) {
+  border-radius: 18px !important;
+  border-width: 1px !important;
+  overflow: hidden;
+}
+.portfolio .portfolio-chat .chat-topic-map button {
+  border-radius: 999px;
+}
+.portfolio .portfolio-chat .chat-grounding {
+  opacity: 0.85;
+}
+.portfolio .project-copy,
+.portfolio .chat-log {
+  text-shadow: 0 1px 0 #ffffff08;
+}
+.portfolio [data-liquid-glass]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(#80808012 0.5px, transparent 0.8px) 0 0/6px 6px;
+}
+.portfolio .liquid-glass-container[data-glass="webgl"] {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+@media (max-width: 760px) {
+  .portfolio header.site-header[data-liquid-glass] {
+    padding-inline: 12px;
+    top: 8px;
+    width: calc(100% - 16px);
+  }
+  .portfolio header.site-header .nav.open {
+    border-radius: 24px !important;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-paper) !important;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .portfolio {
+    --glass-paper: #faf7f2;
+    --glass-nav-paper: #faf7f2;
+  }
+  .portfolio.mode-garou {
+    --glass-paper: #0f0d17;
+    --glass-nav-paper: #0f0d17;
+  }
+}
+.portfolio #main #contact .contact-layout {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.portfolio #main #contact .contact-info {
+  --comic-text: var(--glass-ink);
+  padding: 24px;
+  border-radius: var(--glass-radius) !important;
+}
+.portfolio
+  header.site-header
+  :is(.read-switch, .lite-switch, .mode-switch, .menu-toggle) {
+  border: 1px solid var(--glass-border) !important;
+  filter: none !important;
+}
+
+/* Global Light Mode backdrop; Dark Mode leaves the space world exposed. */
+.portfolio .global-warm-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 1;
+  contain: paint;
+}
+.portfolio .global-warm-background .hero-gradient-canvas {
+  opacity: 1;
+}
+.portfolio.mode-saitama .background-world {
+  background: transparent !important;
+}
+.portfolio.mode-saitama .world-vignette {
+  opacity: 0.12;
+}
+.portfolio.mode-garou .global-warm-background {
+  display: none !important;
+}
+.portfolio.mode-garou .background-world {
+  background: radial-gradient(
+    ellipse at 25% 40%,
+    #27213d,
+    #0b0b14 67%
+  ) !important;
+}
+.portfolio #home.hero {
+  background: transparent !important;
+}
+.portfolio header.site-header[data-liquid-glass] {
+  --glass-tint: 0.16;
+  background: rgba(250, 247, 242, 0.16) !important;
+  box-shadow:
+    0 4px 20px #0000000d,
+    inset 0 1px 0 #ffffff24 !important;
+}
+.portfolio.mode-garou header.site-header[data-liquid-glass] {
+  --glass-tint: 0.2;
+  background: rgba(15, 13, 23, 0.2) !important;
+}
+.portfolio
+  header.site-header
+  :is(
+    .brand,
+    .nav > a,
+    .read-switch,
+    .lite-switch,
+    .mode-switch,
+    .menu-toggle
+  ) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.portfolio header.site-header :is(a, button, small) {
+  text-shadow: 0 1px 2px #faf7f245;
+}
+.portfolio.mode-garou header.site-header :is(a, button, small) {
+  text-shadow: 0 1px 3px #000b;
+}
+.portfolio.mode-saitama
+  main
+  > .section:not(#skills):not(#projects):not(#experience):not(#contact) {
+  background: rgba(250, 247, 242, 0.65) !important;
+  border: 1px solid #c52828 !important;
+  border-radius: 32px !important;
+}
+.portfolio.mode-garou
+  main
+  > .section:not(#skills):not(#projects):not(#experience):not(#contact) {
+  background: rgba(15, 13, 23, 0.86) !important;
+  border: 1px solid #c4b5fd !important;
+  border-radius: 32px !important;
+  --comic-text: #f0eaff;
+}
+@media (prefers-reduced-transparency: reduce) {
+  .portfolio header.site-header[data-liquid-glass] {
+    background: #faf7f2 !important;
+  }
+  .portfolio.mode-garou header.site-header[data-liquid-glass] {
+    background: #0f0d17 !important;
+  }
+}
+/* Contrast only behind controls, leaving the glass bar itself transparent. */
+.portfolio.mode-saitama header.site-header :is(.brand>span,.nav>a,button) {
+  background:rgba(250,247,242,.82)!important;border-radius:999px!important;
+}
+.portfolio.mode-saitama header.site-header .brand>span { padding:4px 8px; }
+.portfolio.mode-garou header.site-header :is(.nav>a,button) { background:rgba(15,13,23,.35)!important; }
+
+/* Crimson glass navigation, white control tiles, and an unboxed wordmark. */
+.portfolio header.site-header[data-liquid-glass],
+.portfolio.mode-garou header.site-header[data-liquid-glass] {
+  --glass-tint:.26;
+  background:rgba(194,31,31,.26)!important;
+  border-color:#C52828!important;
+}
+.portfolio header.site-header :is(.nav>a,button),
+.portfolio.mode-saitama header.site-header :is(.nav>a,button),
+.portfolio.mode-garou header.site-header :is(.nav>a,button) {
+  background:rgba(255,255,255,.94)!important;
+  color:#302125!important;
+  border-color:#C52828!important;
+  text-shadow:none;
+}
+.portfolio header.site-header :is(.nav>a,button) :is(span,small,svg) { color:#302125!important; }
+.portfolio header.site-header .brand,
+.portfolio header.site-header .brand>span,
+.portfolio.mode-saitama header.site-header .brand>span,
+.portfolio.mode-garou header.site-header .brand>span {
+  background:transparent!important;border:0!important;box-shadow:none!important;
+}
+.portfolio header.site-header .brand>span { padding:0; }
+.portfolio header.site-header .brand :is(span,small,svg) { color:#FAF7F2!important;text-shadow:0 1px 3px #66141480; }
+@media(prefers-reduced-transparency:reduce) {
+  .portfolio header.site-header[data-liquid-glass],
+  .portfolio.mode-garou header.site-header[data-liquid-glass] { background:#9E1B1B!important; }
+}
+
+/* Fist midtone: #C21F1F. */
+.portfolio header.site-header[data-liquid-glass],.portfolio.mode-garou header.site-header[data-liquid-glass] { border-color:#C21F1F!important; }
+
+/* Stronger fist-red glass: 60% opacity, retaining visible refraction. */
+.portfolio header.site-header[data-liquid-glass],
+.portfolio.mode-garou header.site-header[data-liquid-glass] {
+  --glass-tint:.6;
+  background:rgba(194,31,31,.6)!important;
+}
+/* Fist-inspired glass gradient: shadow → red midtone → warm highlight. */
+.portfolio header.site-header[data-liquid-glass],
+.portfolio.mode-garou header.site-header[data-liquid-glass] {
+  background:linear-gradient(110deg,rgba(122,15,15,.78) 0%,rgba(194,31,31,.66) 52%,rgba(255,74,42,.58) 100%)!important;
+}
+.portfolio header.site-header>.liquid-glass-layer { opacity:.32; }
+/* Garou counterpart to the fist-red navigation gradient. */
+.portfolio.mode-garou header.site-header[data-liquid-glass] {
+  background:linear-gradient(110deg,rgba(15,13,23,.78) 0%,rgba(91,33,182,.66) 52%,rgba(196,181,253,.58) 100%)!important;
+  border-color:#C4B5FD!important;
+}
+.portfolio.mode-garou header.site-header :is(.nav>a,button) { border-color:#C4B5FD!important; }
+@media(prefers-reduced-transparency:reduce) {
+  .portfolio.mode-garou header.site-header[data-liquid-glass] { background:linear-gradient(110deg,#0F0D17,#5B21B6 52%,#C4B5FD)!important; }
+}
+/* Borderless navigation shell in both themes. */
+.portfolio header.site-header[data-liquid-glass],
+.portfolio.mode-garou header.site-header[data-liquid-glass] {
+  border:0!important;
+}
+/* Theme-matched gradients for navigation tiles; wordmark stays unboxed. */
+.portfolio header.site-header :is(.nav>a,button),
+.portfolio.mode-saitama header.site-header :is(.nav>a,button) {
+  background:linear-gradient(125deg,#FFFEFA 0%,#FAF0D9 50%,#F2B5A6 100%)!important;
+  color:#302125!important;
+}
+.portfolio.mode-garou header.site-header :is(.nav>a,button) {
+  background:linear-gradient(125deg,#F4F1FF 0%,#DDD4F5 50%,#B99AE8 100%)!important;
+  color:#261738!important;
+}
+
+/* Soft shader palettes, global in both themes. */
+.portfolio {
+  --hero-gradient-color-1:#FAF7F2;
+  --hero-gradient-color-2:#D97757;
+  --hero-gradient-color-3:#B84A4A;
+}
+.portfolio.mode-garou {
+  --hero-gradient-color-1:#0F0D17;
+  --hero-gradient-color-2:#5B21B6;
+  --hero-gradient-color-3:#C4B5FD;
+}
+.portfolio .global-warm-background { display:block!important; }
+.portfolio .global-warm-background .hero-gradient-paper {
+  background:radial-gradient(ellipse at 20% 25%,#FAF7F2 0%,transparent 70%),radial-gradient(ellipse at 85% 75%,#B84A4A 0%,transparent 68%),#D97757;
+}
+.portfolio .global-warm-background .hero-gradient-garou {
+  background:radial-gradient(ellipse at 20% 25%,#0F0D17 0%,transparent 70%),radial-gradient(ellipse at 85% 75%,#C4B5FD 0%,transparent 68%),#5B21B6;
+}
+.portfolio.mode-garou .background-world { background:transparent!important; }
+.portfolio.mode-garou .world-vignette { opacity:.2; }
+/* Reference-inspired blue planet, including the no-motion fallback. */
+.portfolio.mode-garou .global-warm-background { display:block!important; }
+.portfolio .world-fallback {
+  background:transparent;box-shadow:0 0 22px #2563ff65,0 0 55px #1664ff30;
+  overflow:visible;
+}
+.detailed-earth-poster { display:block;width:100%;height:100%;border-radius:50%; }

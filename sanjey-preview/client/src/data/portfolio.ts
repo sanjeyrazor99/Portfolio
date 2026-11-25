@@ -148,6 +148,11 @@ export const experiences: Experience[] = [
   },
 ];
 
+export const aboutBio = [
+  "I study computer science at UT Dallas and expect to graduate in 2028.",
+  "I’ve built Python pipelines that bring multiple data sources into one database, tested where multimodal AI models fail, and helped build a real-time multiplayer game with a conversational AI player. I also edit videos for YouTube creators.",
+] as const;
+
 export const projects: Project[] = [
   {
     id: "amuse-us",

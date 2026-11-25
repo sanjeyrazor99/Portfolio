@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Liquid glass pricing preview</title>
+  <link rel="stylesheet" href="./glass-preview.css">
+  <script defer src="./html2canvas.min.js"></script>
+  <script defer src="./container.js"></script>
+  <script defer src="./glass-preview.js"></script>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <main class="layout" id="top">
+    <nav class="nav panel" data-glass="pill" aria-label="Main navigation">
+      <a href="#top"><strong>Studio</strong></a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <header class="panel intro" data-glass="rounded">
+      <p class="eyebrow">Liquid Glass JS demo</p>
+      <h1>Find your plan</h1>
+      <div class="tuner" data-html2canvas-ignore>
+        <label for="glass-blur">Glass blur</label>
+        <input id="glass-blur" type="range" min="1" max="15" value="7">
+        <output for="glass-blur" id="blur-value">7</output>
+      </div>
+    </header>
+    <section class="pricing" id="pricing" aria-label="Example pricing plans">
+      <article class="panel plan" data-glass="rounded">
+        <h2>Starter</h2>
+        <p class="price">$0</p>
+        <p>Explore the essentials on your own.</p>
+      </article>
+      <article class="panel plan" data-glass="rounded">
+        <h2>Studio</h2>
+        <p class="price">$19 <small>/ month</small></p>
+        <p>More room for your ongoing projects.</p>
+      </article>
+      <article class="panel plan" data-glass="rounded">
+        <h2>Team</h2>
+        <p class="price">$49 <small>/ month</small></p>
+        <p>A shared space for collaborative work.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

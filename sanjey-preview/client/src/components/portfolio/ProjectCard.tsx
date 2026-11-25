@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, type CSSProperties } from "react";
 import {
   ArrowUpRight,
   ArrowLeft,
-  FolderOpen,
   Github,
   LockKeyhole,
 } from "lucide-react";
@@ -13,7 +12,7 @@ function ProjectArt({ kind }: { kind: string }) {
     return (
       <div className="game-art">
         <div className="game-terminal">
-          ROOM: HACKTX_26 <span>● LIVE</span>
+          Multiplayer game <span>Illustration</span>
         </div>
         <div className="game-crew">
           {["#FFD400", "#9f67e9", "#59d3de", "#e65569"].map((c, i) => (
@@ -23,12 +22,12 @@ function ProjectArt({ kind }: { kind: string }) {
               style={{ "--crew": c } as CSSProperties}
             >
               <i />
-              <span>{i === 2 ? "AI" : "0" + (i + 1)}</span>
+              <span>{i === 2 ? "AI" : "•"}</span>
             </div>
           ))}
         </div>
         <div className="game-dialog">
-          <span>AI PLAYER</span> Conversational AI<b>_</b>
+          <span>AI player</span> Conversational AI
         </div>
       </div>
     );
@@ -39,20 +38,14 @@ function ProjectArt({ kind }: { kind: string }) {
           <i />
           <i />
           <i />
-          <span>memeotron_pipeline.py</span>
+          <span>MEMEoTron pipeline</span>
         </div>
-        <pre>
-          <span>from</span> nemotron <span>import</span> intelligence
-          <br />
-          <br />
-          <em>› extracting visual context...</em>
-          <br />› detecting emerging trends
-          <br />› generating insights
-          <br />
-          <br />
-          <b>PIPELINE COMPLETE · 24H</b>
-        </pre>
-        <span className="ai-cross">✳</span>
+        <div className="project-ai-flow">
+          <span>Images & text</span>
+          <span>OCR + Nemotron</span>
+          <span>Trend analysis</span>
+        </div>
+        <p className="project-art-note">Illustrative pipeline</p>
       </div>
     );
   if (kind === "analytics")
@@ -84,7 +77,7 @@ function ProjectArt({ kind }: { kind: string }) {
             opacity=".7"
           />
         ))}
-        <text x="50" y="210" fill="#9a99a6" fontSize="9" fontFamily="monospace">
+        <text x="50" y="210" fill="#c3bdce" fontSize="12" fontFamily="monospace">
           SHOT MAP / ILLUSTRATIVE
         </text>
       </svg>
@@ -130,7 +123,7 @@ function ProjectArt({ kind }: { kind: string }) {
       <g stroke="#00E5FF" fill="none" strokeDasharray="4 5">
         <path d="M232 77l-85-43M253 77l87-57" />
       </g>
-      <text x="40" y="209" fill="#9a99a6" fontFamily="monospace" fontSize="9">
+      <text x="40" y="209" fill="#c3bdce" fontFamily="monospace" fontSize="12">
         ULTRASONIC SENSOR / AUTONOMOUS NAVIGATION
       </text>
     </svg>
@@ -174,6 +167,12 @@ export default function ProjectCard({
       className={`project-card ${flipped ? "is-flipped" : ""}`}
       data-manga-panel
       data-manga-onomatopoeia
+      onKeyDown={event => {
+        if (event.key === "Escape" && flipped) {
+          event.preventDefault();
+          setFlipped(false);
+        }
+      }}
       onPointerDown={e => {
         if (
           lite ||
@@ -239,13 +238,10 @@ export default function ProjectCard({
       }
     >
       <div className="project-inner">
-        <div className="project-front" aria-hidden={flipped} inert={flipped}>
+        <div className="project-front backdrop-blur-xl" data-liquid-glass="panel" aria-hidden={flipped} inert={flipped}>
           <div className="case-label">
             <span>
-              <FolderOpen size={13} /> PROJECT / 00{index + 1}
-            </span>
-            <span className="case-state">
-              {index < 2 ? "HACKATHON" : "ENGINEERING"}
+              {index < 2 ? "Hackathon" : "Engineering"}
             </span>
           </div>
           <div className={`project-art art-${project.kind}`}>
@@ -254,18 +250,6 @@ export default function ProjectCard({
           <div className="project-copy">
             <div className="project-title-row">
               <h3>{project.title}</h3>
-              <button
-                ref={opener}
-                className="project-open"
-                onClick={() => {
-                  hasFlipped.current = true;
-                  setFlipped(true);
-                }}
-                aria-label={`Open details for ${project.title}`}
-                aria-expanded={flipped}
-              >
-                <ArrowUpRight size={23} />
-              </button>
             </div>
             <p className="project-context">{project.subtitle}</p>
             <p className="project-description">{project.description}</p>
@@ -274,17 +258,30 @@ export default function ProjectCard({
                 <span key={t}>{t}</span>
               ))}
             </div>
+            <div className="project-card-actions">
+              <button
+                ref={opener}
+                className="project-open"
+                onClick={() => { hasFlipped.current = true; setFlipped(true); }}
+                aria-label={`Open details for ${project.title}`}
+                aria-expanded={flipped}
+                aria-controls={`project-details-${project.id}`}
+              >
+                Details <ArrowUpRight size={16} strokeWidth={1.5} />
+              </button>
+              {project.github && <a href={project.github} target="_blank" rel="noreferrer" aria-label={`${project.title} on GitHub`}><Github size={16} strokeWidth={1.5} /> GitHub</a>}
+            </div>
           </div>
         </div>
-        <div className="project-back" aria-hidden={!flipped} inert={!flipped}>
+        <div id={`project-details-${project.id}`} className="project-back backdrop-blur-xl" data-liquid-glass="panel" aria-hidden={!flipped} inert={!flipped}>
           <button
             ref={back}
             className="back-btn"
             onClick={() => setFlipped(false)}
           >
-            <ArrowLeft size={16} /> Back to file
+            <ArrowLeft size={16} strokeWidth={1.5} /> Back to overview
           </button>
-          <span className="eyebrow">PROJECT DETAILS</span>
+          <span className="eyebrow">Project details</span>
           <h3>{project.title}</h3>
           <p>{project.description}</p>
           <div className="tags">
@@ -333,3 +330,4 @@ export default function ProjectCard({
     </article>
   );
 }
+

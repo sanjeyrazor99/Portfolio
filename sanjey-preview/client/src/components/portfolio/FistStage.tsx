@@ -230,7 +230,12 @@ export default function FistStage({
         timeline.current?.timeScale(1);
       }}
     >
-      {!webgl && <FallbackName />}
+      {!webgl && (
+        <>
+          <div className="orbital-print" aria-hidden="true" />
+          <FallbackName />
+        </>
+      )}
       <div className="fist-speed" aria-hidden="true" />
       <div className="fist-sparks" aria-hidden="true" />
       <div className="loop-flash" aria-hidden="true" />
@@ -282,7 +287,7 @@ export default function FistStage({
             DON!
           </span>
         </span>
-        <span className="fist-label">CLICK TO PUNCH</span>
+        <span className="fist-label">Punch to scatter the letters</span>
       </button>
       <button
         className="hero-pause"

@@ -1,4 +1,5 @@
 import { createName } from "./NameWorld";
+import { createOrbitalEffects } from "./orbitalEffects";
 import { useEffect, useRef } from "react";
 import * as T from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
@@ -51,6 +52,9 @@ export default function FistMesh({
     const fist = new T.Group();
 
     scene.add(fist);
+    const compact = matchMedia("(max-width:760px)").matches;
+    const portfolio = stage.closest(".portfolio");
+    const orbitalEffects = createOrbitalEffects(scene, compact);
     scene.add(new T.HemisphereLight("#f5f1e6", "#7a0f0f", 2.5));
     const fireLight = new T.PointLight("#ff8a1f", 18, 15);
     fireLight.position.set(0, 0.3, 2);
@@ -344,7 +348,14 @@ export default function FistMesh({
       const heat = Number(stage.style.getPropertyValue("--heat")) || 0.45;
       const punchScale =
         Number(stage.style.getPropertyValue("--punch-scale")) || 1;
-      fireLight.intensity = 12 + heat * 10;
+      const impact = orbitalEffects.update(t, x, y, punchScale, portfolio?.classList.contains("mode-garou") ?? false);
+      camera.position.set(
+        x * 0.22 + Math.sin(t * 83) * impact * 0.08,
+        y * 0.17 + Math.cos(t * 71) * impact * 0.08,
+        7.5 - impact * 0.24
+      );
+      camera.lookAt(0, 0, 0);
+      fireLight.intensity = 12 + heat * 10 + impact * 14;
       name?.update(t, charge, heat, pausedRef.current);
       fireMaterial.uniforms.time.value = t;
       fireMaterial.uniforms.heat.value = heat + charge * 0.4;
@@ -417,6 +428,7 @@ export default function FistMesh({
     return () => {
       disposed = true;
       name?.dispose();
+      orbitalEffects.dispose();
       renderer.setAnimationLoop(null);
       resize.disconnect();
       stage.removeEventListener("pointermove", move);

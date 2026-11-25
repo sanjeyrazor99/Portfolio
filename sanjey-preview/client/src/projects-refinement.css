@@ -1,0 +1,118 @@
+/* Projects-only pass. Workflow: unslop by Damir Sokolovsky (@heydamir), CC BY 4.0.
+   Approved: illustrated glass dossiers, one wide lead and four compact cards. */
+.portfolio #projects {--project-accent:#932c35;--project-line:#30212524;--project-soft:#932c350a;}
+.portfolio.mode-garou #projects {--project-accent:#c4b5fd;--project-line:#f0eaff24;--project-soft:#c4b5fd0a;}
+.portfolio #projects .section-index {display:none!important;}
+.portfolio #projects .section-heading {margin:0 0 32px;padding:24px!important;gap:24px;border-color:var(--project-line)!important;box-shadow:none;}
+.portfolio #projects .section-heading .eyebrow {display:none;}
+.portfolio #projects .section-heading h2 {margin:0;}
+.portfolio #projects .section-intro {font-size:14px!important;line-height:24px!important;max-width:34ch;margin:0;}
+.portfolio #projects .projects-accessible-grid .projects-grid {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:24px!important;padding:0;align-items:stretch;}
+.portfolio #projects .project-card {grid-column:auto;width:100%!important;min-width:0;min-height:0;animation:none!important;cursor:default;}
+.portfolio #projects .project-card:first-child {grid-column:1/-1;}
+.portfolio #projects .project-inner {height:100%;}
+.portfolio #projects .project-front,.portfolio #projects .project-back {
+  border:1px solid var(--project-line)!important;border-radius:28px!important;
+  background:linear-gradient(145deg,rgba(250,247,242,.94),rgba(250,247,242,.82))!important;
+  box-shadow:0 8px 24px #321a1108!important;overflow:hidden;
+}
+.portfolio.mode-garou #projects .project-front,.portfolio.mode-garou #projects .project-back {
+  background:linear-gradient(145deg,rgba(22,18,34,.95),rgba(15,13,23,.86))!important;box-shadow:none!important;
+}
+.portfolio #projects .project-card .project-front {display:flex;flex-direction:column;height:100%;min-height:560px;}
+.portfolio #projects .project-card:first-child .project-front {display:grid;grid-template-columns:1fr 1fr;min-height:400px;}
+.portfolio #projects .project-front .case-label {grid-column:1/-1;padding:16px 24px;border:0;border-bottom:1px solid var(--project-line);background:transparent!important;min-height:48px;}
+.portfolio #projects .case-label span {font:400 12px/16px Inter,sans-serif!important;color:var(--polish-secondary)!important;letter-spacing:0;text-transform:none;}
+.portfolio #projects .project-card .project-art {width:100%;height:224px;min-height:224px;flex:none;border:0;border-bottom:1px solid var(--project-line);overflow:hidden;background:#14131c;}
+.portfolio #projects .project-card:first-child .project-art {height:100%;min-height:336px;border-bottom:0;border-right:1px solid var(--project-line);}
+.portfolio #projects .project-card .project-copy {display:flex;flex-direction:column;gap:12px;padding:24px;width:auto;flex:1;min-width:0;}
+.portfolio #projects .project-card:first-child .project-copy {padding:32px;justify-content:center;}
+.portfolio #projects .project-title-row {display:block;border-left:2px solid var(--project-accent);padding-left:12px;}
+.portfolio #projects .project-card h3 {font:600 22px/28px Inter,sans-serif!important;letter-spacing:-.02em!important;margin:0;overflow-wrap:normal;}
+.portfolio #projects .project-card:first-child h3 {font-size:28px!important;line-height:34px!important;}
+.portfolio #projects .project-card p.project-context {font:400 12px/20px Inter,sans-serif!important;color:var(--polish-secondary)!important;margin:0;}
+.portfolio #projects .project-card p.project-description {font:400 14px/24px Inter,sans-serif!important;margin:0;color:var(--polish-text)!important;}
+.portfolio #projects .tags {display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 0;}
+.portfolio #projects :is(.project-front,.project-back) .tags>span {font:400 11px/16px Inter,sans-serif!important;letter-spacing:0;border:0;border-radius:6px;padding:4px 8px;background:var(--project-soft)!important;color:var(--polish-secondary)!important;}
+.portfolio #projects .project-card-actions {display:flex;align-items:center;gap:20px;margin-top:auto;padding-top:16px;}
+.portfolio #projects .project-card-actions :is(button,a) {display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 0;font:500 13px/20px Inter,sans-serif!important;color:var(--project-accent)!important;text-decoration:none;}
+.portfolio #projects .project-card-actions button.project-open {width:auto;height:auto;flex:none;border:0;border-radius:0;background:transparent;}
+.portfolio #projects .project-card-actions a {font-weight:400!important;color:var(--polish-secondary)!important;}
+.portfolio #projects :is(button,a):focus-visible {outline:2px solid var(--project-accent);outline-offset:4px;}
+.portfolio #projects .project-card-actions :is(button,a):hover {text-decoration:underline;text-underline-offset:4px;}
+.portfolio #projects .project-back {padding:24px;gap:16px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;}
+.portfolio #projects .project-back .back-btn {align-self:flex-start;min-height:40px;padding:8px 0;font:400 13px/20px Inter,sans-serif!important;gap:8px;}
+.portfolio #projects .project-back>.eyebrow {font:400 12px/16px Inter,sans-serif!important;color:var(--polish-muted)!important;letter-spacing:0;text-transform:none;}
+.portfolio #projects .project-back>p {font:400 14px/24px Inter,sans-serif!important;margin:0;}
+.portfolio #projects .project-back .project-links {display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;}
+.portfolio #projects .project-back .project-links .btn {min-height:40px;padding:8px 12px;border:1px solid var(--project-line)!important;border-radius:10px;font:400 12px/20px Inter,sans-serif!important;background:var(--project-soft)!important;color:var(--polish-text)!important;box-shadow:none!important;}
+.portfolio #projects .project-back .project-links button:disabled {opacity:.55;}
+.portfolio #projects .project-back p.form-note {font:400 12px/20px Inter,sans-serif!important;color:var(--polish-muted)!important;}
+
+/* Illustration is the rich moment; labels stay legible rather than fake terminal UI. */
+.portfolio #projects .project-art :is(.game-art,.ai-art) {height:100%;padding:20px;display:flex;flex-direction:column;justify-content:center;position:relative;}
+.portfolio #projects .project-art .game-terminal {display:flex;justify-content:space-between;gap:12px;position:static;font:400 11px/16px Inter,sans-serif!important;letter-spacing:0;color:#d9d3e2;}
+.portfolio #projects .project-art .game-terminal span {font-size:11px!important;color:#b9b0c6!important;}
+.portfolio #projects .project-art .game-crew {position:static;display:flex;justify-content:center;gap:20px;flex:1;align-items:center;margin:16px 0;}
+.portfolio #projects .project-art .crew {flex:none;}
+.portfolio #projects .project-art .game-dialog {position:static;font:400 12px/20px Inter,sans-serif!important;letter-spacing:0;margin:0;}
+.portfolio #projects .project-art .game-dialog span {font-size:11px!important;color:#f2c966!important;margin-right:8px;}
+.portfolio #projects .project-art .terminal-top {position:static;margin-bottom:16px;padding:0;font:400 12px/20px Inter,sans-serif!important;color:#ded7ec;}
+.portfolio #projects .project-art .terminal-top i {display:none;}
+.portfolio #projects .project-ai-flow {display:grid;gap:8px;}
+.portfolio #projects .project-ai-flow span {display:block;border-left:2px solid #bca1e1;padding:6px 12px;font:400 12px/20px Inter,sans-serif!important;color:#eee7f7!important;background:#ffffff06;}
+.portfolio #projects .project-art p.project-art-note {font:400 11px/16px Inter,sans-serif!important;color:#b9b0c6!important;margin:12px 0 0;}
+.portfolio #projects .project-art .pipeline-art {height:100%;padding:16px;gap:12px;display:flex;align-items:center;justify-content:center;}
+.portfolio #projects .project-art .source-stack span {font:400 10px/16px Inter,sans-serif!important;color:#e1d9ec!important;}
+.portfolio #projects .project-art :is(.pipeline-core,.pipeline-db)>span {font-size:10px!important;line-height:16px!important;color:#e1d9ec!important;}
+.portfolio #projects .project-art :is(.analytics-art,.robot-art) {display:block;width:100%;height:100%;}
+@media(max-width:1000px) {
+ .portfolio #projects .project-card:first-child .project-copy {padding:24px;}
+ .portfolio #projects .project-art .game-crew {gap:12px;}
+ .portfolio #projects .project-card:first-child .project-art {min-height:340px;}
+}
+@media(max-width:760px) {
+ .portfolio #projects .section-heading {display:block;padding:24px!important;}
+ .portfolio #projects .section-intro {max-width:none;margin-top:12px;}
+ .portfolio #projects .projects-accessible-grid .projects-grid {grid-template-columns:minmax(0,1fr);gap:20px!important;}
+ .portfolio #projects .project-card:first-child .project-front {display:flex;min-height:0;}
+ .portfolio #projects .project-card .project-front {min-height:0;}
+ .portfolio #projects .project-card:first-child .project-art {height:240px;min-height:240px;border-right:0;border-bottom:1px solid var(--project-line);}
+ .portfolio #projects .project-card .project-art {height:224px;min-height:224px;}
+ .portfolio #projects .project-card .project-copy {padding:24px;}
+ .portfolio #projects .project-card:first-child h3 {font-size:24px!important;line-height:30px!important;}
+ .portfolio #projects .project-card h3 {font-size:22px!important;line-height:28px!important;}
+ .portfolio #projects .project-card-actions {padding-top:8px;}
+ .portfolio #projects .project-back {padding:24px;}
+}
+@media(prefers-reduced-transparency:reduce) {
+ .portfolio #projects .project-front,.portfolio #projects .project-back {background:#faf7f2!important;}
+ .portfolio.mode-garou #projects .project-front,.portfolio.mode-garou #projects .project-back {background:#161222!important;}
+}
+
+.portfolio #projects .project-search {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.portfolio #projects .project-search label { font-weight: 600 !important; color: var(--polish-text) !important; }
+.portfolio #projects .project-search-field {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.portfolio #projects .project-search input {
+  min-width: 0;
+  width: min(100%, 360px);
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--polish-line);
+  border-radius: 10px;
+  background: var(--glass-paper);
+  color: var(--polish-text) !important;
+  font-size: 16px;
+}
+.portfolio #projects .project-search input::placeholder { color: var(--polish-secondary); }
+.portfolio #projects .project-search [role="status"] { color: var(--polish-secondary) !important; }
+.portfolio #projects .project-search input:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }

@@ -1,0 +1,145 @@
+/* Experience-only craft pass using unslop by Damir Sokolovsky (@heydamir), CC BY 4.0.
+   Direction approved: one continuous glass dossier, compact timeline, readable role detail. */
+.portfolio #main #experience.section {
+  --experience-accent:#932c35;
+  --experience-soft:#932c350d;
+  --glass-tint:.84;
+  background:linear-gradient(145deg,rgba(250,247,242,.94),rgba(250,247,242,.82))!important;
+  border:1px solid #932c3540!important;border-radius:32px!important;
+  box-shadow:0 12px 40px #321a1110!important;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+}
+.portfolio.mode-garou #main #experience.section {
+  --experience-accent:#c4b5fd;--experience-soft:#c4b5fd0d;
+  background:linear-gradient(145deg,rgba(22,18,34,.96),rgba(15,13,23,.88))!important;
+  border-color:#c4b5fd40!important;box-shadow:none!important;
+}
+
+/* Spacing, color, and icon alignment. The section owns the sole glass frame. */
+.portfolio #experience .section-index {padding:0 0 16px!important;color:var(--polish-muted)!important;}
+.portfolio #experience .section-heading {
+  background:transparent!important;border:0!important;border-radius:0!important;
+  padding:0 0 24px!important;margin:0 0 24px;gap:24px;
+  border-bottom:1px solid var(--polish-line)!important;backdrop-filter:none;
+}
+.portfolio #experience .section-heading .eyebrow {display:none;}
+.portfolio #experience .section-heading h2 {margin:0;}
+.portfolio #experience .section-heading .section-intro {max-width:36ch;margin:0;font-size:14px;line-height:24px;}
+.portfolio #experience .explorer-run {height:auto!important;}
+.portfolio #experience .experience-explorer {
+  position:relative;top:auto;padding:0!important;border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;backdrop-filter:none;
+}
+.portfolio #experience .explorer-filters {
+  padding:0!important;margin:0 0 20px;gap:8px;display:flex;align-items:center;flex-wrap:wrap;
+  background:transparent!important;border:0!important;border-radius:0!important;overflow:visible;backdrop-filter:none;
+}
+.portfolio #experience .explorer-filters>button {
+  padding:8px 12px;min-height:36px;border:1px solid transparent;border-radius:10px;
+  background:transparent;color:var(--polish-secondary)!important;font:400 13px/20px Inter,sans-serif!important;
+}
+.portfolio #experience .explorer-filters>button:hover {background:var(--experience-soft);}
+.portfolio #experience .explorer-filters>button[aria-pressed=true] {
+  color:var(--experience-accent)!important;background:var(--experience-soft)!important;
+  border-color:var(--polish-line);font-weight:500!important;
+}
+.portfolio #experience .explorer-filters>span {margin-left:auto;font-size:12px!important;color:var(--polish-muted)!important;}
+.portfolio #experience :is(button,summary,input):focus-visible {outline:2px solid var(--experience-accent);outline-offset:4px;}
+
+/* Copy and type: role text leads, timeline is available without occupying the screen. */
+.portfolio #experience .explorer-timeline {
+  border:0!important;border-block:1px solid var(--polish-line)!important;border-radius:0!important;
+  padding:0;margin:0 0 24px;background:transparent!important;
+}
+.portfolio #experience .explorer-timeline>summary {
+  display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;
+  list-style:none;cursor:pointer;font:500 13px/20px Inter,sans-serif!important;color:var(--polish-secondary)!important;
+}
+.portfolio #experience .explorer-timeline>summary::-webkit-details-marker {display:none;}
+.portfolio #experience .explorer-timeline-range {display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--polish-muted)!important;font-variant-numeric:tabular-nums;}
+.portfolio #experience .explorer-timeline[open] summary svg {transform:rotate(180deg);}
+.portfolio #experience .explorer-timeline-content {padding:8px 0 20px;}
+.portfolio #experience .explorer-years {padding-bottom:8px;}
+.portfolio #experience .explorer-years span {font:400 11px/16px Inter,sans-serif!important;font-variant-numeric:tabular-nums;color:var(--polish-muted)!important;}
+.portfolio #experience .explorer-bar {height:12px;margin-block:4px;background:var(--polish-line);border:0;border-radius:3px;}
+.portfolio #experience .explorer-bar.selected {background:var(--experience-accent);border:0;}
+.portfolio #experience .explorer-bar span {display:none;}
+.portfolio #experience .explorer-scrub {padding-top:8px;font-size:12px;color:var(--polish-secondary)!important;}
+.portfolio #experience .explorer-scrub input {accent-color:var(--experience-accent);margin-top:8px;height:24px;}
+
+/* Layout and details: one selection rule, no nested boxes or clipped reading areas. */
+.portfolio #experience .explorer-layout {grid-template-columns:minmax(208px,.75fr) minmax(0,1.5fr);gap:32px;align-items:start;}
+.portfolio #experience .explorer-rail {
+  padding:0 16px 0 0!important;border:0!important;border-right:1px solid var(--polish-line)!important;
+  border-radius:0!important;max-height:560px;background:transparent!important;backdrop-filter:none;
+  scrollbar-width:thin;scrollbar-color:var(--polish-line) transparent;
+}
+.portfolio #experience .explorer-rail>button {
+  margin:0 0 4px;padding:12px 16px;border:0;border-left:2px solid transparent;
+  border-radius:0 12px 12px 0!important;background:transparent;transition:background-color 160ms ease;
+}
+.portfolio #experience .explorer-rail>button:hover {translate:none;background:var(--experience-soft);}
+.portfolio #experience .explorer-rail>button[aria-selected=true] {background:var(--experience-soft);border-left-color:var(--experience-accent);}
+.portfolio #experience .explorer-rail strong {font:500 14px/22px Inter,sans-serif!important;letter-spacing:0!important;color:var(--polish-text)!important;}
+.portfolio #experience .explorer-rail .explorer-meta {font-size:12px!important;line-height:20px!important;margin:0 0 4px;color:var(--polish-secondary)!important;}
+.portfolio #experience .explorer-detail {
+  padding:0!important;border:0!important;border-radius:0!important;max-height:none;overflow:visible;background:transparent!important;
+}
+.portfolio #experience .explorer-detail h3 {font:600 clamp(22px,2.2vw,30px)/1.25 Inter,sans-serif!important;margin:8px 0 12px;letter-spacing:-.02em!important;}
+.portfolio #experience .explorer-detail>.explorer-meta {margin:0 0 8px;font-size:12px!important;color:var(--polish-muted)!important;}
+.portfolio #experience .explorer-detail .explorer-org {font-weight:500;margin:0 0 4px;}
+.portfolio #experience .explorer-detail .explorer-secondary {margin:0 0 8px;font-size:13px!important;line-height:22px!important;}
+.portfolio #experience .explorer-detail ul {margin:24px 0;padding-left:20px;list-style:disc;}
+.portfolio #experience .explorer-detail li {font:400 15px/26px Inter,sans-serif!important;margin:0 0 16px;max-width:64ch;}
+.portfolio #experience .explorer-detail li::marker {color:var(--experience-accent);}
+.portfolio #experience .explorer-chips {gap:8px;margin:20px 0;}
+.portfolio #experience .explorer-chips button {
+  min-height:32px;padding:4px 10px;border:1px solid var(--polish-line);border-radius:8px;
+  font:400 12px/20px Inter,sans-serif!important;color:var(--polish-secondary)!important;
+}
+.portfolio #experience .explorer-chips button[aria-pressed=true] {background:var(--experience-soft);color:var(--experience-accent)!important;border-color:var(--experience-accent);}
+.portfolio #experience .explorer-impacts {gap:12px;}
+.portfolio #experience .explorer-impacts strong {font:500 14px/24px Inter,sans-serif!important;color:var(--experience-accent)!important;}
+.portfolio #experience .explorer-paging {margin-top:24px;padding-top:16px;border-top:1px solid var(--polish-line);gap:12px;}
+.portfolio #experience .explorer-paging button {display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:8px 0;border:0;background:transparent;font-size:13px!important;}
+.portfolio #experience .explorer-paging span {font-size:12px!important;color:var(--polish-muted)!important;font-variant-numeric:tabular-nums;}
+.portfolio #experience .explorer-text-button {font-size:13px!important;text-underline-offset:4px;}
+@media(max-width:1000px) and (min-width:761px) {
+ .portfolio #experience .section-heading {display:block;}
+ .portfolio #experience .section-heading .section-intro {margin-top:12px;max-width:none;}
+ .portfolio #experience .explorer-layout {grid-template-columns:minmax(180px,.7fr) minmax(0,1.3fr);gap:24px;}
+ .portfolio #experience .explorer-rail {padding-right:12px!important;}
+ .portfolio #experience .explorer-rail>button {padding:12px;}
+}
+@media(max-width:760px) {
+ .portfolio #main #experience.section {padding:24px!important;}
+ .portfolio #experience .section-heading {display:block;padding-bottom:20px!important;margin-bottom:20px;}
+ .portfolio #experience .section-heading .section-intro {margin-top:12px;max-width:none;}
+ .portfolio #experience .explorer-filters {gap:4px;margin-bottom:16px;}
+ .portfolio #experience .explorer-filters>button {font-size:12px!important;padding:8px;min-height:40px;flex-shrink:1;}
+ .portfolio #experience .explorer-filters>span {width:100%;margin:8px 0 0;}
+ .portfolio #experience .explorer-timeline {margin-bottom:16px;}
+ .portfolio #experience .explorer-mobile>div {border-bottom:1px solid var(--polish-line);}
+ .portfolio #experience .explorer-mobile .explorer-accordion {position:relative;border:0;background:transparent!important;border-radius:0!important;padding:16px 24px 16px 0;font:400 12px/20px Inter,sans-serif!important;color:var(--polish-secondary)!important;}
+ .portfolio #experience .explorer-accordion strong {font:500 15px/24px Inter,sans-serif!important;margin-top:4px;color:var(--polish-text)!important;}
+ .portfolio #experience .explorer-accordion::after {content:'+';position:absolute;right:0;top:20px;font:400 20px/24px Inter,sans-serif;color:var(--experience-accent);}
+ .portfolio #experience .explorer-accordion[aria-expanded=true]::after {content:'−';}
+ .portfolio #experience .explorer-mobile .explorer-detail {padding:0 0 24px!important;}
+ .portfolio #experience .explorer-mobile .explorer-detail h3 {display:none;}
+ .portfolio #experience .explorer-mobile .explorer-detail .explorer-org {display:none;}
+ .portfolio #experience .explorer-detail ul {margin:16px 0;}
+ .portfolio #experience .explorer-paging {gap:8px;}
+}
+@media(prefers-reduced-transparency:reduce) {
+ .portfolio #main #experience.section {background:#faf7f2!important;}
+ .portfolio.mode-garou #main #experience.section {background:#161222!important;}
+}
+/* Remove the legacy duplicate chapter stamp and inner backdrop layer. */
+.portfolio #experience .section-index {display:none!important;}
+.portfolio #experience .explorer-detail {
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  isolation:auto;box-shadow:none!important;
+}
+.portfolio #main #experience.section[data-glass=webgl] {
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}

@@ -1,0 +1,230 @@
+/* Hero-only unslop pass. Workflow: Damir Sokolovsky (@heydamir), CC BY 4.0.
+   Approved direction retains the One Punch-inspired fist, Earth, glass and gradients. */
+
+/* Spacing and color: introduce a calm glass reading area within the scene. */
+.portfolio .fist-run #home .hero-content {
+  left:clamp(24px,3.4vw,48px);width:38%;max-width:464px;padding:24px;
+  border-radius:28px;background:rgba(250,247,242,.54)!important;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid #fff9;box-shadow:0 8px 32px #36161108;
+}
+.portfolio.mode-garou .fist-run #home .hero-content {
+  background:rgba(15,13,23,.62)!important;border-color:#c4b5fd26;
+  box-shadow:0 8px 32px #00000010;
+}
+
+/* Icons and copy hierarchy: factual introduction, two clearly named actions. */
+.portfolio #main #home .hero-content .hero-accessible-title {
+  font-size:clamp(56px,6.2vw,88px)!important;line-height:.98!important;
+  max-width:8ch;margin:0 0 20px;letter-spacing:.015em!important;
+}
+.portfolio #main #home .hero-content .hero-subtitle {
+  font:500 14px/24px Inter,sans-serif!important;max-width:30ch;
+  margin:0;color:var(--polish-text)!important;
+}
+.portfolio #main #home .hero-content .hero-tagline {
+  font:400 17px/28px Inter,sans-serif!important;margin:16px 0 24px;max-width:30ch;
+}
+.portfolio #main #home .hero-content .hero-actions {gap:12px;flex-wrap:wrap;}
+.portfolio #main #home .hero-content .hero-actions .btn {
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:48px;padding:12px 16px;font-size:13px!important;white-space:nowrap;
+}
+.portfolio #main #home .hero-content .hero-actions .btn svg {width:16px;height:16px;stroke-width:1.5;}
+.portfolio #main #home .hero-content .hero-meta {margin-top:20px;gap:12px;line-height:20px;}
+.portfolio #main #home .hero-content .hero-meta :is(a,span) {
+  color:var(--polish-text)!important;opacity:1;font:400 12px/20px Inter,sans-serif!important;
+}
+.portfolio #main #home .hero-content .hero-meta .meta-rule {display:none;}
+.portfolio #main #home .hero-content .hero-meta a {text-decoration:none;border-bottom:1px solid currentColor;}
+.portfolio #main #home .hero-content .hero-meta svg {width:14px;height:14px;stroke-width:1.5;}
+
+/* Layout and details: give the scene and introduction separate breathing room. */
+.portfolio .fist-run #home.hero {min-height:660px;height:min(840px,calc(100svh - 112px));}
+.portfolio #home .fist-stage {left:43%;width:57%;}
+.portfolio #home .name-row-0 {top:19%;}
+.portfolio #home .name-row-1 {bottom:17%;}
+.portfolio #home .name-fallback .fist-illustration {inset:22% 6% 20%;}
+.portfolio #home .hero-pause {top:16px;right:16px;min-height:36px;background:#171411b8;backdrop-filter:blur(12px);border-color:#ffffff30;}
+.portfolio #home .fist-label {bottom:10%;background:#171411b8;border-color:#ffffff50;min-height:32px;}
+.portfolio #home .hero-actions .btn:focus-visible,
+.portfolio #home .hero-meta a:focus-visible {outline:3px solid var(--glass-border);outline-offset:4px;}
+
+/* Visuals and motion: retain the purposeful punch, avoid a busy reading area. */
+.background-world[data-chapter=home] .world-moon {opacity:.12;}
+.background-world[data-chapter=home] .world-impact-lines {opacity:.06;}
+.portfolio #home .hero-content .btn {transition:background-color 160ms ease,border-color 160ms ease,transform 160ms ease;}
+.portfolio #home .hero-content .btn:active {transform:translateY(1px);}
+
+@media(min-width:761px) and (max-width:1050px) {
+ .portfolio .fist-run #home .hero-content {left:24px;width:39%;padding:20px;}
+ .portfolio #main #home .hero-content .hero-actions {gap:8px;}
+ .portfolio #main #home .hero-content .hero-actions .btn {padding:12px;font-size:12px!important;}
+}
+@media(max-width:760px) {
+ .portfolio .fist-run #home.hero {height:auto;min-height:0;padding:16px 20px 0;}
+ .portfolio .fist-run #home .hero-content {inset:auto;width:100%;max-width:none;padding:24px;transform:none;}
+ .portfolio #main #home .hero-content .hero-accessible-title {font-size:48px!important;max-width:none;margin-bottom:16px;}
+ .portfolio #main #home .hero-content .hero-tagline {font-size:16px!important;line-height:24px!important;margin:12px 0 20px;}
+ .portfolio #main #home .hero-content .hero-meta {margin-top:16px;}
+ .portfolio #home .fist-stage {inset:auto;position:relative;width:100%;height:360px;margin-top:12px;}
+ .portfolio #home .name-row-0 {top:10%;}
+ .portfolio #home .name-row-1 {bottom:12%;}
+ .portfolio #home .name-fallback .fist-illustration {inset:19% 0 17%;}
+ .portfolio #home .hero-pause {top:0;right:0;min-height:32px;padding:8px;font-size:10px;}
+ .portfolio #home .fist-label {bottom:3%;}
+}
+@media(max-width:390px) {
+ .portfolio .fist-run #home .hero-content {padding:20px;}
+ .portfolio #main #home .hero-content .hero-accessible-title {font-size:44px!important;}
+ .portfolio #main #home .hero-content .hero-actions {gap:8px;}
+ .portfolio #main #home .hero-content .hero-actions .btn {padding:12px;font-size:12px!important;}
+}
+@media(prefers-reduced-transparency:reduce) {
+ .portfolio .fist-run #home .hero-content {background:#faf7f2!important;}
+ .portfolio.mode-garou .fist-run #home .hero-content {background:#0f0d17!important;}
+}
+@media(prefers-reduced-motion:reduce) {.portfolio #home .hero-content .btn {transition:none;}}
+@media(min-width:761px) {.portfolio #home .hero-pause {top:auto;bottom:16px;}}
+
+/* Owner revision: one illustrated name, centered punch, no introduction card. */
+.portfolio .fist-run #home.hero {height:calc(100svh - 112px);min-height:640px;padding:0;display:block;}
+.portfolio #home .fist-stage {
+  position:absolute;left:50%;right:auto;top:0;bottom:112px;
+  width:min(100%,1120px);height:auto;margin:0;transform:translateX(-50%);
+}
+.portfolio #home .fist-trigger {left:50%;top:50%;width:100%;height:100%;max-width:100%;}
+.portfolio #home .name-row {width:92%;gap:1%;}
+.portfolio #home .name-letter {font-size:clamp(60px,12vw,144px);width:14%;height:144px;}
+.portfolio #home .name-row-0 {top:4%;}
+.portfolio #home .name-row-1 {bottom:8%;}
+.portfolio #home .name-fallback .fist-illustration {inset:14% 20% 17%;}
+.portfolio .fist-run #home .hero-content,
+.portfolio.mode-garou .fist-run #home .hero-content {
+  position:absolute;left:0;right:0;top:auto;bottom:20px;width:100%;max-width:none;
+  margin:0;padding:0 24px;transform:none;background:transparent!important;border:0;
+  border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+  text-align:center;pointer-events:none;
+}
+.portfolio #main #home .hero-content .hero-accessible-title {
+  position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
+  overflow:hidden!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;
+}
+.portfolio #main #home .hero-content :is(.hero-subtitle,.hero-tagline,.hero-meta) {display:none!important;}
+.portfolio #main #home .hero-content .hero-actions {justify-content:center;align-items:center;gap:12px;pointer-events:auto;}
+.portfolio #home .fist-label {bottom:0;}
+.portfolio #home .hero-pause {top:16px;bottom:auto;}
+@media(max-width:760px) {
+ .portfolio .fist-run #home.hero {height:calc(100svh - 104px);min-height:540px;}
+ .portfolio #home .fist-stage {left:50%;top:0;bottom:96px;position:absolute;width:100%;height:auto;transform:translateX(-50%);}
+ .portfolio #home .name-letter {font-size:clamp(48px,14vw,100px);height:104px;}
+ .portfolio #home .name-row-0 {top:12%;}
+ .portfolio #home .name-row-1 {bottom:12%;}
+ .portfolio #home .name-fallback .fist-illustration {inset:22% 0 20%;}
+ .portfolio .fist-run #home .hero-content {bottom:16px;padding:0 20px;}
+ .portfolio #home .hero-pause {top:4px;right:16px;}
+}
+
+/* Opening splash: printed spot color behind one large, centered planet. */
+.portfolio {
+  --hero-gradient-color-1: #fff2b5;
+  --hero-gradient-color-2: #ffc247;
+  --hero-gradient-color-3: #df5540;
+  --splash-ink: #782b32;
+}
+.portfolio.mode-garou {
+  --hero-gradient-color-1: #191129;
+  --hero-gradient-color-2: #633e91;
+  --hero-gradient-color-3: #ab80cc;
+  --splash-ink: #ddbcff;
+}
+.portfolio .global-warm-background .hero-gradient-paper {
+  background: radial-gradient(ellipse at 48% 38%, #fff2b5, #ffc247 52%, #df5540 100%);
+}
+.portfolio .global-warm-background .hero-gradient-garou {
+  background: radial-gradient(ellipse at 48% 38%, #8055a8, #3a2458 58%, #191129 100%);
+}
+.portfolio .global-warm-background .hero-gradient-canvas { opacity: .43; }
+.portfolio .global-warm-background .hero-gradient-grain {
+  background: radial-gradient(circle, var(--splash-ink) .8px, transparent 1.2px) 0 0 / 6px 6px;
+  opacity: .24;
+}
+.portfolio .background-world[data-chapter="home"] .world-stars {
+  inset: 0;
+  background: repeating-conic-gradient(from 12deg at 50% 48%, transparent 0deg 8deg, var(--splash-ink) 8.3deg 9deg, transparent 9.3deg 15deg);
+  mask-image: radial-gradient(ellipse at 50% 48%, transparent 38%, #000 95%);
+  opacity: .19;
+  animation: none;
+}
+.portfolio .background-world[data-chapter="home"] .world-planet {
+  left: 50%;
+  top: 48%;
+  width: min(99vw, 87svh, 900px);
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 1;
+  scale: 1;
+}
+.portfolio .background-world[data-chapter="home"] .world-fallback {
+  width: 80%;
+  min-width: 0;
+}
+.portfolio .background-world[data-chapter="home"][data-earth-ready="true"]:not(.world-static):has(.webgl-earth canvas) .world-fallback {
+  visibility: hidden;
+}
+.portfolio .background-world[data-chapter="home"] .world-moon {
+  left: 77vw;
+}
+.portfolio .fist-run #home.hero { background: transparent !important; }
+
+/* Orbital impact: use the width freed by removing the side illustrations. */
+.portfolio { --orbit-halo: #ffb850; --orbit-shadow: #250d17; }
+.portfolio.mode-garou { --orbit-halo: #ae92ff; --orbit-shadow: #110b24; }
+
+.portfolio .background-world[data-chapter="home"] .world-planet {
+  width: min(112vw, 101svh, 1120px);
+  top: 48%;
+}
+.portfolio .background-world[data-chapter="home"] .world-fallback {
+  box-shadow: 0 0 16px #85caff85, 0 0 70px #407bff73;
+}
+.portfolio .background-world[data-chapter="home"] .world-vignette {
+  background: radial-gradient(ellipse at 50% 48%, transparent 26%, var(--orbit-shadow) 125%);
+  opacity: .82;
+}
+.portfolio .fist-run #home.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, transparent 42%, color-mix(in srgb, var(--orbit-halo) 18%, transparent) 73%, transparent 92%);
+}
+@media (min-width: 761px) {
+  .portfolio #home .fist-stage { width: min(100%, 1400px); z-index: 2; }
+  .portfolio .fist-run #home .hero-content { z-index: 3; }
+}
+@media (max-width: 760px) {
+  .portfolio .background-world[data-chapter="home"] .world-planet { width: min(112vw, 70svh); }
+}
+
+/* Printed orbit paths carry the composition into the static hero. */
+.portfolio #home .orbital-print {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.portfolio #home .orbital-print::before,
+.portfolio #home .orbital-print::after {
+  content: "";
+  position: absolute;
+  inset: 29% 8%;
+  border: 1px solid color-mix(in srgb, var(--orbit-halo) 75%, transparent);
+  border-radius: 50%;
+  transform: rotate(-17deg);
+}
+.portfolio #home .orbital-print::after {
+  inset: 31% 12%;
+  border-style: dashed;
+  opacity: .55;
+  transform: rotate(19deg);
+}

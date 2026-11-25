@@ -1,0 +1,164 @@
+/* The orbit is the illustration. Everything else uses paper, ink, and one accent. */
+.portfolio.mode-saitama {
+  --page: #f5f1e9;
+  --surface: #fcf9f3;
+  --ink: #252225;
+  --muted: #655b5c;
+  --rule: #3830392b;
+  --accent-ink: #9e352c;
+  --hero-glow: #503128;
+}
+.portfolio.mode-garou {
+  --page: #15141b;
+  --surface: #1c1a24;
+  --ink: #f4eef9;
+  --muted: #c0b6ce;
+  --rule: #eee0ff29;
+  --accent-ink: #d0b9ff;
+  --hero-glow: #342852;
+}
+.portfolio:is(.mode-saitama,.mode-garou) {
+  --editorial-panel: var(--page);
+  --editorial-ink: var(--ink);
+  --editorial-muted: var(--muted);
+  --editorial-line: var(--rule);
+  --editorial-accent: var(--accent-ink);
+  --polish-text: var(--ink);
+  --polish-secondary: var(--muted);
+  background: var(--page) !important;
+}
+.portfolio:is(.mode-saitama,.mode-garou) .background-world {
+  background: radial-gradient(ellipse at 67% 45%, var(--hero-glow), #100f16 70%) !important;
+}
+.portfolio .background-world:not([data-chapter="home"]) { display: none; }
+.portfolio .background-world .world-moon { display: none; }
+.portfolio .background-world[data-chapter="home"] .world-stars {
+  background: radial-gradient(circle, #efe6ee 0 1px, transparent 1.4px) 0 0 / 83px 79px,
+    radial-gradient(circle, #c7a8f1 0 .75px, transparent 1.1px) 27px 31px / 127px 113px;
+  mask-image: linear-gradient(to right, transparent, #000 56%);
+  opacity: .32;
+}
+.portfolio .background-world[data-chapter="home"] .world-vignette {
+  background: linear-gradient(90deg, #100f16 4%, transparent 66%);
+}
+.portfolio .fist-run #home.hero::after { content: none; }
+.portfolio #main #home .hero-intro-title {
+  font: 600 clamp(40px, 5vw, 76px)/.98 Inter, sans-serif !important;
+  letter-spacing: -.065em;
+  max-width: 11ch;
+}
+.portfolio #main #home .hero-intro-title::after { width: 32px; transform: none; }
+.portfolio #main #home .hero-intro-copy { font-size: 16px !important; }
+.portfolio #home .orbital-print { opacity: .55; }
+
+.portfolio:is(.mode-saitama,.mode-garou) header.site-header[data-liquid-glass] {
+  border-radius: 12px !important;
+  background: color-mix(in srgb, var(--surface) 94%, transparent) !important;
+  box-shadow: none !important;
+}
+.portfolio:is(.mode-saitama,.mode-garou) header.site-header[data-liquid-glass] :is(.brand, .brand span, .nav a, .header-controls > button) {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+}
+.portfolio:is(.mode-saitama,.mode-garou) header.site-header[data-liquid-glass] :is(.nav a.active, .nav a:hover) {
+  color: var(--accent-ink) !important;
+}
+.portfolio header.site-header[data-liquid-glass] :is(button, a):focus-visible {
+  outline: 2px solid var(--accent-ink);
+}
+.portfolio:is(.mode-saitama,.mode-garou) header.site-header[data-liquid-glass] .nav.open {
+  background: var(--surface) !important;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+}
+.portfolio header.site-header[data-liquid-glass] > .liquid-glass-layer { opacity: .12; }
+.portfolio :is(.manga-ink-progress,.manga-speed-field,.orbit-progress,.custom-cursor) { display: none; }
+.portfolio, .portfolio #main { cursor: auto; }
+
+.portfolio #main > .section,
+.portfolio #main > #experience.section,
+.portfolio #main > #skills.section {
+  border: 0 !important;
+  border-top: 1px solid var(--rule) !important;
+  border-radius: 0 !important;
+  margin: 0 auto !important;
+  padding: clamp(36px, 6vw, 76px) 0 !important;
+  background: var(--page) !important;
+}
+.portfolio #main > .section::before,
+.portfolio #main > .section::after { content: none; }
+.portfolio #main .section :is(h2, h2 span) {
+  font: 600 clamp(32px, 4.5vw, 56px)/1.05 Inter, sans-serif !important;
+  letter-spacing: -.045em !important;
+  color: var(--ink) !important;
+  text-shadow: none;
+}
+.portfolio #main #about .about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, .75fr);
+  align-items: start;
+  gap: 32px;
+}
+.portfolio #main #about .registry-card {
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+  border: 1px solid var(--rule) !important;
+  border-radius: 10px;
+  transform: none;
+  box-shadow: none !important;
+  background: var(--surface) !important;
+}
+.portfolio #main #about .registry-card::after { content: none; }
+.portfolio #main #about :is(.about-copy,.registry-card) :is(p,dt,dd,h3,strong) { color: var(--ink) !important; }
+.portfolio #main #about .registry-card h3 { margin: 0 0 16px; }
+.portfolio #main #about .registry-card dl { margin: 0; }
+.portfolio #main #projects :is(.project-front,.project-back) { background: var(--surface) !important; }
+.portfolio #main #skills.section {
+  --skills-paper: var(--page);
+  --skills-panel: var(--surface);
+  --skills-ink: var(--ink);
+  --skills-muted: var(--muted);
+  --skills-line: var(--rule);
+  --skills-accent: var(--accent-ink);
+}
+.portfolio #main #contact .contact-layout,
+.portfolio #main #contact .contact-info {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+.portfolio #main #contact .contact-info :is(p,a,span) { color: var(--ink) !important; }
+.portfolio #main #contact .portfolio-chat {
+  --chat-paper: var(--page);
+  --chat-card: var(--surface);
+  --chat-ink: var(--ink);
+  --chat-line: var(--rule);
+  background: var(--surface) !important;
+  border: 1px solid var(--rule) !important;
+  box-shadow: none !important;
+}
+.portfolio #main :is(.quick-stats,.power-stats) {
+  background: var(--page) !important;
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.portfolio #main :is(.quick-stats,.power-stats) :is(strong,span,p,button) { color: var(--ink) !important; }
+.portfolio #main :is(.quick-stats,.power-stats) .stat { border-color: var(--rule) !important; }
+@media (max-width: 960px) {
+  .portfolio #main .fist-run #home .hero-content { background: transparent !important; border: 0; }
+  .portfolio .background-world[data-chapter="home"] .world-vignette { background: linear-gradient(180deg, #100f16 13%, transparent 70%); }
+}
+@media (max-width: 760px) {
+  .portfolio #main #about .about-layout { grid-template-columns: minmax(0,1fr); }
+}
+
+.portfolio:is(.mode-saitama,.mode-garou) header.site-header[data-liquid-glass] .brand > svg {
+  color: var(--ink) !important;
+  --bg: var(--surface);
+}

@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef } from "react";
+import DetailedEarthFallback from './DetailedEarthFallback';
 const EarthScene = lazy(() => import("./EarthScene"));
 
 export default function BackgroundWorld({
@@ -22,20 +23,21 @@ export default function BackgroundWorld({
     function draw() {
       smooth += (target - smooth) * (frozen ? 1 : 0.07);
       const p = smooth;
+      world.current?.style.setProperty('--world-depth',String(p));
       const chapters = [
         "home",
         "about",
-        "skills",
-        "experience",
         "projects",
+        "experience",
+        "skills",
         "contact",
       ];
       const positions = [
-        [68, 24, 0.55],
+        [50, 48, 1],
         [78, 40, 1.4],
-        [22, 42, 1.5],
-        [55, 100, 3.8],
         [74, 88, 3],
+        [55, 100, 3.8],
+        [22, 42, 1.5],
         [50, 45, 1.1],
       ];
       let section = 0;
@@ -58,6 +60,7 @@ export default function BackgroundWorld({
       const y = a[1] + (b[1] - a[1]) * blend;
       const scale = a[2] + (b[2] - a[2]) * blend;
       world.current?.style.setProperty("--world-x", x + "vw");
+      if (world.current) world.current.dataset.chapter = chapters[section];
       world.current?.style.setProperty("--world-y", y + "vh");
       world.current?.style.setProperty("--world-scale", String(scale));
       if (progress.current) progress.current.style.top = p * 100 + "%";
@@ -76,17 +79,23 @@ export default function BackgroundWorld({
       <div
         className={"background-world " + (frozen ? "world-static" : "")}
         aria-hidden="true"
+        data-chapter="home"
         ref={world}
       >
         <div className="world-stars" />
         <div className="world-planet">
           <div className="world-fallback">
-            <i />
-            <b />
+            <DetailedEarthFallback />
           </div>
           {!frozen && (
             <Suspense fallback={null}>
-              <EarthScene ambient onReady={onReady} />
+              <EarthScene
+                ambient
+                onReady={ready => {
+                  if (world.current) world.current.dataset.earthReady = String(ready);
+                  onReady(ready);
+                }}
+              />
             </Suspense>
           )}
         </div>
@@ -97,10 +106,10 @@ export default function BackgroundWorld({
         <span ref={progress} aria-hidden="true">
           ●
         </span>
-        {["about", "skills", "experience", "projects", "contact"].map(
+        {["about", "projects", "experience", "skills", "contact"].map(
           (id, i) => (
             <a href={"#" + id} key={id} aria-label={"Go to " + id}>
-              {String(i + 1).padStart(2, "0")}
+              {"•"}
             </a>
           )
         )}
@@ -108,3 +117,4 @@ export default function BackgroundWorld({
     </>
   );
 }
+

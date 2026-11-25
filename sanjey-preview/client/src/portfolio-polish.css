@@ -1,0 +1,153 @@
+/* Craft pass using unslop by Damir Sokolovsky (@heydamir), CC BY 4.0.
+   Owner direction: keep One Punch Man-inspired gradients, glass and interaction. */
+.portfolio { --polish-text:#302125;--polish-secondary:#67504b;--polish-muted:#796762;--polish-line:#30212526; }
+.portfolio.mode-garou {--polish-text:#f0eaff;--polish-secondary:#d1c6e4;--polish-muted:#b4a7c9;--polish-line:#f0eaff26;}
+
+/* 1–3: rhythm, three text roles, consistent controls and icons. */
+.portfolio header.site-header[data-liquid-glass] {height:64px;min-height:64px;gap:16px;padding:8px 24px;width:calc(100% - 48px);margin:16px auto;top:16px;}
+.portfolio .site-header .brand {gap:8px;flex-shrink:0;}
+.portfolio .site-header .brand>svg {width:32px;height:32px;}
+.portfolio .site-header .brand>span {font:400 22px/1 Bangers,sans-serif!important;letter-spacing:.02em;}
+.portfolio .site-header .brand small {display:none;}
+.portfolio .site-header .nav {gap:4px;min-width:0;margin-inline:auto;}
+.portfolio header.site-header .nav>a {padding:8px 12px;min-height:36px;font:500 13px/20px Inter,sans-serif!important;letter-spacing:0;white-space:nowrap;}
+.portfolio .header-controls {margin-left:auto;gap:8px;flex-shrink:0;}
+.portfolio header.site-header .header-controls>button {min-height:36px;padding:8px 12px;gap:8px;font:500 11px/16px Inter,sans-serif!important;letter-spacing:0;white-space:nowrap;}
+.portfolio .header-controls>button>svg {width:16px;height:16px;stroke-width:1.5;}
+.portfolio .site-header :is(a,button):hover {scale:1!important;filter:none!important;translate:none!important;}
+.portfolio .site-header :is(a,button):focus-visible {outline:2px solid #fff;outline-offset:4px;}
+.portfolio main>.section {padding:48px!important;margin-block:64px!important;}
+.portfolio .section-heading {gap:24px;margin-bottom:32px;padding:24px!important;}
+.portfolio :is(.project-copy,.project-back,.experience-explorer,.chat-header,.chat-log) {padding:24px;}
+.portfolio .projects-grid {gap:24px!important;}
+.portfolio #main .section :is(p,li,label,small,dt,dd,a,button,input,textarea,select,summary,strong,span,em,b) {
+  font-family:Inter,sans-serif!important;letter-spacing:0;--comic-text:var(--polish-text);
+}
+.portfolio #main .section :is(p,li) {font-size:15px;line-height:1.7;font-weight:400;}
+.portfolio #main .section :is(h3,h4) {font-family:Inter,sans-serif!important;font-weight:600!important;letter-spacing:-.02em!important;line-height:1.3;}
+.portfolio #main .section h2 {font-family:Bangers,sans-serif!important;font-weight:400!important;font-size:clamp(36px,4vw,56px);line-height:1.05;letter-spacing:.015em!important;}
+.portfolio #main .section .eyebrow {font:500 12px/16px Inter,sans-serif!important;letter-spacing:.02em;color:var(--polish-secondary)!important;text-transform:none;}
+.portfolio #main :is(#projects,#experience,#contact) {--glass-ink:var(--polish-text);}
+.portfolio #main .section :is(.section-intro,.project-context,.explorer-secondary,.chat-grounding) {color:var(--polish-secondary)!important;}
+.portfolio #main .section :is(.tags span,.explorer-meta,.case-label,.chat-eyebrow,.chat-answer-label,.interaction-note) {font-size:12px!important;line-height:18px!important;font-weight:400!important;letter-spacing:0!important;}
+.portfolio .quick-stats,.portfolio .stats-grid {gap:16px;}
+.portfolio .stat {padding:24px!important;}
+.portfolio .stat strong {font-family:Inter,sans-serif!important;font-weight:500!important;font-variant-numeric:tabular-nums;}
+
+/* 4–6: a readable introduction and a contained, interactive manga scene. */
+.portfolio #home :is(.hero-coordinate,.hero-grid) {display:none!important;}
+.portfolio .fist-run #home.hero {height:min(840px,calc(100svh - 112px));min-height:640px;max-width:1440px;margin:auto;overflow:hidden;}
+.portfolio .fist-run #home .hero-content {
+  position:absolute;left:48px;top:50%;bottom:auto;right:auto;transform:translateY(-50%);
+  width:36%;max-width:448px;padding:0;text-align:left;background:none!important;z-index:5;pointer-events:auto;
+}
+.portfolio #home .hero-content .hero-accessible-title {position:static!important;display:block!important;width:auto!important;height:auto!important;clip:auto!important;clip-path:none!important;overflow:visible!important;white-space:normal!important;margin:0 0 24px;font:400 clamp(48px,5.2vw,76px)/1 Bangers,sans-serif!important;letter-spacing:.01em;color:var(--polish-text)!important;}
+.portfolio #home .hero-content .hero-subtitle {font:500 15px/24px Inter,sans-serif!important;letter-spacing:0;color:var(--polish-text)!important;white-space:normal;max-width:30ch;}
+.portfolio #home :is(.code-bracket,.typing-caret,.availability,.hero-kicker) {display:none!important;}
+.portfolio #home .hero-content .hero-tagline {display:block!important;margin:16px 0 24px;font:400 18px/28px Inter,sans-serif!important;color:var(--polish-secondary)!important;max-width:30ch;}
+.portfolio #home .hero-content .hero-actions {display:flex;flex-wrap:wrap;gap:12px;margin:0!important;}
+.portfolio #home .hero-actions .btn {height:48px;padding:12px 16px;min-width:0;border:1px solid #8b252b!important;border-radius:12px!important;font:500 14px/22px Inter,sans-serif!important;box-shadow:none!important;filter:none!important;scale:1!important;}
+.portfolio #home .hero-actions .btn.primary {background:#8b252b!important;color:#fffaf4!important;}
+.portfolio #home .hero-actions .btn.secondary {background:rgba(250,247,242,.85)!important;color:#302125!important;}
+.portfolio.mode-garou #home .hero-actions .btn.primary {background:#e8ddff!important;border-color:#e8ddff!important;color:#24152e!important;}
+.portfolio.mode-garou #home .hero-actions .btn.secondary {background:#171225d9!important;color:#f0eaff!important;border-color:#c4b5fd66!important;}
+.portfolio #home .hero-content .hero-meta {display:flex!important;flex-wrap:wrap;gap:12px;margin-top:24px;font:400 12px/20px Inter,sans-serif!important;color:var(--polish-secondary)!important;}
+.portfolio #home .hero-meta a {font-family:Inter,sans-serif!important;color:var(--polish-text)!important;text-decoration:underline;text-underline-offset:4px;}
+.portfolio #home .fist-stage {left:40%;right:0;top:0;bottom:0;width:60%;}
+.portfolio #home .fist-trigger {left:50%;top:48%;width:100%;max-width:100%;height:100%;}
+.portfolio #home .name-row {width:100%;gap:1%;}
+.portfolio #home .name-letter {width:14%;height:120px;font-size:clamp(48px,7.5vw,108px);}
+.portfolio #home .name-row-0 {top:14%;}
+.portfolio #home .name-row-1 {bottom:18%;}
+.portfolio #home .name-fallback .fist-illustration {inset:18% 5% 20%;}
+.portfolio #home .hero-pause {top:16px;right:16px;padding:8px 12px;border-radius:8px;font:400 12px/16px Inter,sans-serif;}
+.portfolio #home .fist-label {bottom:12%;font:500 11px/16px Inter,sans-serif!important;letter-spacing:.02em;padding:6px 12px;border-radius:8px;}
+.portfolio #home .fire-aura {filter:none;opacity:.22;}
+.portfolio #home .fire-reduced :is(.fire-aura,.fire-tongues,.fire-embers,.fist-speed,.fist-sparks) {display:none!important;}
+.portfolio #home .fist-illustration>svg>g {filter:none;}
+
+/* 7–9: nested surfaces, restrained framing, motion with a job. */
+.portfolio #main .section .section-index {font:400 12px/16px Inter,sans-serif!important;background:none!important;border:0!important;box-shadow:none!important;transform:none!important;rotate:0deg!important;padding:0 0 16px;}
+.portfolio .section-index::after {display:none!important;}
+.portfolio .explorer-rail>button {padding:12px 16px;border-radius:16px!important;}
+.portfolio .explorer-rail>button::before {display:none;}
+.portfolio .explorer-filters {gap:8px;padding:16px!important;}
+.portfolio .explorer-filters>button {min-height:36px;padding:8px 12px;border-radius:12px;}
+.portfolio .explorer-detail {padding:24px!important;}
+.portfolio .explorer-detail li {margin:0 0 12px;}
+.portfolio .chat-log {height:400px;}
+.portfolio .portfolio-chat .chat-source {border-radius:16px!important;}
+.portfolio .portfolio-chat .chat-followups button {border-radius:12px!important;padding:8px 12px;}
+.portfolio .portfolio-chat .chat-compose {border-radius:16px!important;margin:0 24px;}
+.portfolio .portfolio-chat .chat-grounding {padding:12px 24px 24px;}
+.portfolio .manga-world {opacity:.65;}
+.portfolio :is(.project-card,.stat,.skill-node,.btn):hover {scale:1!important;}
+.portfolio :is(.project-card,.stat,.btn)::before,.portfolio .project-card::after {display:none!important;}
+.portfolio :is(.project-card,.stat,.btn) {transition:background-color 160ms,border-color 160ms,opacity 160ms;}
+.portfolio .project-card:focus-within {outline:2px solid var(--glass-border);outline-offset:6px;}
+.portfolio .marquee {opacity:.65;}
+.portfolio .fx-debug {display:none;}
+
+@media(max-width:1199px) {
+ .portfolio .site-header .nav {display:none;}
+ .portfolio .site-header .menu-toggle {display:flex!important;align-items:center;justify-content:center;}
+ .portfolio .site-header .nav.open {display:flex!important;position:absolute;top:76px;left:0;right:0;margin:0;padding:16px;gap:8px;flex-wrap:wrap;border-radius:24px;background:var(--glass-paper)!important;backdrop-filter:blur(24px);border:1px solid var(--glass-border);}
+ .portfolio .site-header .brand {margin-right:auto;}
+ .portfolio .fist-run #home.hero {min-height:640px;}
+ .portfolio .fist-run #home .hero-content {left:32px;width:38%;}
+ .portfolio main>.section {padding:32px!important;}
+}
+@media(max-width:760px) {
+ .portfolio header.site-header[data-liquid-glass] {height:64px;width:calc(100% - 24px);margin:12px;top:12px;padding:8px 16px;gap:8px;}
+ .portfolio .site-header .brand>span {font-size:18px!important;}
+ .portfolio .site-header .brand>svg {width:28px;height:28px;}
+ .portfolio .header-controls {gap:4px;}
+ .portfolio header.site-header .header-controls>button {padding:8px;min-height:36px;gap:4px;font-size:10px!important;}
+ .portfolio .header-controls :is(.read-switch,.lite-switch)>span {display:none;}
+ .portfolio .header-controls :is(.read-switch,.lite-switch)>svg {display:none;}
+ .portfolio .fist-run #home.hero {height:auto;min-height:0;padding:32px 24px 0;display:flex;flex-direction:column;overflow:hidden;}
+ .portfolio .fist-run #home .hero-content {position:relative;inset:auto;transform:none;max-width:none;width:100%;padding:0;}
+ .portfolio #home .hero-content .hero-accessible-title {font-size:48px!important;margin-bottom:16px;}
+ .portfolio #home .hero-content .hero-tagline {font-size:16px!important;line-height:24px;margin:12px 0 24px;}
+ .portfolio #home .hero-content .hero-meta {margin-top:16px;}
+ .portfolio #home .fist-stage {position:relative;inset:auto;width:100%;height:420px;margin-top:16px;flex:none;}
+ .portfolio #home .name-letter {font-size:clamp(48px,13vw,84px);height:100px;}
+ .portfolio #home .name-row-0 {top:6%;}
+ .portfolio #home .name-row-1 {bottom:12%;}
+ .portfolio #home .name-fallback .fist-illustration {inset:12% 0 15%;}
+ .portfolio #home .hero-pause {top:0;right:0;font-size:11px;}
+ .portfolio #home .fist-label {bottom:5%;}
+ .portfolio main>.section {width:calc(100% - 32px)!important;padding:24px!important;margin-block:40px!important;}
+ .portfolio .section-heading {padding:20px!important;gap:16px;margin-bottom:24px;}
+ .portfolio #main .section h2 {font-size:40px;}
+ .portfolio :is(.project-copy,.project-back,.experience-explorer,.chat-header,.chat-log) {padding:20px;}
+ .portfolio .explorer-detail {padding:16px!important;}
+ .portfolio .quick-stats {padding:16px;gap:12px;}
+ .portfolio .stat {padding:16px!important;}
+}
+@media(max-width:390px) {
+ .portfolio header.site-header[data-liquid-glass] {padding:8px 12px;}
+ .portfolio .site-header .brand>span {font-size:16px!important;}
+ .portfolio .site-header .brand>svg {width:24px;height:24px;}
+ .portfolio .header-controls>button {padding-inline:6px!important;}
+}
+/* Resolve legacy hero ink tokens at their source instead of fighting each label. */
+.portfolio #main #home .hero-content {--comic-dark-text:var(--polish-text);--comic-text:var(--polish-text);}
+.portfolio #main #home .hero-content .hero-accessible-title {color:var(--polish-text)!important;}
+.portfolio #main #home .hero-content .hero-tagline,
+.portfolio #main #home .hero-content .hero-meta :is(a,span) {color:var(--polish-secondary)!important;}
+.portfolio #main #home .hero-content .hero-actions a.btn.primary {color:#fffaf4!important;}
+.portfolio.mode-garou #main #home .hero-content .hero-actions a.btn.primary {color:#24152e!important;}
+.portfolio #main #home .hero-content .hero-actions a.btn.secondary {color:#302125!important;}
+.portfolio.mode-garou #main #home .hero-content .hero-actions a.btn.secondary {color:#f0eaff!important;}
+.portfolio #home .fallback-name .name-letter {line-height:1!important;padding:0!important;border:0!important;background:transparent!important;}
+.portfolio #home .fallback-name .name-letter>span:not(.name-face) {display:none;}
+.portfolio #home .fallback-name .name-letter>.name-face {line-height:1!important;text-shadow:2px 3px #7a0f0f,4px 5px #7a0f0f;-webkit-text-stroke:1px #302125;}
+.portfolio .chapter-flash,.portfolio .manga-speed-field {display:none!important;}
+.portfolio #home .fist-stage::before {display:none;}
+.portfolio #main #home .hero-content .hero-actions {justify-content:flex-start;align-items:flex-start;}
+.portfolio #main #home .hero-content .hero-meta {justify-content:flex-start;}
+
+/* Keep the navigation disclosure above all chapter effects. */
+.portfolio header.site-header[data-liquid-glass] { z-index: 40; }
+.portfolio #portfolio-chat-title { scroll-margin-top: 110px; }

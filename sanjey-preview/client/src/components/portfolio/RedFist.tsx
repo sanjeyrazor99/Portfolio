@@ -16,7 +16,7 @@ export default function RedFist() {
       <pattern id={id+"dots"} width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#0B0B0F" opacity=".32"/></pattern>
       <filter id={id+"edge"}><feTurbulence baseFrequency=".055" numOctaves="2" seed="12" result="grain"/><feDisplacementMap in="SourceGraphic" in2="grain" scale="2.5"/></filter>
     </defs>
-    <g stroke="#0B0B0F" strokeWidth="5" strokeLinejoin="round" filter={`url(#${id}edge)`}>
+    <g stroke="#0B0B0F" strokeWidth="5" strokeLinejoin="round">
       <path className="fist-base" fill="#7A0F0F" d="M75 202Q49 241 77 305L156 347L337 438L425 444Q460 404 465 308L470 175Z"/>
       <path className="fist-thumb" fill={`url(#${id}paint)`} d="M423 334Q454 329 445 377L417 448Q402 480 368 463L278 430Q246 416 259 388Q270 369 310 376L363 391Z"/>
       {fingers.map((path, i) => <g className="fist-knuckle" key={path}>
@@ -36,3 +36,4 @@ export default function RedFist() {
     </g>
   </svg>;
 }
+

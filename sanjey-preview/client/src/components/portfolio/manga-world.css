@@ -1,0 +1,24 @@
+.manga-world {position:absolute;inset:0;overflow:hidden;pointer-events:none;color:#6e2326;}
+.manga-world-art {width:100%;height:100%;display:block;}
+.manga-world-haze {position:absolute;inset:0;background:radial-gradient(ellipse at 65% 82%,#faf7f260,transparent 45%);}
+.world-impact-lines {opacity:.13;}
+.world-city-far {opacity:.34;transform:translateY(calc(var(--world-depth,0)*-12px));}
+.world-terrain {opacity:.45;}
+.world-rooftop {opacity:.5;transform:translateY(calc(var(--world-depth,0)*-26px));}
+.world-caped-observer {opacity:.55;transform:translateY(calc(var(--world-depth,0)*-26px));}
+.world-cosmic-fighter {display:none;}
+.world-floating-rubble {opacity:.45;}
+.mode-garou .manga-world {color:#c4b5fd;}
+.mode-garou .manga-world-haze {background:radial-gradient(ellipse at 50% 75%,#5b21b640,transparent 50%);}
+.mode-garou .world-city-far {opacity:.28;}
+.mode-garou .world-caped-observer {display:none;}
+.mode-garou .world-cosmic-fighter {display:block;opacity:.6;transform:translateY(calc(var(--world-depth,0)*-26px));}
+@media(prefers-reduced-motion:no-preference) {
+ .background-world:not(.world-static) .rubble {animation:world-rubble-drift 14s ease-in-out infinite alternate;}
+ .background-world:not(.world-static) .rubble-1,.background-world:not(.world-static) .rubble-4 {animation-delay:-5s;animation-duration:19s;}
+ .background-world:not(.world-static) .rubble-2,.background-world:not(.world-static) .rubble-5 {animation-delay:-9s;animation-duration:17s;}
+ .background-world:not(.world-static) .world-cape {animation:world-cape-breathe 8s ease-in-out infinite alternate;transform-origin:732px 703px;}
+}
+@keyframes world-rubble-drift {from{translate:0 0;rotate:-5deg;}to{translate:8px -18px;rotate:8deg;}}
+@keyframes world-cape-breathe {from{transform:skewX(-3deg);}to{transform:skewX(5deg);}}
+@media(max-width:760px) {.world-city-far{opacity:.28}.world-impact-lines{opacity:.09}}

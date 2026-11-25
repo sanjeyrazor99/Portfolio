@@ -1,0 +1,188 @@
+/* Skills craft pass using unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.portfolio #main #skills.section {
+  --skills-paper: #faf5eb;
+  --skills-panel: #fffaf1;
+  --skills-ink: #302125;
+  --skills-muted: #67504b;
+  --skills-line: #30212529;
+  --skills-accent: #932c35;
+  background: var(--skills-paper) !important;
+  border: 1px solid var(--skills-line) !important;
+  border-radius: 24px;
+  box-shadow: none !important;
+}
+.portfolio.mode-garou #main #skills.section {
+  --skills-paper: #191620;
+  --skills-panel: #211c2a;
+  --skills-ink: #f4edf9;
+  --skills-muted: #cbc0d5;
+  --skills-line: #f4edf92e;
+  --skills-accent: #c4b5fd;
+}
+.portfolio #main #skills.section :is(h2, h3, li, button, strong, span) {
+  color: var(--skills-ink) !important;
+}
+.portfolio #main #skills.section :is(p, .skill-tooltip span) {
+  color: var(--skills-muted) !important;
+}
+.portfolio #main #skills.section :is(.section-heading, .skill-group, .hunter-quote) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  filter: none;
+}
+.portfolio #main #skills.section :is(.section-heading, .skill-group, .hunter-quote)::before,
+.portfolio #main #skills.section :is(.section-heading, .skill-group, .hunter-quote)::after {
+  content: none;
+}
+.portfolio #main #skills.section .section-heading {
+  align-items: start;
+  gap: 12px 24px;
+  margin: 0 0 24px;
+  padding: 0 !important;
+}
+.portfolio #main #skills .section-heading :is(h2, p) { margin: 0; }
+.portfolio #main #skills .constellation-hint { margin: 0; }
+.portfolio #main #skills .constellation-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+.portfolio #main #skills .constellation-controls :is(button, span) {
+  font: 500 13px/20px Inter, sans-serif !important;
+}
+.portfolio #main #skills .constellation-controls button {
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid var(--skills-line);
+  border-radius: 8px;
+  background: var(--skills-panel);
+}
+.portfolio #main #skills .constellation-controls button[aria-pressed="true"] {
+  border-color: var(--skills-accent);
+  color: var(--skills-accent) !important;
+}
+.portfolio #main #skills .constellation-stage {
+  background: var(--skills-panel) !important;
+  border: 1px solid var(--skills-line) !important;
+  border-radius: 16px;
+}
+.portfolio #main #skills .constellation-stage::after { content: none; }
+.portfolio #main #skills .constellation-orbit { border-color: var(--skills-line) !important; }
+.portfolio #main #skills .skill-node {
+  transform: translate(-50%, -50%) scale(var(--node-scale, 1));
+  background: var(--skills-paper) !important;
+  border-color: var(--skills-line) !important;
+  box-shadow: none;
+  animation: none;
+  touch-action: none;
+}
+.portfolio #main #skills .skill-node[data-active="true"] { border-color: var(--skills-accent) !important; }
+.portfolio #main #skills :is(button, .skill-node):focus-visible {
+  outline: 2px solid var(--skills-accent);
+  outline-offset: 3px;
+}
+.portfolio #main #skills .skill-node-label { font: 500 11px/16px Inter, sans-serif !important; }
+.portfolio #main #skills .constellation-pow {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+  font-family: Bangers, sans-serif;
+  transform: rotate(-12deg);
+}
+.portfolio #main #skills .skill-tooltip {
+  border: 1px solid var(--skills-line);
+  border-inline-start: 3px solid var(--skills-accent);
+  background: var(--skills-paper);
+  box-shadow: none;
+}
+.portfolio #main #skills .skill-lists {
+  grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  margin: 24px 0 0;
+}
+.portfolio #main #skills.section .skill-group {
+  padding: 16px 0 0;
+  border-top: 1px solid var(--skills-line) !important;
+}
+.portfolio #main #skills .skill-group h3 { margin: 0 0 4px; font-size: 18px; }
+.portfolio #main #skills .skill-group p { margin: 0 0 12px; font-size: 13px; }
+.portfolio #main #skills .skill-list { gap: 8px; }
+.portfolio #main #skills.section .skill-list li {
+  padding: 4px 8px;
+  background: var(--skills-panel);
+  border: 1px solid var(--skills-line);
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 20px;
+}
+.portfolio #main #skills .skill-list li[data-active="true"] {
+  border-inline-start: 3px solid var(--skills-accent);
+  padding-inline-start: 6px;
+}
+.portfolio #main #skills .certifications {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--skills-line);
+}
+.portfolio #main #skills .certifications ul {
+  margin: 0;
+  padding-inline-start: 20px;
+  list-style: disc;
+}
+.portfolio #main #skills.section .hunter-quote {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(72px, 20%);
+  align-items: center;
+  gap: 12px 16px;
+  padding: 16px 0 0;
+  margin: 24px 0 0;
+  min-height: 0;
+  border-top: 1px solid var(--skills-line) !important;
+}
+.portfolio #main #skills .hunter-quote > span:first-child {
+  font: 400 clamp(28px, 5vw, 52px)/1 Bangers, sans-serif !important;
+  font-variant-numeric: tabular-nums;
+  color: var(--skills-accent) !important;
+}
+.portfolio #main #skills .hunter-quote p { margin: 4px 0 0; }
+.portfolio #main #skills .hunter-scene {
+  position: relative;
+  inset: auto;
+  margin: 0;
+  width: 100%;
+  height: clamp(80px, 14vw, 144px);
+  opacity: 1;
+}
+.portfolio #main #skills .character-art--hunter { filter: none; }
+.portfolio #main #skills .hunter-kanji { display: none; }
+
+@media (max-width: 760px) {
+  .portfolio #main #skills .skill-lists { grid-template-columns: minmax(0, 1fr); }
+  .portfolio #main #skills .constellation-mobile-toggle { display: inline-flex; }
+  .portfolio #main #skills .constellation-playground:not(.map-open) .constellation-map { display: none; }
+  .portfolio #main #skills .constellation-map { margin-top: 12px; }
+  .portfolio #main #skills .skill-node-label { display: none; }
+  .portfolio #main #skills.section .hunter-quote { grid-template-columns: minmax(0, 1fr) 80px; }
+  .portfolio #main #skills .hunter-quote > span:first-child { grid-column: 1; }
+  .portfolio #main #skills .hunter-scene { grid-column: 2; grid-row: 1 / span 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .constellation-playground { display: none; }
+}
+
+.portfolio #main #skills .constellation-mobile-toggle {
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  background: var(--skills-panel);
+  border: 1px solid var(--skills-accent);
+  border-radius: 8px;
+}
+@media (min-width: 761px) {
+  .portfolio #main #skills .constellation-mobile-toggle { display: none; }
+}

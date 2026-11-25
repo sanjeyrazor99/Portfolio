@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { publishWorldFrame } from "@/lib/worldGlassSource";
 import type * as Three from "three";
 
 export interface EarthSceneProps {
@@ -45,6 +46,7 @@ export default function EarthScene({
     let scene: Three.Scene | undefined;
     let camera: Three.PerspectiveCamera | undefined;
     let earth: Three.Mesh | undefined;
+    let cloudShell: Three.Mesh | undefined;
     let stars: Three.Points | undefined;
     let orbit: Three.Line | undefined;
 
@@ -70,9 +72,10 @@ export default function EarthScene({
       const cameraTargetX = 0.25 * p;
       const cameraTargetY = 0.92 * p;
       const cameraTargetZ = 6.5 - 3.65 * p;
+      const heroOrbit = ambient && host.closest('[data-chapter="home"]') !== null;
       camera.position.x += (cameraTargetX - camera.position.x) * 0.075;
       camera.position.y += (cameraTargetY - camera.position.y) * 0.075;
-      camera.position.z += (cameraTargetZ - camera.position.z) * 0.075;
+      camera.position.z += ((heroOrbit ? 2.55 : cameraTargetZ) - camera.position.z) * 0.075;
       camera.lookAt(cameraTargetX, cameraTargetY, 0);
       if (earth && !hiddenByPreference) earth.rotation.y = time * 0.000035;
       if (orbit) {
@@ -90,7 +93,10 @@ export default function EarthScene({
         const mat = stars.material as Three.PointsMaterial;
         mat.opacity = 0.65 + Math.sin(time * 0.00045) * 0.17;
       }
+
+      if (cloudShell) cloudShell.rotation.y = time * 0.000024;
       renderer.render(scene, camera);
+      if (ambient) publishWorldFrame(renderer.domElement);
       if (!rendered) {
         rendered = true;
         notify(true);
@@ -149,7 +155,7 @@ export default function EarthScene({
         scene = new T.Scene();
         camera = new T.PerspectiveCamera(38, 1, 0.1, 100);
         camera.position.set(0, 0, 6.5);
-        scene.add(new T.AmbientLight(0x8ebcff, 1.1));
+        scene.add(new T.AmbientLight(0x8ebcff, 0.32));
         const sun = new T.DirectionalLight(0xe5f5ff, 2.7);
         sun.position.set(-3, 2, 5);
         scene.add(sun);
@@ -157,89 +163,21 @@ export default function EarthScene({
         rim.position.set(2.8, -1.4, -3);
         scene.add(rim);
 
-        // Deterministic, hand-drawn procedural map texture: no downloaded maps/artwork.
-        const canvas = document.createElement("canvas");
-        canvas.width = 1024;
-        canvas.height = 512;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) throw new Error("Canvas texture unavailable");
-        const ocean = ctx.createLinearGradient(0, 0, 0, 512);
-        ocean.addColorStop(0, "#1264ad");
-        ocean.addColorStop(0.5, "#167dc1");
-        ocean.addColorStop(1, "#073d83");
-        ctx.fillStyle = ocean;
-        ctx.fillRect(0, 0, 1024, 512);
-        // Subtle latitude/longitude currents.
-        ctx.strokeStyle = "rgba(114,204,255,.12)";
-        ctx.lineWidth = 2;
-        for (let y = 40; y < 512; y += 72) {
-          ctx.beginPath();
-          ctx.ellipse(512, 256, 505, y * 0.72, 0, 0, Math.PI * 2);
-          ctx.stroke();
+        const { createEarthTextures } = await import('@/lib/earthTextures');
+        if (cancelled) return;
+        const atlas = createEarthTextures(1536);
+        const mapTexture = new T.CanvasTexture(atlas.surface);
+        mapTexture.colorSpace = T.SRGBColorSpace;
+        const cloudTexture = new T.CanvasTexture(atlas.clouds);
+        cloudTexture.colorSpace = T.SRGBColorSpace;
+        const bumpTexture = new T.CanvasTexture(atlas.relief);
+        const specularTexture = new T.CanvasTexture(atlas.water);
+        for (const texture of [mapTexture,cloudTexture,bumpTexture,specularTexture]) {
+          texture.anisotropy = Math.min(4,renderer.capabilities.getMaxAnisotropy());
+          textures.add(texture);
         }
         let seed = 918273;
-        const rand = () => {
-          seed = (seed * 1664525 + 1013904223) >>> 0;
-          return seed / 4294967296;
-        };
-        const land = (
-          cx: number,
-          cy: number,
-          rx: number,
-          ry: number,
-          count: number
-        ) => {
-          ctx.beginPath();
-          for (let i = 0; i <= count; i++) {
-            const a = (i / count) * Math.PI * 2;
-            const wobble = 0.78 + rand() * 0.4;
-            const x = cx + Math.cos(a) * rx * wobble;
-            const y = cy + Math.sin(a) * ry * wobble;
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-          }
-          ctx.closePath();
-          const green = ctx.createLinearGradient(cx, cy - ry, cx, cy + ry);
-          green.addColorStop(0, "#a0c779");
-          green.addColorStop(1, "#367d5a");
-          ctx.fillStyle = green;
-          ctx.fill();
-          ctx.strokeStyle = "rgba(198,232,151,.45)";
-          ctx.lineWidth = 4;
-          ctx.stroke();
-          ctx.fillStyle = "rgba(222,199,136,.38)";
-          for (let n = 0; n < 9; n++) {
-            ctx.beginPath();
-            ctx.ellipse(
-              cx + (rand() - 0.5) * rx,
-              cy + (rand() - 0.5) * ry,
-              8 + rand() * 22,
-              4 + rand() * 12,
-              rand(),
-              0,
-              Math.PI * 2
-            );
-            ctx.fill();
-          }
-        };
-        land(205, 170, 100, 125, 34);
-        land(278, 337, 53, 112, 29);
-        land(503, 167, 167, 78, 42);
-        land(539, 306, 91, 134, 35);
-        land(760, 177, 198, 104, 43);
-        land(874, 345, 66, 52, 25);
-        land(89, 414, 88, 31, 26);
-        ctx.fillStyle = "rgba(240,248,255,.72)";
-        ctx.beginPath();
-        ctx.ellipse(512, 18, 245, 23, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(512, 494, 245, 18, 0, 0, Math.PI * 2);
-        ctx.fill();
-        const mapTexture = new T.CanvasTexture(canvas);
-        mapTexture.colorSpace = T.SRGBColorSpace;
-        textures.add(mapTexture);
-
+        const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
         const atmosphere = new T.Mesh(
           new T.SphereGeometry(1.09, 48, 32),
           new T.MeshBasicMaterial({
@@ -251,23 +189,29 @@ export default function EarthScene({
             blending: T.AdditiveBlending,
           })
         );
-        // Keep the orbital globe high-right in its full-screen overlay so it never covers recruiter copy.
-        atmosphere.position.set(0.25, 0.92, 0);
+        atmosphere.position.set(ambient ? 0 : 0.25, ambient ? 0 : 0.92, 0);
         atmosphere.scale.setScalar(0.66);
         geometries.add(atmosphere.geometry);
         materials.add(atmosphere.material);
         scene.add(atmosphere);
         const earthMaterial = new T.MeshPhongMaterial({
           map: mapTexture,
-          shininess: 20,
+          bumpMap: bumpTexture, bumpScale: 0.026, specularMap: specularTexture,
+          shininess: 36,
           specular: 0x4b9dcc,
         });
-        earth = new T.Mesh(new T.SphereGeometry(1, 64, 48), earthMaterial);
-        earth.position.set(0.25, 0.92, 0);
+        earth = new T.Mesh(new T.SphereGeometry(1, 96, 64), earthMaterial);
+        earth.position.copy(atmosphere.position);
         earth.scale.setScalar(0.66);
         geometries.add(earth.geometry);
         materials.add(earthMaterial);
         scene.add(earth);
+        cloudShell = new T.Mesh(
+          new T.SphereGeometry(1.014, 96, 64),
+          new T.MeshPhongMaterial({ map: cloudTexture, transparent:true, opacity:.9, depthWrite:false, shininess:5 })
+        );
+        cloudShell.position.copy(earth.position); cloudShell.scale.copy(earth.scale);
+        geometries.add(cloudShell.geometry);if (Array.isArray(cloudShell.material)) cloudShell.material.forEach(m => materials.add(m)); else materials.add(cloudShell.material);scene.add(cloudShell);
 
         const orbitPoints: Three.Vector3[] = [];
         for (let i = 0; i <= 128; i++) {
@@ -352,7 +296,8 @@ export default function EarthScene({
         setRunning();
         if (hiddenByPreference) {
           // Reduced motion still gets a single stable transparent render.
-          renderer.render(scene, camera);
+    
+      renderer.render(scene, camera);
           rendered = true;
           notify(true);
         }
@@ -396,3 +341,5 @@ export default function EarthScene({
     />
   );
 }
+
+

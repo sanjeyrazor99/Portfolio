@@ -1,0 +1,85 @@
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; font: 1rem/1.55 system-ui, sans-serif; color: #fffaf5; background: #351b1b; }
+.backdrop {
+  position: absolute; inset: 0; min-height: 100%; z-index: -1;
+  background:
+    repeating-linear-gradient(128deg, transparent 0 38px, #fff3 39px 41px, transparent 42px 78px),
+    linear-gradient(125deg, #a34532, #63263d 51%, #28344f);
+}
+body { position: relative; isolation: isolate; }
+.layout { width: min(100% - 32px, 65rem); margin: auto; padding: 24px 0 64px; }
+.panel { position: relative; isolation: isolate; overflow: hidden; background: #120e1280; backdrop-filter: blur(var(--glass-blur, 7px)); }
+.nav { --panel-radius: 32px; display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 12px 24px; border-radius: var(--panel-radius); }
+.nav a { color: inherit; text-underline-offset: .25em; }
+header { padding: clamp(48px, 10vw, 100px) 0 28px; }
+.eyebrow { margin: 0; font-size: .9rem; font-weight: 650; }
+h1 { margin: 0; font-size: clamp(2.6rem, 8vw, 5rem); line-height: 1.05; }
+.tuner { display: inline-flex; align-items: center; gap: 12px; margin-top: 24px; padding: 8px 12px; border-radius: 8px; background: #241820; }
+.tuner output { min-width: 2ch; }
+.pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.plan { --panel-radius: 24px; min-height: 210px; padding: 24px; border-radius: var(--panel-radius); }
+.plan h2, .plan p { margin: 0; }
+.price { font-size: 2.25rem; font-weight: 750; }
+.price small { font-size: .85rem; font-weight: 500; }
+.panel > .glass-container {
+  position: absolute; inset: 0; z-index: -1; overflow: hidden;
+  border-radius: inherit; pointer-events: none;
+}
+.panel > .glass-container::after {
+  content: ""; position: absolute; inset: 0;
+  background: #160f15a8; border: 1px solid #fff5; border-radius: inherit;
+}
+.panel > .glass-container canvas { pointer-events: none; }
+:focus-visible { outline: 2px solid #ffdfae; outline-offset: 4px; }
+@media (max-width: 650px) { .pricing { grid-template-columns: 1fr; } }
+/* A consistent glass surface, with stronger frosting on the text areas. */
+body {
+  background: #25162e;
+  font: 1rem/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+.backdrop {
+  background:
+    radial-gradient(ellipse at 18% 18%, #cd7055, transparent 45%),
+    radial-gradient(ellipse at 83% 54%, #526fa5, transparent 44%),
+    repeating-linear-gradient(132deg, transparent 0 68px, #ffffff26 69px 71px, transparent 72px 110px),
+    linear-gradient(148deg, #351a32, #39294d 58%, #18263e);
+}
+.panel {
+  background: #2217269c;
+  box-shadow: 0 16px 40px #190f284d, inset 0 1px 0 #fff6;
+}
+.panel > .glass-container {
+  border-radius: inherit;
+}
+.panel > .glass-container::after {
+  background: linear-gradient(155deg, #201528ab, #17121eb8 72%);
+  border: 1px solid #fffc;
+  border-color: #fff8 #fff4 #fff3;
+  box-shadow: inset 0 2px 3px #fff3, inset 0 -2px 4px #fff1;
+}
+.nav { padding: 8px 10px 8px 18px; }
+.nav a {
+  border-radius: 24px;
+  padding: 8px 14px;
+  text-decoration: none;
+}
+.nav a:last-child,
+.tuner {
+  background: #fff2;
+  border: 1px solid #fff5;
+  box-shadow: inset 0 1px 0 #fff4;
+}
+.nav a:hover { background: #fff3; }
+.intro {
+  --panel-radius: 36px;
+  margin: 20px 0;
+  padding: clamp(28px, 7vw, 84px);
+  border-radius: var(--panel-radius);
+}
+.eyebrow { margin-bottom: 8px; color: #ffe5d8; }
+h1 { letter-spacing: -.055em; }
+.tuner { border-radius: 24px; padding: 8px 14px; max-width: 100%; }
+.tuner input { width: clamp(60px, 19vw, 150px); accent-color: #ffe5d8; }
+.tuner output { font-variant-numeric: tabular-nums; }
+.plan { --panel-radius: 28px; }
+.price { margin-block: 8px !important; letter-spacing: -.035em; }

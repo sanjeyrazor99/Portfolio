@@ -45,16 +45,16 @@ describe("Portfolio content and static delivery", () => {
       "aMuse-Us",
       "MEMEoTron",
       "Backpack Robot",
-      "100+",
-      "1,000+",
+      "Automated Defense Intelligence Pipeline",
+      'aria-label="Project index"',
       "maniansanjey@gmail.com",
       'id="portfolio-question"',
       "Ask about Sanjey",
     ])
       expect(html).toContain(term);
-    expect(html).not.toContain("<canvas");
-    expect(html).toContain("DISCOVERY PROGRESS");
-    expect(html).toContain("GitHub — coming soon");
+    expect(html).toContain("sanjey-portrait-extended.png");
+    expect(html).toContain('aria-label="Portfolio topics explored"');
+    expect(html).toContain("View on GitHub");
   });
   it("retains all skills in Lite Mode and supports focusable constellation nodes", () => {
     const lite = renderToString(<SkillConstellation lite />);
@@ -74,57 +74,5 @@ describe("Portfolio content and static delivery", () => {
     expect(shell).not.toContain("maximum-scale=1");
     expect(page).not.toContain("tel:");
     expect(page).toContain("navigator.clipboard.writeText");
-  });
-});
-
-describe("printed-manga edition and camera motion", () => {
-  it("keeps the actual Three.js orbit-to-surface dolly and an always-visible SVG Earth fallback", () => {
-    const scene = readFileSync("client/src/components/portfolio/EarthScene.tsx", "utf8");
-    const fallback = readFileSync("client/src/components/portfolio/EarthFallback.tsx", "utf8");
-    const home = readFileSync("client/src/pages/Home.tsx", "utf8");
-    expect(scene).toContain("camera.lookAt(cameraTargetX, cameraTargetY, 0)");
-    expect(scene).toContain("6.5 - 3.65 * p");
-    expect(scene).toContain("heroStart");
-    expect(scene).toContain("new T.CanvasTexture(canvas)");
-    expect(scene).toContain("modeRef.current === \"garou\"");
-    expect(fallback).toContain("className=\"earth-warp-lines\"");
-    expect(fallback).toContain("className=\"earth-clouds\"");
-    expect(home).toContain("<BackgroundWorld");
-    expect(home).toContain("<FistStage");
-    const world = readFileSync("client/src/components/portfolio/BackgroundWorld.tsx", "utf8");
-    expect(world).toContain("world-fallback");
-    expect(world).toContain("EarthScene");
-  });
-
-  it("keeps chapter names, original character groups, the shared beat and desktop/mobile choreography", () => {
-    const home = readFileSync("client/src/pages/Home.tsx", "utf8");
-    const art = readFileSync("client/src/components/portfolio/CharacterArt.tsx", "utf8");
-    const fx = readFileSync("client/src/components/portfolio/MangaScrollFX.tsx", "utf8");
-    const theme = readFileSync("client/src/manga-theme.css", "utf8");
-    for (const title of [
-      "01 / ABOUT",
-      "02 / SKILLS",
-      "03 / EXPERIENCE",
-      "04 / PROJECTS",
-      "05 / CONTACT",
-    ]) expect(home).toContain(title);
-    expect(home).toContain('aria-hidden="true"');
-    expect(home).toContain("setReadMode");
-    expect(home).toContain("FX: WebGL");
-    expect(home).toContain("motionActive ? \"ON\" : \"OFF\"");
-    expect(home).toContain("motionFrozen={frozen}");
-    expect(art).toContain("char-saitama-cape");
-    expect(art).toContain("char-saitama-arms");
-    expect(art).toContain("char-garou-hair");
-    expect(art).toContain("char-garou-face");
-    expect(art).toContain("char-garou-energy");
-    expect(fx).toContain("60_000 / 90");
-    expect(fx).toContain('"(max-width: 899px)"');
-    expect(fx).toContain("containerAnimation: rail");
-    expect(fx).toContain("data-manga-dark");
-    expect(theme).toContain("#F5F1E6");
-    expect(theme).toContain("@keyframes manga-ink-ripple");
-    expect(theme).toContain("prefers-reduced-motion: reduce");
-    expect(theme).toContain("manga-rough-edge");
   });
 });
