@@ -7,10 +7,23 @@ export function useStudioMotion(rootRef: RefObject<HTMLDivElement | null>, onAct
     if (!root || !hero) return;
 
     const chapters = Array.from(root.querySelectorAll<HTMLElement>("#main > .studio-section"));
+    const pinnedChapters = Array.from(root.querySelectorAll<HTMLElement>(
+      "#skills > .studio-wrap, #contact > .studio-wrap",
+    ));
+    const measurePins = () => {
+      pinnedChapters.forEach(panel => {
+        const inset = Math.min(16, window.innerHeight - panel.offsetHeight - 56);
+        panel.style.setProperty("--chapter-pin-top", inset + "px");
+      });
+    };
+    const pinGeometry = new ResizeObserver(measurePins);
+    pinnedChapters.forEach(panel => pinGeometry.observe(panel));
+    measurePins();
+    window.addEventListener("resize", measurePins);
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const previewMotion = import.meta.env.DEV && new URLSearchParams(location.search).get("motion") === "on";
     const motionEnabled = () => previewMotion || !preference.matches;
-    const tileSelector = ".studio-project, .studio-role-panel, .studio-workflow, .studio-skill-grid > div, .studio-education > div, .portfolio-chat";
+    const tileSelector = ".studio-project, .studio-role-panel, .studio-skill-grid > div, .studio-education > div, .portfolio-chat";
     let tile: HTMLElement | null = null;
     let pointerFrame = 0;
     let pointerX = 0;
@@ -45,8 +58,6 @@ export function useStudioMotion(rootRef: RefObject<HTMLDivElement | null>, onAct
     }
     let reveal: IntersectionObserver | undefined;
 
-    let projects: MutationObserver | undefined;
-    let projectCards = Array.from(root.querySelectorAll<HTMLElement>(".studio-project"));
     let activeProject = "";
     let currentChapter = "home";
     const about = root.querySelector("#about");
@@ -59,15 +70,15 @@ export function useStudioMotion(rootRef: RefObject<HTMLDivElement | null>, onAct
       const range = document.documentElement.scrollHeight - viewport;
       const progress = range > 0 ? Math.min(1, scroll / range) : 0;
       root.style.setProperty("--studio-progress", String(progress));
+      const motion = motionEnabled();
       let closest = "";
       let distance = Infinity;
-      for (const card of projectCards) {
-        const bounds = card.getBoundingClientRect();
+      for (const card of root.querySelectorAll<HTMLElement>("#project-carousel > .studio-project")) {
         const figure = card.querySelector<HTMLElement>(".studio-project-figure");
         if (!figure) continue;
-        const center = bounds.top + figure.offsetHeight / 2;
+        const center = card.getBoundingClientRect().top + figure.offsetHeight / 2;
         const offset = (center - viewport * .48) / (viewport * .6);
-        if (motionEnabled()) card.style.setProperty("--project-offset", String(Math.max(-1, Math.min(1, offset))));
+        if (motion) card.style.setProperty("--project-offset", String(Math.max(-1, Math.min(1, offset))));
         if (Math.abs(offset) < distance) {
           distance = Math.abs(offset);
           closest = card.id.slice("project-".length);
@@ -77,7 +88,6 @@ export function useStudioMotion(rootRef: RefObject<HTMLDivElement | null>, onAct
         activeProject = closest;
         onActiveProject(closest);
       }
-      const motion = motionEnabled();
       const scenes = chapters.map(chapter => ({ chapter, bounds: chapter.getBoundingClientRect() }));
       let nextChapter = about && about.getBoundingClientRect().top <= 1 ? "about" : "home";
       for (const { chapter, bounds } of scenes) {
@@ -108,7 +118,6 @@ export function useStudioMotion(rootRef: RefObject<HTMLDivElement | null>, onAct
 
     function stopReveals() {
       reveal?.disconnect();
-      projects?.disconnect();
       root?.querySelectorAll("[data-studio-enter]").forEach(element => {
         element.removeAttribute("data-studio-enter");
       });
@@ -141,20 +150,7 @@ export function useStudioMotion(rootRef: RefObject<HTMLDivElement | null>, onAct
       }
 
       register(root.querySelectorAll("[data-reveal]"));
-      const projectGrid = root.querySelector(".studio-projects");
-      if (projectGrid && typeof MutationObserver !== "undefined") {
-        projects = new MutationObserver(records => {
-          for (const record of records) {
-            for (const node of record.removedNodes) {
-              if (node instanceof Element) reveal?.unobserve(node);
-            }
-            projectCards = Array.from(projectGrid.querySelectorAll<HTMLElement>(".studio-project"));
-          register(projectCards);
-          }
-          schedule();
-        });
-        projects.observe(projectGrid, { childList: true });
-      }
+
     }
 
     setMotion();
@@ -175,6 +171,8 @@ export function useStudioMotion(rootRef: RefObject<HTMLDivElement | null>, onAct
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
+      window.removeEventListener("resize", measurePins);
+      pinGeometry.disconnect();
       preference.removeEventListener("change", setMotion);
     };
   }, [rootRef, onActiveProject, onChapterChange]);

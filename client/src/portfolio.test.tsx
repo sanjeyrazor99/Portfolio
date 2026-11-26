@@ -52,7 +52,7 @@ describe("Portfolio content and static delivery", () => {
       "Ask about Sanjey",
     ])
       expect(html).toContain(term);
-    expect(html).toContain("sanjey-portrait-extended.png");
+    expect(html).toContain("sanjey-portrait-color.svg");
     expect(html).toContain('aria-label="Portfolio topics explored"');
     expect(html).toContain("View on GitHub");
   });

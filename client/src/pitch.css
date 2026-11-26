@@ -1,0 +1,168 @@
+.studio[data-comic-theme] {
+  --barca-navy: #101d3e;
+  --barca-blue: #143a80;
+  --barca-red: #8e2349;
+  --barca-gold: #f0c46f;
+  --print-primary: #a92b56;
+  --print-secondary: #28549d;
+  --print-panel: #652144;
+  --print-dark: #122248;
+  --print-chroma: #a32a51;
+  --print-edge: var(--barca-gold);
+  --print-light: #fff3da;
+  --print-gutter: #101a36;
+  --print-type: #251831;
+  --print-paper: #f6eddf;
+  --print-paper-shadow: #e6d6c7;
+  --print-dot: #5f345325;
+  --studio-cover-gradient: linear-gradient(145deg, #111e3d, #271c41 55%, #621e41);
+  --comic-display-font: Anton, Impact, sans-serif;
+  --comic-reading-font: Inter, sans-serif;
+}
+.studio[data-comic-theme="dark"] {
+  --print-primary: #ca5177;
+  --print-secondary: #4d73b6;
+  --print-panel: #491b3a;
+  --print-dark: #0b1530;
+  --print-paper: #ece7e0;
+  --print-paper-shadow: #d5d4e1;
+  --print-dot: #3c365a27;
+  --print-type: #1b2441;
+  --studio-cover-gradient: linear-gradient(145deg, #070e22, #151832 60%, #3e1635);
+}
+.studio[data-comic-theme] #main {
+  background: radial-gradient(ellipse at 20% 12%, #80234880, transparent 48%), #101a36;
+}
+.studio[data-comic-theme] .studio-hero {
+  background:
+    radial-gradient(ellipse at 53% 54%, #10182920 18%, #071225ce 100%),
+    repeating-linear-gradient(100deg, var(--barca-blue) 0 12%, var(--barca-red) 12% 24%);
+}
+.studio[data-comic-theme] .studio-hero::before {
+  clip-path: none;
+  opacity: 1;
+  background:
+    radial-gradient(ellipse at 5% -14%, #f9dcad83, transparent 31%),
+    radial-gradient(ellipse at 100% -15%, #a3c3ff62, transparent 33%);
+}
+.studio[data-comic-theme] .studio-hero::after {
+  background: linear-gradient(0deg, #080f24af, transparent 32%, transparent 75%, #080f2480);
+}
+.studio[data-comic-theme] .studio-portrait img { filter: saturate(.78) contrast(1.04); }
+.studio[data-comic-theme] .studio-hero-inner h1 { text-shadow: 2px 3px #141c3c, 4px 5px #a5385a; }
+.pitch-cover-number {
+  position: absolute;
+  z-index: 0;
+  inset: 12% clamp(16px, 5vw, 96px) auto auto;
+  color: transparent;
+  -webkit-text-stroke: 1px #f8d78b80;
+  font: 400 clamp(106px, 22vw, 370px)/.85 Anton, Impact, sans-serif;
+  letter-spacing: -.045em;
+  opacity: calc(1 - var(--about-progress, 0));
+  pointer-events: none;
+}
+.studio[data-comic-theme] .studio-cover-links a { color: #fff1d7; }
+.studio[data-comic-theme] .studio-cover-links a:hover { color: var(--barca-gold); }
+
+.studio .pitch-replay {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto auto;
+  width: min(100%, 1120px);
+  height: min(72svh, 620px);
+  overflow: hidden;
+  pointer-events: none;
+  --pitch-strength: .78;
+  opacity: calc(var(--pitch-strength) * var(--pitch-opacity, 1));
+  mask-image: radial-gradient(ellipse at 78% 26%, #000 14%, #000c 40%, transparent 74%);
+}
+.studio #projects > .pitch-replay { --pitch-strength: .43; }
+.studio #contact > .pitch-replay { --pitch-strength: .58; }
+.pitch-replay-canvas, .pitch-replay-field { position: absolute; inset: 0; }
+.pitch-replay-field {
+  inset: 9% 6% 13%;
+  border: 1px solid #bad6c288;
+  background: repeating-linear-gradient(90deg, #153c33 0 10%, #1b493c 10% 20%);
+  box-shadow: 0 0 100px #305b9b60;
+}
+.pitch-replay-field::before, .pitch-replay-field::after {
+  content: "";
+  position: absolute;
+  inset: 21% auto 21% 0;
+  width: 16%;
+  border: 1px solid #bad6c288;
+}
+.pitch-replay-field::after { inset: 21% 0 21% auto; }
+.pitch-replay-field i:nth-child(1) { position: absolute; inset: 0 50%; border-inline-start: 1px solid #bad6c288; }
+.pitch-replay-field i:nth-child(2) {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(16vw, 100px);
+  aspect-ratio: 1;
+  border: 1px solid #bad6c288;
+  border-radius: 50%;
+}
+.pitch-replay-field svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pitch-replay-field polyline {
+  fill: none;
+  stroke: #e7be76;
+  stroke-width: 1.5px;
+  stroke-dasharray: 4 5;
+  vector-effect: non-scaling-stroke;
+}
+.pitch-replay-field circle { fill: #192a48; stroke: #e7be76; stroke-width: .15; }
+.pitch-replay-field circle[data-receiver="true"] { fill: #8e2349; stroke-width: .33; }
+.tactical-board {
+  padding: clamp(16px, 3vw, 34px);
+  color: #fff4df;
+  background: radial-gradient(ellipse at 85% 0%, #532047, transparent 65%), #101d3e;
+  border: 1px solid #76415f;
+  border-radius: 16px;
+  box-shadow: 0 16px 30px #16132330;
+}
+.tactical-board h3 { margin: 0 0 16px; color: inherit; font: 400 clamp(26px, 4vw, 46px)/1 Anton, Impact, sans-serif; }
+.tactical-field {
+  position: relative;
+  min-height: 200px;
+  aspect-ratio: 2.35;
+  overflow: hidden;
+  border: 1px solid #9bc1ae65;
+  border-radius: 9px;
+  background: repeating-linear-gradient(90deg, #153b33 0 10%, #1a493e 10% 20%);
+}
+.tactical-field svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: #c6e3cf80; stroke-width: .35; }
+.tactical-field svg .tactical-pass {
+  stroke: #ffce70;
+  stroke-width: .8;
+  stroke-dasharray: 1;
+  stroke-linecap: round;
+  animation: tactical-pass 650ms cubic-bezier(.2, .7, .2, 1) both;
+}
+.tactical-endpoint { fill: #ffce70; stroke: none; }
+@keyframes tactical-pass { from { stroke-dashoffset: 1; opacity: .35; } to { stroke-dashoffset: 0; opacity: 1; } }
+.tactical-field button {
+  position: absolute;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid #c8c8df;
+  border-radius: 50%;
+  background: #172947;
+  color: #fff4df;
+  font: 700 13px/1 Inter, sans-serif;
+  cursor: pointer;
+}
+.tactical-field button:is(:hover, [aria-pressed="true"]) { background: var(--barca-gold); color: #1c2338; border-color: #fff0c5; }
+.tactical-play { display: grid; gap: 10px; margin-top: 18px; font: 500 14px/1.4 Inter, sans-serif; }
+.tactical-play p { margin: 0; font-size: clamp(16px, 2.2vw, 22px); font-weight: 700; }
+.tactical-play ol { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin: 0; padding: 0; list-style: none; color: #dfdced; }
+.tactical-play li + li::before { content: "→"; color: var(--barca-gold); margin-right: 12px; }
+.studio .tactical-play a { width: fit-content; color: var(--barca-gold); text-decoration: underline; text-underline-offset: 4px; }
+@media (width < 640px), (prefers-reduced-motion: reduce) {
+  .studio .pitch-replay { height: min(44svh, 340px); --pitch-strength: .36; }
+  .tactical-field svg .tactical-pass { animation: none; }
+}

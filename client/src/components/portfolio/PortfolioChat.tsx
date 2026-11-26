@@ -137,7 +137,7 @@ export default function PortfolioChat({ children }: { children?: ReactNode }) {
             aria-label={sidebarOpen ? "Hide topics" : "Show topics"} onClick={() => setSidebarOpen(value => !value)}>
             {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
           </button>
-          <span className="chat-topic-count" title="Topics explored"><span aria-hidden="true">◆</span> {visited.length}/{topics.length} explored</span>
+          <span className="chat-topic-count" title="Topics explored">{visited.length}/{topics.length} explored</span>
           <img className="chat-profile" src={(import.meta.env?.BASE_URL ?? "/") + "sanjey-portrait.png"} alt="" width={30} height={30} />
         </div>
         <div
