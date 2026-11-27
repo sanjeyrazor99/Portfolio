@@ -1,10 +1,13 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { ArrowDownRight, ArrowUpRight, Check, Copy, Menu, Target, Layers, Workflow, ListChecks } from "lucide-react";
-import HeroGradientBackground from "@/components/portfolio/HeroGradientBackground";
+import { ArrowDownRight, ArrowUpRight, Check, CircleDot, Copy, Film, Layers, Menu, Tv } from "lucide-react";
+import FavoriteWallpapers from "@/components/portfolio/FavoriteWallpapers";
 import ExperienceGallery from "@/components/portfolio/ExperienceGallery";
+import { supportsPitchCanvas } from "@/components/portfolio/PitchBall";
+import PitchReplay from "@/components/portfolio/PitchReplay";
 import ProjectArtwork from "@/components/portfolio/ProjectArtwork";
 import SkillsExplorer from "@/components/portfolio/SkillsExplorer";
 import PortfolioChat from "@/components/portfolio/PortfolioChat";
+import { personality } from "@/data/content";
 import { useStudioMotion } from "@/hooks/useStudioMotion";
 import {
   certifications,
@@ -15,26 +18,20 @@ import {
   aboutBio,
 } from "@/data/portfolio";
 
-const PortfolioJourney = lazy(() => import("@/components/portfolio/PortfolioJourney"));
-
-const HeroFloatingForm = lazy(() => import("@/components/portfolio/HeroFloatingForm"));
+const PlayableMatch = lazy(() => import("@/components/portfolio/match/PlayableMatch"));
 
 const links = [
   ["About", "#about"],
   ["Projects", "#projects"],
   ["Experience", "#experience"],
   ["Skills", "#skills"],
+  ["Personality", "#personality"],
   ["Chat", "#contact"],
 ] as const;
 
-const workflow = [
-  ["Define", "Start with the question, the people using the result, and what a good outcome looks like."],
-  ["Prototype", "Build a small version first so the important assumptions can be tested early."],
-  ["Build", "Connect the data, application, and model around a flow that is easy to inspect."],
-  ["Evaluate", "Check the output, document failure cases, and use what breaks to guide the next iteration."],
-] as const;
-
 type ProjectKind = (typeof projects)[number]["kind"];
+
+const personalityIcons = { soccer: CircleDot, movies: Film, tv: Tv, anime: Layers };
 
 const projectKinds: Record<ProjectKind, string> = {
   game: "Games",
@@ -44,7 +41,6 @@ const projectKinds: Record<ProjectKind, string> = {
   robot: "Robotics",
 };
 
-const processIcons = [Target, Layers, Workflow, ListChecks] as const;
 
 const projectVisuals = {
   game: { stages: ["Player", "Game server", "AI player"] },
@@ -59,6 +55,9 @@ export default function Home() {
   const studio = useRef<HTMLDivElement>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const coverSequence = useRef<HTMLDivElement>(null);
+  const [matchView, setMatchView] = useState<"play" | "standard">("standard");
+  const playMatch = matchView === "play";
+  const [matchUnavailable, setMatchUnavailable] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
@@ -124,23 +123,32 @@ export default function Home() {
   const [projectKind, setProjectKind] = useState<ProjectKind | "all">("all");
   const [activeProject, setActiveProject] = useState("");
   const [chapter, setChapter] = useState("home");
-  const [step, setStep] = useState(0);
   useStudioMotion(studio, setActiveProject, setChapter);
   const [copyStatus, setCopyStatus] = useState("");
 
   useEffect(() => {
     let frame = 0;
-    function revealLinkedProject() {
+    function revealLinkedProject(event?: HashChangeEvent) {
       const id = location.hash.slice(1);
-      if (!projects.some(project => id === "project-" + project.id)) return;
-      if (!document.getElementById(id)) {
+      const project = projects.find(item => id === "project-" + item.id);
+      if (!project) return;
+      setMatchView("standard");
+      const waypoint = document.getElementById(id);
+      if (!waypoint) {
         setProjectKind("all");
         setQuery("");
       }
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+      frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: event ? "auto" : "instant" }));
     }
-    revealLinkedProject();
+    const initialChapter = location.hash.slice(1);
+    if (links.some(([, href]) => href === location.hash)) {
+      frame = requestAnimationFrame(() => {
+        document.getElementById(initialChapter)?.scrollIntoView({ behavior: "instant" });
+      });
+    } else {
+      revealLinkedProject();
+    }
     window.addEventListener("hashchange", revealLinkedProject);
     return () => {
       window.removeEventListener("hashchange", revealLinkedProject);
@@ -152,6 +160,8 @@ export default function Home() {
     const text = [project.title, project.subtitle, project.description, ...project.tags].join(" ").toLowerCase();
     return (projectKind === "all" || project.kind === projectKind) && words.every(word => text.includes(word));
   });
+
+  const selectedProject = visibleProjects.find(project => project.id === activeProject) ?? visibleProjects[0];
 
   async function copyEmail() {
     try {
@@ -174,10 +184,9 @@ export default function Home() {
           </filter>
         </defs>
       </svg>
-      <Suspense fallback={null}><PortfolioJourney theme={theme} /></Suspense>
       <nav className="studio-chapter-dock" aria-label="Portfolio sections">
         <a href="#home" aria-current={chapter === "home" ? "location" : undefined}>Home</a>
-        {[...links.slice(0, 2), ["Process", "#process"], ...links.slice(2)].map(([label, href]) => (
+        {links.map(([label, href]) => (
           <a key={href} href={href} aria-current={chapter === href.slice(1) ? "location" : undefined}>{label}</a>
         ))}
         <button type="button" className="studio-theme-toggle" onClick={toggleTheme} aria-pressed={theme === "dark"} aria-label="Dark theme">
@@ -190,11 +199,10 @@ export default function Home() {
           <div id="about" className="studio-about-anchor" aria-hidden="true" />
           <div className="studio-cover-shell" data-about-started={aboutStarted}>
             <section className="studio-hero" aria-labelledby="hero-name">
-              <HeroGradientBackground paused={aboutStarted} theme={theme} />
-              <Suspense fallback={null}><HeroFloatingForm /></Suspense>
+              <div className="pitch-cover-number" aria-hidden="true">10</div>
               <div className="studio-portrait">
                 <img
-                  src={`${(import.meta.env?.BASE_URL ?? "/")}sanjey-portrait-extended.png`}
+                  src={`${(import.meta.env?.BASE_URL ?? "/")}sanjey-portrait-color.svg`}
                   width={1122}
                   height={1402}
                   alt="Portrait of Sanjey Manian"
@@ -203,7 +211,7 @@ export default function Home() {
                 <img
                   className="studio-portrait-shoulders"
                   aria-hidden="true"
-                  src={`${(import.meta.env?.BASE_URL ?? "/")}sanjey-portrait-extended.png`}
+                  src={`${(import.meta.env?.BASE_URL ?? "/")}sanjey-portrait-color.svg`}
                   width={1122}
                   height={1402}
                   alt=""
@@ -237,6 +245,7 @@ export default function Home() {
               </div>
               <div className="studio-wrap studio-cover-footer">
                 <div className="studio-cover-links">
+
                   <a href={portfolioLinks.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={16} strokeWidth={1.5} /></a>
                   {portfolioLinks.resume && <a href={portfolioLinks.resume} download>Résumé <ArrowUpRight size={16} strokeWidth={1.5} /></a>}
                 </div>
@@ -261,13 +270,26 @@ export default function Home() {
           </div>
         </div>
 
-        <section id="projects" className="studio-section studio-warm-section studio-work-gallery" aria-labelledby="work-heading">
-          <div className="studio-wrap studio-gallery-layout">
-            <aside className="studio-gallery-sidebar">
+        <section id="projects" className="studio-section studio-warm-section studio-work-gallery match-work"
+          data-match-playing={playMatch ? "true" : undefined} data-work-view={playMatch ? undefined : "original"} aria-labelledby="work-heading">
+          <div className={playMatch ? "studio-wrap studio-gallery-layout match-gallery" : "studio-wrap studio-gallery-layout"}>
+            <aside className={playMatch ? "sr-only" : "studio-gallery-sidebar"}>
+              <p className="match-kicker">Project scouting</p>
               <h2 id="work-heading">Selected work</h2>
+              {!playMatch && (
+                <div className="project-view-options" role="group" aria-label="Choose how to explore projects">
+                  <a href="#project-carousel">Scroll projects</a>
+                  <button type="button" onClick={() => {
+                    if (supportsPitchCanvas()) setMatchView("play");
+                    else setMatchUnavailable(true);
+                  }}>Play the 3D match</button>
+                </div>
+              )}
+              {!playMatch && matchUnavailable && <p role="status">WebGL is unavailable. You can browse all projects below.</p>}
+              {!playMatch && <>
               <nav className="studio-project-index" aria-label="Project index">
                 {visibleProjects.map(project => (
-                  <a key={project.id} href={`#project-${project.id}`} aria-current={project.id === (visibleProjects.some(item => item.id === activeProject) ? activeProject : visibleProjects[0]?.id) ? "true" : undefined}>
+                  <a key={project.id} href={`#project-${project.id}`} aria-current={project.id === selectedProject?.id ? "true" : undefined}>
                     <span aria-hidden="true">{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>{project.title}
                   </a>
                 ))}
@@ -283,8 +305,11 @@ export default function Home() {
                 ))}
               </div>
               <p className="studio-gallery-count" role="status">{visibleProjects.length} of {projects.length} projects</p>
+              </>}
             </aside>
-            <div className="studio-projects">
+            {playMatch ? <Suspense fallback={<p role="status">Loading the stadium…</p>}>
+              <PlayableMatch onExit={() => setMatchView("standard")} />
+            </Suspense> : <div id="project-carousel" className="studio-projects">
               {visibleProjects.map(project => {
                 const { stages } = projectVisuals[project.kind];
                 return (
@@ -312,29 +337,7 @@ export default function Home() {
                 );
               })}
               {!visibleProjects.length && <p>No projects match these filters. <button type="button" onClick={() => { setProjectKind("all"); setQuery(""); }}>Clear filters</button></p>}
-            </div>
-          </div>
-        </section>
-
-        <section id="process" className="studio-section studio-warm-section" aria-labelledby="process-heading">
-          <div className="studio-wrap studio-process-scene">
-            <div className="studio-section-head" data-reveal="heading">
-              <div><h2 id="process-heading">How I work</h2></div>
-
-            </div>
-            <ol className="studio-process-list" aria-label="Work process">
-              {workflow.map(([title, description], index) => {
-                const Icon = processIcons[index];
-                return (
-                  <li key={title} data-selected={step === index} data-reveal={index % 2 ? "right" : "left"}>
-                    <span className="studio-process-step" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                    <h3><button type="button" onClick={() => setStep(index)} aria-pressed={step === index}>{title}</button></h3>
-                    <div className="studio-process-visual" aria-hidden="true"><Icon size={34} strokeWidth={1.25} /></div>
-                    <p>{description}</p>
-                  </li>
-                );
-              })}
-            </ol>
+            </div>}
           </div>
         </section>
 
@@ -345,9 +348,10 @@ export default function Home() {
         </section>
 
         <section id="skills" className="studio-section studio-warm-section" aria-labelledby="skills-heading">
-          <div className="studio-wrap studio-skills-scene">
+          <PitchReplay chapter="skills" />
+          <div className="studio-wrap studio-skills-scene match-skills">
             <div className="studio-section-head" data-reveal="heading">
-              <div><h2 id="skills-heading">Technical skills</h2></div>
+              <div><p className="match-kicker">The squad</p><h2 id="skills-heading">Technical skills</h2></div>
               <p>{chatProfile.education}</p>
             </div>
             <SkillsExplorer />
@@ -358,8 +362,32 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="studio-section studio-warm-section" aria-labelledby="portfolio-chat-title">
-          <div id="contact-panel" className="studio-wrap studio-chat-workspace">
+        <section id="personality" className="studio-section studio-warm-section" aria-labelledby="personality-heading">
+          <div className="studio-wrap personality-content">
+            <header className="match-heading">
+              <h2 id="personality-heading">Personality</h2>
+              <p className="personality-intro">{personality.intro}</p>
+            </header>
+            <ul className="personality-interests">
+              {personality.interests.map(({ id, title }) => (
+                <FavoriteWallpapers key={id} kind={id} title={title} icon={personalityIcons[id]} />
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section id="contact" className="studio-section studio-warm-section" aria-labelledby="contact-heading">
+          <PitchReplay chapter="contact" />
+          <div className="match-tunnel" aria-hidden="true">
+            {Array.from({ length: 8 }, (_, index) => (
+              <i key={index} style={{ transform: `translateZ(${index * -105}px)` }} />
+            ))}
+          </div>
+          <div id="contact-panel" className="studio-wrap studio-chat-workspace match-contact">
+            <header className="match-heading">
+              <p className="match-kicker">Mixed zone</p>
+              <h2 id="contact-heading">Let’s talk.</h2>
+            </header>
             <PortfolioChat>
               <a href={"mailto:" + portfolioLinks.email}>Email</a>
               <button type="button" onClick={copyEmail} aria-label="Copy email address">

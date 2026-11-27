@@ -33,7 +33,7 @@ export default function SkillsExplorer() {
                 setSelected(item.skills[0]);
               }}
             >
-              {Icon && <Icon size={22} strokeWidth={1.5} aria-hidden="true" />}
+              {Icon && <Icon size={18} strokeWidth={1.5} aria-hidden="true" />}
               <span>{item.title}</span>
               <small>{item.skills.length}</small>
             </button>
@@ -60,13 +60,14 @@ export default function SkillsExplorer() {
         </section>
         <aside id="skill-inspector" className="studio-skill-inspector" aria-labelledby="skill-inspector-heading">
           <div key={selected} className="studio-skill-inspector-content">
-            <div className="studio-skill-signal" aria-hidden="true">
-              <svg viewBox="0 0 260 82" fill="none">
-                <path d="M8 61h43l22-39h34l23 39h33l21-39h37l31 39" />
-                <circle cx="8" cy="61" r="4" /><circle cx="107" cy="22" r="4" /><circle cx="252" cy="61" r="4" />
-              </svg>
-            </div>
-            <h3 id="skill-inspector-heading">{selected}</h3>
+            <header className="studio-skill-detail-heading">
+              <h3 id="skill-inspector-heading">{selected}</h3>
+              <div className="match-skill-kit" aria-hidden="true">
+                <div className="match-skill-shirt">
+                  <span>{selected.split(/[\s-]/).map(word => word[0]).slice(0, 2).join("")}</span>
+                </div>
+              </div>
+            </header>
             <p className="studio-skill-inspector-label">Related projects</p>
             {relatedProjects.length > 0 ? (
               <ul>
